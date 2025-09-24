@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { getNavigation, type MenuGroup } from "../lib/navigation";
+import Image from "next/image";
 
 function Dropdown({ group }: { group: MenuGroup }) {
   const [open, setOpen] = useState(false);
@@ -81,12 +82,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
     <header className="sticky top-0 z-40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-black/10 dark:border-white/10">
       <nav className="relative mx-auto max-w-6xl px-4">
         <div className="flex items-center justify-between h-14">
-          <Link href="/" className="font-semibold tracking-[-.02em]">cospace</Link>
-          <ul className="flex items-center gap-1">
-            {navigation.map(group => (
-              <Dropdown key={group.label} group={group} />
-            ))}
-          </ul>
+          <Image src="/branding/svg/neo14Logo.svg" alt="Cospace by NEO14" width={100} height={100} />
         </div>
       </nav>
     </header>

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import { getNavigation } from "./lib/navigation";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const interFont = Inter({
   variable: "--font-inter",
@@ -40,6 +41,7 @@ export default function RootLayout({
       >
         <Navbar navigation={navigation} />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
