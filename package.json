@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "npm run generate-nav && next dev --turbopack",
+    "dev:watch": "node scripts/watch-nav.js",
+    "build": "npm run generate-nav && next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate-nav": "node scripts/generate-nav.js"
   },
   "dependencies": {
     "react": "19.1.0",

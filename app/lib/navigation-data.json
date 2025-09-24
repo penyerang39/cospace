@@ -1,0 +1,106 @@
+[
+  {
+    "label": "Home",
+    "href": "/"
+  },
+  {
+    "label": "Community",
+    "href": "/community"
+  },
+  {
+    "label": "Company",
+    "href": "/company",
+    "items": [
+      {
+        "label": "About",
+        "href": "/company/about"
+      },
+      {
+        "label": "Careers",
+        "href": "/company/careers"
+      },
+      {
+        "label": "Contact",
+        "href": "/company/contact"
+      }
+    ]
+  },
+  {
+    "label": "Docs",
+    "href": "/docs"
+  },
+  {
+    "label": "Legal",
+    "href": "/legal",
+    "items": [
+      {
+        "label": "Acceptable Use",
+        "href": "/legal/acceptable-use"
+      },
+      {
+        "label": "Privacy",
+        "href": "/legal/privacy"
+      },
+      {
+        "label": "Subscription",
+        "href": "/legal/subscription"
+      },
+      {
+        "label": "Terms",
+        "href": "/legal/terms"
+      }
+    ]
+  },
+  {
+    "label": "Pricing",
+    "href": "/pricing"
+  },
+  {
+    "label": "Product",
+    "href": "/product",
+    "items": [
+      {
+        "label": "Appbuilder",
+        "href": "/product/appbuilder"
+      },
+      {
+        "label": "Chat",
+        "href": "/product/chat"
+      },
+      {
+        "label": "Data",
+        "href": "/product/data"
+      },
+      {
+        "label": "Files",
+        "href": "/product/files"
+      }
+    ]
+  },
+  {
+    "label": "Security",
+    "href": "/security"
+  },
+  {
+    "label": "Solutions",
+    "href": "/solutions",
+    "items": [
+      {
+        "label": "Design",
+        "href": "/solutions/design"
+      },
+      {
+        "label": "Government",
+        "href": "/solutions/government"
+      },
+      {
+        "label": "Marketing",
+        "href": "/solutions/marketing"
+      },
+      {
+        "label": "Software",
+        "href": "/solutions/software"
+      }
+    ]
+  }
+]
