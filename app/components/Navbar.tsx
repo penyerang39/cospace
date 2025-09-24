@@ -20,7 +20,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
 
   return (
     <li
-      className="relative group h-14 flex items-stretch"
+      className="h-14 flex items-stretch"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
@@ -33,35 +33,44 @@ function Dropdown({ group }: { group: MenuGroup }) {
         {group.label}
       </button>
       <div
-        className={`absolute left-0 mt-2 min-w-[240px] rounded-md border border-black/10 dark:border-white/10 bg-white dark:bg-black shadow-lg z-50 ${
-          open ? "block" : "hidden"
+        className={`absolute left-0 right-0 top-full z-50 mx-auto max-w-6xl border border-black/10 dark:border-white/10 bg-background shadow-lg transition-[opacity,transform] duration-200 ease-out ${
+          open ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-1"
         }`}
         role="menu"
       >
-        <ul className="py-2">
-          {group.href && (
-            <li>
-              <Link
-                className="block px-4 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/10"
-                href={group.href}
-                onClick={() => setOpen(false)}
-              >
-                {group.label} overview
-              </Link>
-            </li>
-          )}
-          {group.items?.map(item => (
-            <li key={item.href}>
-              <Link
-                className="block px-4 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/10"
-                href={item.href}
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="grid grid-cols-12 gap-6 p-6">
+          <div className="col-span-7">
+            <ul className="grid grid-cols-2 gap-y-1">
+              {group.href && (
+                <li className="col-span-2">
+                  <Link
+                    className="block px-3 py-2 rounded hover:bg-black/5 dark:hover:bg-white/10"
+                    href={group.href}
+                    onClick={() => setOpen(false)}
+                  >
+                    {group.label} overview
+                  </Link>
+                </li>
+              )}
+              {group.items?.map(item => (
+                <li key={item.href}>
+                  <Link
+                    className="block px-3 py-2 rounded hover:bg-black/5 dark:hover:bg-white/10"
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-span-5">
+            <div className="h-40 w-full rounded-md border border-black/10 dark:border-white/10 bg-background flex items-center justify-center">
+              <span className="text-sm text-foreground/70">Image placeholder</span>
+            </div>
+          </div>
+        </div>
       </div>
     </li>
   );
@@ -70,7 +79,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
 export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
   return (
     <header className="sticky top-0 z-40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-black/10 dark:border-white/10">
-      <nav className="mx-auto max-w-6xl px-4">
+      <nav className="relative mx-auto max-w-6xl px-4">
         <div className="flex items-center justify-between h-14">
           <Link href="/" className="font-semibold tracking-[-.02em]">cospace</Link>
           <ul className="flex items-center gap-1">
