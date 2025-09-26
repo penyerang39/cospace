@@ -1,103 +1,361 @@
 import Image from "next/image";
+import { LayoutDashboard, Zap, ShieldCheck, Sparkles, Users, Activity, Globe, MessageSquare, Video, FileText, Blocks, BarChart3 } from "lucide-react";
+import CTAButton from "./components/CTAButton";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <section className="section-padding min-h-screen flex items-center">
+        <div className="max-width container-padding w-full">
+          <div className="grid md:grid-cols-2 gap-10 items-end md:items-center">
+            {/* Image - shown first on mobile, second on desktop */}
+            <div className="order-1 md:order-2">
+              <div className="relative w-full h-flex md:h-[50vh]">
+                <Image
+                  src="/product/updated_projects.png"
+                  alt="Cospace projects overview"
+                  fill
+                  priority
+                  className="object-contain"
+                />
+              </div>
+            </div>
+            
+            {/* Text content - shown second on mobile, first on desktop */}
+            <div className="order-2 md:order-1">
+              <div className="max-w-4xl mx-auto md:mx-0 text-center md:text-left">
+                <h1 className="heading-1 mb-6">
+                  Meet <span className="gradient-text">Cospace</span> by NEO14
+                </h1>
+                <p className="body-large mb-8 max-w-2xl md:max-w-xl mx-auto md:mx-0">
+                  Imagine running all your work from one calm, powerful place. Chat, meet, plan, share files, and track data—without the app‑hopping.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center mb-6">
+                  <CTAButton variant="primary" text="get started" />
+                  <CTAButton variant="secondary" text="book a demo" />
+                </div>
+                <p className="body-small">
+                  Free plan available. No credit card required.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Static Grid for Mobile, Carousel for Desktop */}
+          <div className="mt-16">
+            {/* Static Grid - visible on sm and below */}
+            <div className="block md:hidden">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
+                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
+                  <Users className="w-4 h-4 text-accent" />
+                  <span>10,000+ workspaces created</span>
+                </div>
+                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
+                  <Activity className="w-4 h-4 text-accent" />
+                  <span>99.95% uptime</span>
+                </div>
+                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
+                  <Globe className="w-4 h-4 text-accent" />
+                  <span>EU & US hosting</span>
+                </div>
+                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
+                  <ShieldCheck className="w-4 h-4 text-accent" />
+                  <span>End-to-end encryption</span>
+                </div>
+                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
+                  <Zap className="w-4 h-4 text-accent" />
+                  <span>Real-time sync</span>
+                </div>
+                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
+                  <Sparkles className="w-4 h-4 text-accent" />
+                  <span>AI-powered features</span>
+                </div>
+                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
+                  <ShieldCheck className="w-4 h-4 text-accent" />
+                  <span>AES-256 encryption</span>
+                </div>
+                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
+                  <Users className="w-4 h-4 text-accent" />
+                  <span>SSO/SAML</span>
+                </div>
+                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
+                  <ShieldCheck className="w-4 h-4 text-accent" />
+                  <span>Granular access control</span>
+                </div>
+                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
+                  <FileText className="w-4 h-4 text-accent" />
+                  <span>Audit logs</span>
+                </div>
+              </div>
+            </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {/* Carousel - visible on md and above */}
+            <div className="hidden md:block overflow-hidden">
+              <div className="flex animate-scroll">
+                <div className="flex space-x-8 whitespace-nowrap">
+                  {/* First set */}
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Users className="w-4 h-4 text-accent" />
+                    <span>10,000+ workspaces created</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Activity className="w-4 h-4 text-accent" />
+                    <span>99.95% uptime</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Globe className="w-4 h-4 text-accent" />
+                    <span>EU & US hosting</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <ShieldCheck className="w-4 h-4 text-accent" />
+                    <span>End-to-end encryption</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Zap className="w-4 h-4 text-accent" />
+                    <span>Real-time sync</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Sparkles className="w-4 h-4 text-accent" />
+                    <span>AI-powered features</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <ShieldCheck className="w-4 h-4 text-accent" />
+                    <span>AES-256 encryption</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Users className="w-4 h-4 text-accent" />
+                    <span>SSO/SAML</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Globe className="w-4 h-4 text-accent" />
+                    <span>EU & US hosting</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <ShieldCheck className="w-4 h-4 text-accent" />
+                    <span>Granular access control</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <FileText className="w-4 h-4 text-accent" />
+                    <span>Audit logs</span>
+                  </div>
+                  {/* Duplicate set for seamless loop */}
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Users className="w-4 h-4 text-accent" />
+                    <span>10,000+ workspaces created</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Activity className="w-4 h-4 text-accent" />
+                    <span>99.95% uptime</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Globe className="w-4 h-4 text-accent" />
+                    <span>EU & US hosting</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <ShieldCheck className="w-4 h-4 text-accent" />
+                    <span>End-to-end encryption</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Zap className="w-4 h-4 text-accent" />
+                    <span>Real-time sync</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Sparkles className="w-4 h-4 text-accent" />
+                    <span>AI-powered features</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <ShieldCheck className="w-4 h-4 text-accent" />
+                    <span>AES-256 encryption</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Users className="w-4 h-4 text-accent" />
+                    <span>SSO/SAML</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <Globe className="w-4 h-4 text-accent" />
+                    <span>EU & US hosting</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <ShieldCheck className="w-4 h-4 text-accent" />
+                    <span>Granular access control</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-foreground/70">
+                    <FileText className="w-4 h-4 text-accent" />
+                    <span>Audit logs</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+      {/* Value Pillars Section */}
+      <section className="section-padding">
+        <div className="max-width container-padding">
+          <div className="text-center mb-16">
+            <h2 className="heading-2 mb-4">Built for modern teams</h2>
+            <p className="body-large max-w-2xl mx-auto">
+              Everything you need to work together, securely and efficiently.
+            </p>
+          </div>
+          <div className="grid-features">
+            <div className="card-feature">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <LayoutDashboard className="w-6 h-6 text-accent" aria-hidden="true" />
+              </div>
+              <h3 className="heading-4 mb-3">One workspace, zero chaos</h3>
+              <p className="body-text">
+                Messages, docs, tasks, and dashboards stay linked to the work.
+              </p>
+            </div>
+            <div className="card-feature">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <Zap className="w-6 h-6 text-accent" aria-hidden="true" />
+              </div>
+              <h3 className="heading-4 mb-3">Fast by default</h3>
+              <p className="body-text">
+                Real‑time sync, lightning search, and clean UI keep teams moving.
+              </p>
+            </div>
+            <div className="card-feature">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <ShieldCheck className="w-6 h-6 text-accent" aria-hidden="true" />
+              </div>
+              <h3 className="heading-4 mb-3">Secure for serious teams</h3>
+              <p className="body-text">
+                End‑to‑end encryption at rest and in transit, SSO/SAML, roles, and audit trails.
+              </p>
+            </div>
+            <div className="card-feature">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <Sparkles className="w-6 h-6 text-accent" aria-hidden="true" />
+              </div>
+              <h3 className="heading-4 mb-3">AI‑assisted where it matters</h3>
+              <p className="body-text">
+                Draft docs, summarize threads, and surface trends in your data.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Capabilities Section */}
+      <section className="section-padding bg-foreground/2">
+        <div className="max-width container-padding">
+          <div className="text-center mb-16">
+            <h2 className="heading-2 mb-4">Featured capabilities</h2>
+            <p className="body-large max-w-2xl mx-auto">
+              Everything you need to collaborate, create, and manage your work.
+            </p>
+          </div>
+          <div className="grid-capabilities">
+            <div className="card">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <div className="flex items-center gap-1">
+                  <MessageSquare className="w-5 h-5 text-accent" aria-hidden="true" />
+                </div>
+              </div>
+              <h3 className="heading-4 mb-3">Real‑Time Chat & Video Meetings</h3>
+              <p className="body-text">
+                Direct messages, channels, file drops, threads, and 1‑click huddles.
+              </p>
+            </div>
+            <div className="card">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <FileText className="w-6 h-6 text-accent" aria-hidden="true" />
+              </div>
+              <h3 className="heading-4 mb-3">Files & Docs</h3>
+              <p className="body-text">
+                Versioning, comments, shared folders, and granular permissions.
+              </p>
+            </div>
+            <div className="card">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <Blocks className="w-6 h-6 text-accent" aria-hidden="true" />
+              </div>
+              <h3 className="heading-4 mb-3">AppBuilder</h3>
+              <p className="body-text">
+                Build internal tools and forms without code. Connect data, trigger workflows.
+              </p>
+            </div>
+            <div className="card">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <BarChart3 className="w-6 h-6 text-accent" aria-hidden="true" />
+              </div>
+              <h3 className="heading-4 mb-3">Data & Dashboards</h3>
+              <p className="body-text">
+                Bring spreadsheets, databases, and APIs together. Create live charts.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="section-padding">
+        <div className="max-width container-padding">
+          <div className="text-center mb-16">
+            <h2 className="heading-2 mb-4">Use cases</h2>
+            <p className="body-large max-w-2xl mx-auto">
+              See how teams across industries use Cospace to get work done.
+            </p>
+          </div>
+          <div className="grid-use-cases">
+            <div className="card">
+              <div className="accent-border pl-4">
+                <h3 className="heading-4 mb-2">Marketing</h3>
+                <p className="body-text">plan campaigns, share assets, track KPIs.</p>
+              </div>
+            </div>
+            <div className="card">
+              <div className="accent-border pl-4">
+                <h3 className="heading-4 mb-2">Design</h3>
+                <p className="body-text">collect feedback, manage versions, ship on time.</p>
+              </div>
+            </div>
+            <div className="card">
+              <div className="accent-border pl-4">
+                <h3 className="heading-4 mb-2">Software</h3>
+                <p className="body-text">plan sprints, ship releases, document decisions.</p>
+              </div>
+            </div>
+            <div className="card">
+              <div className="accent-border pl-4">
+                <h3 className="heading-4 mb-2">Government</h3>
+                <p className="body-text">secure collaboration, document exchange, and audit logs.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Callout Banner */}
+      <section className="py-12 bg-accent/5">
+        <div className="max-width container-padding">
+          <div className="text-center">
+            <p className="body-large text-foreground font-italic">
+              Private by design — choose EU or US hosting. Keep sensitive work in a space you control.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="section-padding">
+        <div className="max-width container-padding">
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="heading-2 mb-6">Ready to get started?</h2>
+            <p className="body-large mb-8">
+              Join thousands of teams who've already made the switch to Cospace.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <CTAButton variant="primary" text="get started" />
+              <CTAButton variant="secondary" text="request pricing" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
