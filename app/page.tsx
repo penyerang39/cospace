@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { LayoutDashboard, Zap, ShieldCheck, Sparkles, Users, Activity, Globe, MessageSquare, Video, FileText, Blocks, BarChart3 } from "lucide-react";
+import { LayoutDashboard, Zap, ShieldCheck, Sparkles, Users, Activity, Globe, MessageSquare, FileText, Blocks, BarChart3 } from "lucide-react";
 import CTAButton from "./components/CTAButton";
+import CTALink from "./components/CTALink";
 
 export default function Home() {
   return (
@@ -49,7 +50,7 @@ export default function Home() {
           </div>
           <div>
             {/* Carousel - visible on md and above */}
-            <div className="hidden md:block overflow-hidden">
+            <div className="hidden md:block overflow-hidden mt-10">
               <div className="flex animate-scroll">
                 <div className="flex space-x-8 whitespace-nowrap">
                   {/* First set */}
@@ -211,40 +212,44 @@ export default function Home() {
             <div className="card">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <div className="flex items-center gap-1">
-                  <MessageSquare className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <MessageSquare className="w-6 h-6 text-accent" aria-hidden="true" />
                 </div>
               </div>
               <h3 className="heading-4 mb-3">Real‑Time Chat & Video Meetings</h3>
-              <p className="body-text">
+              <p className="body-text mb-4">
                 Direct messages, channels, file drops, threads, and 1‑click huddles.
               </p>
+              <CTALink href="/product/chat" text="Explore Chat & Meetings" />
             </div>
             <div className="card">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <FileText className="w-6 h-6 text-accent" aria-hidden="true" />
               </div>
               <h3 className="heading-4 mb-3">Files & Docs</h3>
-              <p className="body-text">
+              <p className="body-text mb-4">
                 Versioning, comments, shared folders, and granular permissions.
               </p>
+              <CTALink href="/product/files" text="Explore Files & Docs" />
             </div>
             <div className="card">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <Blocks className="w-6 h-6 text-accent" aria-hidden="true" />
               </div>
               <h3 className="heading-4 mb-3">AppBuilder</h3>
-              <p className="body-text">
+              <p className="body-text mb-4">
                 Build internal tools and forms without code. Connect data, trigger workflows.
               </p>
+              <CTALink href="/product/appbuilder" text="Explore AppBuilder" />
             </div>
             <div className="card">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <BarChart3 className="w-6 h-6 text-accent" aria-hidden="true" />
               </div>
               <h3 className="heading-4 mb-3">Data & Dashboards</h3>
-              <p className="body-text">
+              <p className="body-text mb-4">
                 Bring spreadsheets, databases, and APIs together. Create live charts.
               </p>
+              <CTALink href="/product/data" text="Explore Data & Dashboards" />
             </div>
           </div>
         </div>
@@ -263,25 +268,29 @@ export default function Home() {
             <div className="card">
               <div className="accent-border pl-4">
                 <h3 className="heading-4 mb-2">Marketing</h3>
-                <p className="body-text">plan campaigns, share assets, track KPIs.</p>
+                <p className="body-text mb-4">plan campaigns, share assets, track KPIs.</p>
+                <CTALink href="/solutions/marketing" text="Explore Marketing Solutions" />
               </div>
             </div>
             <div className="card">
               <div className="accent-border pl-4">
                 <h3 className="heading-4 mb-2">Design</h3>
-                <p className="body-text">collect feedback, manage versions, ship on time.</p>
+                <p className="body-text mb-4">collect feedback, manage versions, ship on time.</p>
+                <CTALink href="/solutions/design" text="Explore Design Solutions" />
               </div>
             </div>
             <div className="card">
               <div className="accent-border pl-4">
                 <h3 className="heading-4 mb-2">Software</h3>
-                <p className="body-text">plan sprints, ship releases, document decisions.</p>
+                <p className="body-text mb-4">plan sprints, ship releases, document decisions.</p>
+                <CTALink href="/solutions/software" text="Explore Software Solutions" />
               </div>
             </div>
             <div className="card">
               <div className="accent-border pl-4">
                 <h3 className="heading-4 mb-2">Government</h3>
-                <p className="body-text">secure collaboration, document exchange, and audit logs.</p>
+                <p className="body-text mb-4">secure collaboration, document exchange, and audit logs.</p>
+                <CTALink href="/solutions/government" text="Explore Government Solutions" />
               </div>
             </div>
           </div>
