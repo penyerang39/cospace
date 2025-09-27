@@ -4,10 +4,16 @@ import CTAButton from "./components/CTAButton";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="md:min-h-screen">
       {/* Hero Section */}
-      <section className="section-padding min-h-screen flex items-center">
-        <div className="max-width container-padding w-full">
+      <section className="section-padding md:min-h-screen flex items-center relative overflow-hidden">
+        {/* Animated Background - extends beyond section */}
+        <div className="absolute -top-32 -bottom-32 -left-1/4 -right-1/4 w-[150%] h-[150%]">
+          <div className="animated-gradient-bg"></div>
+          <div className="noise-overlay"></div>
+        </div>
+        
+        <div className="max-width container-padding w-full relative z-10">
           <div className="grid md:grid-cols-2 gap-10 items-end md:items-center">
             {/* Image - shown first on mobile, second on desktop */}
             <div className="order-1 md:order-2">
@@ -41,55 +47,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
-          {/* Static Grid for Mobile, Carousel for Desktop */}
-          <div className="mt-16">
-            {/* Static Grid - visible on sm and below */}
-            <div className="block md:hidden">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
-                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
-                  <Users className="w-4 h-4 text-accent" />
-                  <span>10,000+ workspaces created</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
-                  <Activity className="w-4 h-4 text-accent" />
-                  <span>99.95% uptime</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
-                  <Globe className="w-4 h-4 text-accent" />
-                  <span>EU & US hosting</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
-                  <ShieldCheck className="w-4 h-4 text-accent" />
-                  <span>End-to-end encryption</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
-                  <Zap className="w-4 h-4 text-accent" />
-                  <span>Real-time sync</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
-                  <Sparkles className="w-4 h-4 text-accent" />
-                  <span>AI-powered features</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
-                  <ShieldCheck className="w-4 h-4 text-accent" />
-                  <span>AES-256 encryption</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
-                  <Users className="w-4 h-4 text-accent" />
-                  <span>SSO/SAML</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
-                  <ShieldCheck className="w-4 h-4 text-accent" />
-                  <span>Granular access control</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 text-sm text-foreground/70">
-                  <FileText className="w-4 h-4 text-accent" />
-                  <span>Audit logs</span>
-                </div>
-              </div>
-            </div>
-
+          <div>
             {/* Carousel - visible on md and above */}
             <div className="hidden md:block overflow-hidden">
               <div className="flex animate-scroll">

@@ -78,11 +78,21 @@ function Dropdown({ group }: { group: MenuGroup }) {
 }
 
 export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
+  const navGroups = navigation && navigation.length > 0 ? navigation : getNavigation();
+
   return (
     <header className="sticky top-0 z-40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-black/10 dark:border-white/10">
-      <nav className="relative mx-auto max-w-6xl px-4">
+      <nav className="relative max-width container-padding">
         <div className="flex items-center justify-between h-14">
-          <Image src="/branding/svg/neo14Logo.svg" alt="Cospace by NEO14" width={100} height={100} />
+          <Link href="/" aria-label="Cospace home" className="flex items-center">
+            <Image src="/branding/svg/neo14Logo.svg" alt="Cospace by NEO14" width={100} height={28} />
+          </Link>
+
+          <ul className="hidden sm:flex items-stretch h-14 ml-4">
+            {navGroups.map(group => (
+              <Dropdown key={group.label} group={group} />
+            ))}
+          </ul>
         </div>
       </nav>
     </header>

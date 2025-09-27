@@ -277,3 +277,96 @@ img {
 .animate-scroll {
   animation: scroll 40s linear infinite;
 }
+
+/* Animated Gradient Blob */
+@keyframes blobMorph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translate(0%, 0%) scale(1);
+  }
+  25% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: translate(20%, -10%) scale(1.1);
+  }
+  50% {
+    border-radius: 50% 30% 60% 40% / 30% 50% 60% 70%;
+    transform: translate(-10%, 15%) scale(0.9);
+  }
+  75% {
+    border-radius: 40% 70% 30% 60% / 70% 40% 50% 30%;
+    transform: translate(15%, 5%) scale(1.05);
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translate(0%, 0%) scale(1);
+  }
+}
+
+@keyframes blobShift {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg);
+  }
+  33% {
+    transform: translate(30%, -20%) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20%, 25%) rotate(240deg);
+  }
+  100% {
+    transform: translate(0%, 0%) rotate(360deg);
+  }
+}
+
+.animated-gradient-bg {
+  position: absolute;
+  top: 35%;
+  left: 30%;
+  right: 30%;
+  bottom: 35%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    color-mix(in srgb, var(--accent) 30%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 20%, transparent) 25%,
+    color-mix(in srgb, var(--accent) 10%, transparent) 50%,
+    transparent 80%
+  );
+  filter: blur(30px);
+  animation: blobMorph 12s ease-in-out infinite, blobShift 20s linear infinite;
+  z-index: -2;
+}
+
+@media (min-width: 768px) {
+  .animated-gradient-bg {
+    top: 15%;
+    left: 20%;
+    right: 20%;
+    bottom: 45%;
+  }
+}
+
+.noise-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(103, 155, 255, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(103, 155, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 10%, rgba(103, 155, 255, 0.015) 0%, transparent 50%);
+  filter: blur(1px);
+  animation: noiseFloat 8s ease-in-out infinite;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+@keyframes noiseFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(10px, -15px) scale(1.05);
+    opacity: 0.6;
+  }
+}

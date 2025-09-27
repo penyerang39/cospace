@@ -1,0 +1,16 @@
+{
+  "order": [
+    "Community",
+    "Pricing",
+    "Product",
+    "Solutions",
+    "Security",
+    "Company",
+    "Docs",
+    "Legal"
+  ],
+  "hidden": [
+    "Home"
+  ]
+}
+
