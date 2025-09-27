@@ -2,19 +2,23 @@ import Image from "next/image";
 import { LayoutDashboard, Zap, ShieldCheck, Sparkles, Users, Activity, Globe, MessageSquare, FileText, Blocks, BarChart3 } from "lucide-react";
 import CTAButton from "./components/CTAButton";
 import CTALink from "./components/CTALink";
+import Aurora from "./components/Background";
 
 export default function Home() {
   return (
-    <main className="md:min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding md:min-h-screen flex items-center relative overflow-hidden">
-        {/* Animated Background - extends beyond section */}
-        <div className="absolute -top-32 -bottom-32 -left-1/4 -right-1/4 w-[150%] h-[150%]">
-          <div className="animated-gradient-bg"></div>
-          <div className="noise-overlay"></div>
-        </div>
-        
-        <div className="max-width container-padding w-full relative z-10">
+    <>
+      {/* Aurora Background */}
+      <Aurora
+        colorStops={["#679bff", "#90b7ff", "#679bff"]}
+        blend={0.5}
+        amplitude={0.8}
+        speed={0.5}
+      />
+      
+      <main className="md:min-h-screen relative z-10">
+        {/* Hero Section */}
+        <section className="section-padding md:min-h-screen flex items-center relative overflow-hidden">
+          <div className="max-width container-padding w-full relative z-10">
           <div className="grid md:grid-cols-2 gap-10 items-end md:items-center">
             {/* Image - shown first on mobile, second on desktop */}
             <div className="order-1 md:order-2">
@@ -323,6 +327,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }

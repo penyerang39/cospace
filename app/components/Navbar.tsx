@@ -47,7 +47,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
       <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} />
       <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} style={{ transform: 'translateY(2px)' }} />
       <div
-        className={`fixed left-0 right-0 top-full z-50 border border-black/10 dark:border-white/10 bg-background/95 backdrop-blur-sm shadow-xl transition-[opacity,transform] duration-300 ease-out ${
+        className={`fixed left-0 right-0 top-full z-50 border border-black/10 border-white/10 bg-background/95 backdrop-blur-sm shadow-xl transition-[opacity,transform] duration-300 ease-out ${
           open ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-2"
         }`}
         role="menu"
@@ -61,7 +61,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
                 <li className="col-span-2">
                   <div className="group">
                     <Link
-                      className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-200 group-hover:bg-black/5 dark:group-hover:bg-white/10"
+                      className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-black/5 hover:bg-white/10 transition-all duration-200 group-hover:bg-black/5 group-hover:bg-white/10"
                       href={group.href}
                       onClick={() => setOpen(false)}
                     >
@@ -79,7 +79,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
                 <li key={item.href}>
                   <div className="group">
                     <Link
-                      className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-200 group-hover:bg-black/5 dark:group-hover:bg-white/10"
+                      className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-black/5 hover:bg-white/50 transition-all duration-200 group-hover:bg-black/5 group-hover:bg-white/50"
                       href={item.href}
                       onClick={() => setOpen(false)}
                     >
@@ -96,7 +96,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
               </ul>
             </div>
             <div className="col-span-5">
-              <div className="h-48 w-full rounded-lg border border-black/10 dark:border-white/10 bg-gradient-to-br from-background to-background/50 flex items-center justify-center shadow-inner">
+              <div className="h-48 w-full rounded-lg border border-black/10 border-white/10 bg-gradient-to-br from-background to-background/50 flex items-center justify-center shadow-inner">
                 <span className="text-sm text-foreground/50 font-medium">Image placeholder</span>
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
   const navGroups = navigation && navigation.length > 0 ? navigation : getNavigation();
 
   return (
-    <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 border-b border-black/10 dark:border-white/10 shadow-sm">
+    <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 border-b border-black/10 border-white/10 shadow-sm">
       <nav className="relative max-width container-padding">
         <div className="flex items-center justify-between h-16">
           <Link href="/" aria-label="Cospace home" className="flex items-center group">
