@@ -61,7 +61,7 @@ export default function DemoPage() {
     const formData = new FormData(e.currentTarget)
     const primaryInterest = Array.from(
       e.currentTarget.querySelectorAll('input[name="primaryInterest"]:checked')
-    ).map((i: any) => i.value as string)
+    ).map((i) => (i as HTMLInputElement).value)
 
     const payload = {
       fullName: String(formData.get('fullName') || ''),
@@ -109,8 +109,9 @@ export default function DemoPage() {
       }
       setSuccess(true)
       e.currentTarget.reset()
-    } catch (err: any) {
-      setError(err.message || 'Failed to submit')
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to submit'
+      setError(message)
     } finally {
       setSubmitting(false)
     }

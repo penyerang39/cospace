@@ -35,14 +35,11 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
       }
     );
 
-    if (buttonRef.current) {
-      observer.observe(buttonRef.current);
-    }
+    const current = buttonRef.current;
+    if (current) observer.observe(current);
 
     return () => {
-      if (buttonRef.current) {
-        observer.unobserve(buttonRef.current);
-      }
+      if (current) observer.unobserve(current);
     };
   }, []);
 

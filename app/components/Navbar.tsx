@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { getNavigation, type MenuGroup } from "../lib/navigation";
 import Image from "next/image";
 import { ArrowRight, ArrowLeft, Menu, X } from "lucide-react";

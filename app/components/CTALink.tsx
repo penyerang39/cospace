@@ -27,14 +27,11 @@ export default function CTALink({ href, text, className = '' }: CTALinkProps) {
       }
     );
 
-    if (linkRef.current) {
-      observer.observe(linkRef.current);
-    }
+    const current = linkRef.current;
+    if (current) observer.observe(current);
 
     return () => {
-      if (linkRef.current) {
-        observer.unobserve(linkRef.current);
-      }
+      if (current) observer.unobserve(current);
     };
   }, []);
 

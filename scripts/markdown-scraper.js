@@ -188,6 +188,95 @@ class MarkdownScraper {
   }
 
   /**
+   * Clean and normalize raw HTML so it is safe and consistent for React rendering
+   * NOTE: This is a light normalizer, not a full sanitizer. Source is trusted repo content.
+   */
+  processHtml(rawHtml) {
+    if (!rawHtml) return '';
+
+    let html = rawHtml
+      // Strip inline styles to enforce design system
+      .replace(/\sstyle=\"[^\"]*\"/gi, '')
+      // Normalize bold/italic tags
+      .replace(/<b>/gi, '<strong>')
+      .replace(/<\/b>/gi, '</strong>')
+      .replace(/<i>/gi, '<em>')
+      .replace(/<\/i>/gi, '</em>')
+      // Remove empty spans often present in exported HTML
+      .replace(/<span>(\s|&nbsp;)*<\/span>/gi, '')
+      // Convert non-breaking spaces to regular spaces
+      .replace(/&nbsp;/g, ' ')
+      // Remove target attributes from links
+      .replace(/\s(target|rel)=\"[^\"]*\"/gi, '')
+      // Ensure mailto links remain intact if plain emails are present
+      .replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1">$1</a>');
+
+    // Add Tailwind classes to common elements if missing (light-touch)
+    // Headings spacing
+    html = html.replace(/<h(\d)([^>]*)>/gi, (m, lvl, attrs) => {
+      const level = Number(lvl);
+      const className = this.getHeaderClassName(level);
+      // merge class if exists
+      if (/class=\"/.test(attrs)) {
+        return `<h${level}${attrs.replace(/class=\"([^\"]*)\"/, `class=\"$1 ${className}\"`)}>`;
+      }
+      return `<h${level} class=\"${className}\"${attrs}>`;
+    });
+
+    // Lists spacing
+    html = html.replace(/<ul(\s[^>]*)?>/gi, (m, attrs = '') => {
+      const cls = 'list-disc list-inside mb-6 space-y-3 pl-4';
+      if (/class=\"/.test(attrs)) {
+        return `<ul${attrs.replace(/class=\"([^\"]*)\"/, `class=\"$1 ${cls}\"`)}>`;
+      }
+      return `<ul class=\"${cls}\"${attrs}>`;
+    });
+
+    html = html.replace(/<ol(\s[^>]*)?>/gi, (m, attrs = '') => {
+      const cls = 'list-decimal list-inside mb-6 space-y-3 pl-4';
+      if (/class=\"/.test(attrs)) {
+        return `<ol${attrs.replace(/class=\"([^\"]*)\"/, `class=\"$1 ${cls}\"`)}>`;
+      }
+      return `<ol class=\"${cls}\"${attrs}>`;
+    });
+
+    // Paragraph spacing
+    html = html.replace(/<p(\s[^>]*)?>/gi, (m, attrs = '') => {
+      const cls = 'mb-4 leading-relaxed';
+      if (/class=\"/.test(attrs)) {
+        return `<p${attrs.replace(/class=\"([^\"]*)\"/, `class=\"$1 ${cls}\"`)}>`;
+      }
+      return `<p class=\"${cls}\"${attrs}>`;
+    });
+
+    // Link styling
+    html = html.replace(/<a(\s[^>]*)?>/gi, (m, attrs = '') => {
+      const cls = 'text-blue-600 dark:text-blue-400 hover:underline';
+      if (/class=\"/.test(attrs)) {
+        return `<a${attrs.replace(/class=\"([^\"]*)\"/, `class=\"$1 ${cls}\"`)}>`;
+      }
+      return `<a class=\"${cls}\"${attrs}>`;
+    });
+
+    return html;
+  }
+
+  /**
+   * Generate a React component that renders provided HTML safely within our styled container
+   */
+  generateReactHtmlComponent(processedHtml) {
+    return `import React from 'react';
+
+export default function Page() {
+  return (
+    <main className="max-w-4xl mx-auto px-6 py-8">
+      <div className="prose prose-lg dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: ` + '`' + '${processedHtml.replace(/`/g, "\\`")}' + '`' + ` }} />
+    </main>
+  );
+}`;
+  }
+
+  /**
    * Render list items as JSX
    */
   renderList(items) {
@@ -216,40 +305,69 @@ export default function Page() {
   }
 
   /**
-   * Process all legal markdown files
+   * Process all legal files (prefer HTML, fallback to Markdown)
    */
   async processLegalFiles() {
-    const fileMappings = {
-      'PrivacyPolicy.md': 'privacy/page.tsx',
-      'TOS.md': 'terms/page.tsx',
-      'Agreement.md': 'subscription/page.tsx',
-      'Disclaimer.md': 'acceptable-use/page.tsx'
-    };
+    const fileMappings = [
+      {
+        // Privacy Policy
+        html: 'Neo14 Privacy Policy.html',
+        md: 'PrivacyPolicy.md',
+        out: 'privacy/page.tsx'
+      },
+      {
+        // Terms of Use
+        html: 'Neo14 Terms of Use.html',
+        md: 'TOS.md',
+        out: 'terms/page.tsx'
+      },
+      {
+        // Subscription Agreement
+        html: 'Neo 14 Subscription Agreement.html',
+        md: 'Agreement.md',
+        out: 'subscription/page.tsx'
+      },
+      {
+        // Disclaimer and AUP
+        html: 'Neo14 Disclaimer and AUP.html',
+        md: 'Disclaimer.md',
+        out: 'acceptable-use/page.tsx'
+      }
+    ];
 
-    for (const [mdFile, outputPath] of Object.entries(fileMappings)) {
+    for (const mapping of fileMappings) {
+      const outputFilePath = path.join(this.outputDir, mapping.out);
+      if (!fs.existsSync(outputFilePath)) {
+        console.warn(`Output file not found: ${mapping.out}`);
+        continue;
+      }
+
+      // Prefer HTML
+      const htmlPath = path.join(this.legalDir, mapping.html);
+      const mdPath = path.join(this.legalDir, mapping.md);
+
       try {
-        const mdPath = path.join(this.legalDir, mdFile);
-        const outputFilePath = path.join(this.outputDir, outputPath);
-        
-        if (!fs.existsSync(mdPath)) {
-          console.warn(`Markdown file not found: ${mdFile}`);
+        if (fs.existsSync(htmlPath)) {
+          const rawHtml = fs.readFileSync(htmlPath, 'utf8');
+          const processedHtml = this.processHtml(rawHtml);
+          const component = this.generateReactHtmlComponent(processedHtml);
+          fs.writeFileSync(outputFilePath, component);
+          console.log(`Updated from HTML: ${mapping.out}`);
           continue;
         }
 
-        if (!fs.existsSync(outputFilePath)) {
-          console.warn(`Output file not found: ${outputPath}`);
+        // Fallback to Markdown
+        if (fs.existsSync(mdPath)) {
+          const mdContent = fs.readFileSync(mdPath, 'utf8');
+          const component = this.generateReactComponent(mdContent, mapping.md.replace('.md', ''));
+          fs.writeFileSync(outputFilePath, component);
+          console.log(`Updated from MD: ${mapping.out}`);
           continue;
         }
 
-        const content = fs.readFileSync(mdPath, 'utf8');
-        const title = mdFile.replace('.md', '');
-        const reactComponent = this.generateReactComponent(content, title);
-        
-        fs.writeFileSync(outputFilePath, reactComponent);
-        console.log(`Updated: ${outputPath}`);
-        
+        console.warn(`No source found for ${mapping.out}`);
       } catch (error) {
-        console.error(`Error processing ${mdFile}:`, error.message);
+        console.error(`Error processing ${mapping.out}:`, error.message);
       }
     }
   }
@@ -326,12 +444,12 @@ export default function Page() {
    * Run the complete scraping process
    */
   async run() {
-    console.log('Starting markdown scraping process...');
+    console.log('Starting legal content generation (HTML preferred, MD fallback)...');
     
     try {
       await this.processLegalFiles();
       await this.updateMainLegalPage();
-      console.log('Markdown scraping completed successfully!');
+      console.log('Legal content generation completed successfully!');
     } catch (error) {
       console.error('Error during markdown scraping:', error);
       process.exit(1);

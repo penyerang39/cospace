@@ -83,7 +83,7 @@ export default function RequestPricingPage() {
     const formData = new FormData(form)
     const expected = Array.from(
       form.querySelectorAll('input[name="expectedUseCases"]:checked')
-    ).map((i: any) => i.value as string)
+    ).map((i) => (i as HTMLInputElement).value)
 
     const payload = {
       fullName: String(formData.get('fullName') || ''),
@@ -131,8 +131,9 @@ export default function RequestPricingPage() {
       setSuccess(true)
       form.reset()
       document.documentElement.style.setProperty('--demo-progress', '0%')
-    } catch (err: any) {
-      setError(err.message || 'Failed to submit')
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to submit'
+      setError(message)
     } finally {
       setSubmitting(false)
     }

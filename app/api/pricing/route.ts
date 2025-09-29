@@ -119,7 +119,7 @@ Reply to ${body.workEmail} to continue the conversation.
     }
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 })
-  } catch (e) {
+  } catch {
     return new Response(
       JSON.stringify({ ok: false, error: 'Invalid request.' }),
       { status: 400 }
