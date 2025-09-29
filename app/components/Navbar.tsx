@@ -1,13 +1,47 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getNavigation, type MenuGroup } from "../lib/navigation";
 import Image from "next/image";
 import { ArrowRight, ArrowLeft, Menu, X } from "lucide-react";
+import previews from "../lib/nav-previews";
+
+const productImages = [
+  "/product/Picture1.png",
+  "/product/Picture2.png",
+  "/product/Picture3.png",
+  "/product/Picture4.png",
+  "/product/Picture5.png",
+  "/product/Picture6.png",
+  "/product/Picture7.png",
+  "/product/Picture8.png",
+  "/product/dashboards.png",
+  "/product/datamodel.png",
+  "/product/updated_data1.png",
+  "/product/data-spider-web.png",
+  "/product/updated_data.png",
+  "/product/updated_chat.png",
+  "/product/updated_projects.png",
+  "/product/updated_files.png",
+  "/product/files_main_screen.png",
+];
+
+function useRandomProductImage() {
+  const chosenRef = useRef<string | null>(null);
+  if (!chosenRef.current) {
+    const idx = Math.floor(Math.random() * productImages.length);
+    chosenRef.current = productImages[idx];
+  }
+  return chosenRef.current as string;
+}
 
 function Dropdown({ group }: { group: MenuGroup }) {
   const [open, setOpen] = useState(false);
+  const [hoverHref, setHoverHref] = useState<string | undefined>(undefined);
+  const fallbackImage = useRandomProductImage();
+  const activeHref = hoverHref || group.href;
+  const previewSrc = (activeHref && (previews as Record<string, string>)[activeHref]) || fallbackImage;
   const hasChildren = (group.items?.length ?? 0) > 0;
 
   if (!hasChildren) {
@@ -61,9 +95,11 @@ function Dropdown({ group }: { group: MenuGroup }) {
                 <li className="col-span-2">
                   <div className="group">
                     <Link
-                      className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-black/5 transition-all duration-200 group-hover:bg-black/5"
+                      className="flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200"
                       href={group.href}
                       onClick={() => setOpen(false)}
+                      onMouseEnter={() => setHoverHref(group.href)}
+                      onMouseLeave={() => setHoverHref(undefined)}
                     >
                       <span className="font-medium text-foreground group-hover:text-foreground/80 transition-colors duration-200">
                         {group.label} overview
@@ -79,9 +115,11 @@ function Dropdown({ group }: { group: MenuGroup }) {
                 <li key={item.href}>
                   <div className="group">
                     <Link
-                      className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-black/5 transition-all duration-200 group-hover:bg-black/5"
+                      className="flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200"
                       href={item.href}
                       onClick={() => setOpen(false)}
+                      onMouseEnter={() => setHoverHref(item.href)}
+                      onMouseLeave={() => setHoverHref(undefined)}
                     >
                       <span className="text-foreground group-hover:text-foreground/80 transition-colors duration-200">
                         {item.label}
@@ -96,8 +134,16 @@ function Dropdown({ group }: { group: MenuGroup }) {
               </ul>
             </div>
             <div className="col-span-5">
-              <div className="h-48 w-full rounded-lg border border-black/10 bg-gradient-to-br from-background to-background/50 flex items-center justify-center shadow-inner">
-                <span className="text-sm text-foreground/50 font-medium">Image placeholder</span>
+              <div className="h-48 w-full overflow-hidden rounded-lg border border-black/10 bg-gradient-to-br from-background to-background/50 relative shadow-inner">
+                <Image
+                  src={previewSrc}
+                  alt="Section preview"
+                  fill
+                  sizes="(min-width: 1280px) 33vw, (min-width: 1024px) 41.666vw, (min-width: 640px) 50vw, 100vw"
+                  quality={90}
+                  className="object-cover"
+                  priority={false}
+                />
               </div>
             </div>
           </div>
@@ -141,7 +187,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
           {/* Mobile hamburger */}
           <button
             type="button"
-            className="sm:hidden inline-flex items-center justify-center rounded-md p-2 pr-0 text-foreground hover:text-foreground/80 hover:bg-black/5 transition-colors"
+            className="sm:hidden inline-flex items-center justify-center rounded-md p-2 pr-0 text-foreground hover:text-foreground/80 transition-colors"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             onClick={() => {
@@ -177,7 +223,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
             </Link>
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-md p-2 pr-0 text-foreground hover:text-foreground/80 hover:bg-black/5 transition-colors"
+              className="inline-flex items-center justify-center rounded-md p-2 pr-0 text-foreground hover:text-foreground/80  transition-colors"
               aria-label="Close menu"
               onClick={() => {
                 setMobileOpen(false);
@@ -204,7 +250,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
                 return (
                   <li key={group.label}>
                     <button
-                      className="w-full text-left border border-black/10 border-1px px-4 py-5 flex items-center justify-between hover:bg-black/5 transition-colors"
+                      className="w-full text-left border border-black/10 border-1px px-4 py-5 flex items-center justify-between transition-colors"
                       onClick={() => {
                         if (hasChildren) {
                           setActiveParentLabel(group.label);
@@ -238,7 +284,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
                 <div className="px-4 py-3 flex items-center gap-3">
                   <button
                     type="button"
-                    className="rounded-md px-3 py-3 border-1px hover:bg-black/5 transition-colors text-foreground inline-flex items-center gap-2"
+                    className="rounded-md px-3 py-3 border-1px transition-colors text-foreground inline-flex items-center gap-2"
                     onClick={() => setActiveParentLabel(null)}
                     aria-label="Back to parent list"
                   >
@@ -254,7 +300,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
                     <li>
                       <Link
                         href={activeParent.href}
-                        className="block px-4 py-5 hover:bg-black/5 transition-colors"
+                        className="block px-4 py-5 transition-colors"
                         onClick={() => setMobileOpen(false)}
                       >
                         <span className="font-medium text-foreground">{activeParent.label} overview</span>
@@ -265,7 +311,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
                       <li key={item.href}>
                         <Link
                           href={item.href}
-                          className="flex items-center  border border-black/10 border-1px justify-between px-4 py-5 rounded-md hover:bg-black/5 transition-colors"
+                          className="flex items-center  border border-black/10 border-1px justify-between px-4 py-5 rounded-md transition-colors"
                           onClick={() => setMobileOpen(false)}
                         >
                           <span className="text-foreground">{item.label}</span>

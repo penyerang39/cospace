@@ -21,6 +21,17 @@ body {
   font-family: Inter;
 }
 
+/* Global image rendering preferences */
+img, image, picture, canvas, video {
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic; /* legacy IE */
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Typography System */
 .heading-1 {
   font-size: clamp(2.5rem, 5vw, 4rem);
@@ -256,13 +267,28 @@ body {
   border-left: 4px solid var(--accent);
 }
 
-/*Image Rendering  */
-img {
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: optimize-contrast;
-  image-rendering: crisp-edges; /* For pixel art - avoid for photos */
-  image-rendering: auto; /* Default, usually best for photos */
+/* Reusable gradient border wrapper */
+.gradient-border {
+  /* Apply this to a rounded container. Keep child unrounded. */
+  padding: 10px; /* visual border width */
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, #cc67ff 25%, transparent));
 }
+
+/* Inner frame to ensure consistent spacing around media */
+.image-frame-inner {
+  background: var(--background);
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: inherit;
+  width: 100%;
+}
+
+/* Utility to inherit parent's border radius */
+.rounded-inherit {
+  border-radius: inherit;
+}
+
+/* Keep default image rendering to avoid over-sharpening photos */
 
 /* Infinite Scroll Animation */
 @keyframes scroll {

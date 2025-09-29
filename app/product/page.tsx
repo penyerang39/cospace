@@ -24,8 +24,10 @@ export default function ProductPage() {
       <section className="min-h-[80vh] flex items-stretch">
         <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
           <div className="order-1">
-            <div className="relative w-full aspect-[16/10] md:aspect-auto md:h-[60vh] overflow-hidden rounded-lg bg-foreground/2">
-              <Image src="/product/updated_projects.png" alt="Chat & Meetings preview" fill className="object-contain" priority sizes="(min-width: 768px) 40vw, 90vw" />
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/picture2.png" alt="Chat & Meetings preview" width={1600} height={900} className="w-full h-auto rounded-inherit" priority />
+              </div>
             </div>
           </div>
           <div className="order-2">
@@ -47,10 +49,12 @@ export default function ProductPage() {
 
       {/* Files & Docs - image right on desktop */}
       <section className="min-h-[80vh] flex items-stretch">
-        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
+        <div className="max-width container-padding grid md:grid-cols-2 sm:items-start items-center gap-8 w-full">
           <div className="order-1 md:order-2">
-            <div className="relative w-full aspect-[16/10] md:aspect-auto md:h-[60vh] overflow-hidden rounded-lg bg-foreground/2">
-              <Image src="/product/updated_projects.png" alt="Files & Docs preview" fill className="object-contain" sizes="(min-width: 768px) 40vw, 90vw" />
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/files_main_screen.png" alt="Files & Docs preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
             </div>
           </div>
           <div className="order-2 md:order-1">
@@ -74,8 +78,10 @@ export default function ProductPage() {
       <section className="min-h-[80vh] flex items-stretch">
         <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
           <div className="order-1">
-            <div className="relative w-full aspect-[16/10] md:aspect-auto md:h-[60vh] overflow-hidden rounded-lg bg-foreground/2">
-              <Image src="/product/updated_projects.png" alt="AppBuilder preview" fill className="object-contain" sizes="(min-width: 768px) 40vw, 90vw" />
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/datamodel.png" alt="AppBuilder preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
             </div>
           </div>
           <div className="order-2">
@@ -99,8 +105,10 @@ export default function ProductPage() {
       <section className="min-h-[80vh] flex items-stretch">
         <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
           <div className="order-1 md:order-2">
-            <div className="relative w-full aspect-[16/10] md:aspect-auto md:h-[60vh] overflow-hidden rounded-lg bg-foreground/2">
-              <Image src="/product/updated_projects.png" alt="Data & Dashboards preview" fill className="object-contain" sizes="(min-width: 768px) 40vw, 90vw" />
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/dashboards.png" alt="Data & Dashboards preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
             </div>
           </div>
           <div className="order-2 md:order-1">
@@ -124,8 +132,10 @@ export default function ProductPage() {
       <section className="min-h-[80vh] flex items-stretch">
         <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
           <div className="order-1">
-            <div className="relative w-full aspect-[16/10] md:aspect-auto md:h-[60vh] overflow-hidden rounded-lg bg-foreground/2">
-              <Image src="/product/updated_projects.png" alt="Admin & Security preview" fill className="object-contain" sizes="(min-width: 768px) 40vw, 90vw" />
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/picture6.png" alt="Admin & Security preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
             </div>
           </div>
           <div className="order-2">
@@ -144,9 +154,6 @@ export default function ProductPage() {
           </div>
         </div>
       </section>
-      <div className="items-center justify-center container-padding w-full"> 
-      <CTAButton variant="primary" text="get started" />
-      </div>
     </main>
   );  
 }
