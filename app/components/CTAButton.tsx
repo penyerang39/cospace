@@ -2,6 +2,7 @@
 
 import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface CTAButtonProps {
   variant: 'primary' | 'secondary';
@@ -19,6 +20,7 @@ const textVariants = {
 export default function CTAButton({ variant, text, className = '' }: CTAButtonProps) {
   const [isVisible, setIsVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,11 +48,27 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
 
   const baseClasses = 'btn-primary flex items-center gap-2 group transition-all duration-300';
   const variantClasses = variant === 'secondary' ? 'btn-secondary' : 'btn-primary';
+  const targetHref = (() => {
+    switch (text) {
+      case 'book a demo':
+        return '/demo';
+      case 'request pricing':
+        return '/request';
+      case 'see more':
+        return '/demo';
+      default:
+        return '/demo';
+    }
+  })();
 
   return (
     <button
       ref={buttonRef}
+      type="button"
       className={`${baseClasses} ${variantClasses} ${className}`}
+      onClick={() => {
+        if (targetHref) router.push(targetHref);
+      }}
     >
       <span>{textVariants[text]}</span>
       <ArrowRight 

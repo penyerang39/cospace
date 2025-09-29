@@ -4,13 +4,15 @@
     "Solutions",
     "Pricing",
     "Community",
+    "Docs",
     "Security",
     "Company",
-    "Docs",
     "Legal"
   ],
   "hidden": [
-    "Home"
+    "Home",
+    "Demo",
+    "Request"
   ]
 }
 

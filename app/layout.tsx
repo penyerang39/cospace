@@ -40,6 +40,16 @@ export default function RootLayout({
         className={`${interFont.variable} antialiased`}
       >
         <Navbar navigation={navigation} />
+        {/* Global form progress bar just below the navbar */}
+        <div
+          className="fixed left-0 z-40 h-[2px] w-full bg-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
+          style={{ top: '4rem' }}
+        >
+          <div
+            className="h-full bg-accent shadow-[0_1px_2px_rgba(0,0,0,0.25)] transition-[width] duration-300"
+            style={{ width: 'var(--demo-progress, 0%)' }}
+          />
+        </div>
         {children}
         <SpeedInsights />
       </body>

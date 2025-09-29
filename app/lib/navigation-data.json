@@ -26,6 +26,10 @@
     ]
   },
   {
+    "label": "Demo",
+    "href": "/demo"
+  },
+  {
     "label": "Docs",
     "href": "/docs"
   },
@@ -76,6 +80,10 @@
         "href": "/product/files"
       }
     ]
+  },
+  {
+    "label": "Request",
+    "href": "/request"
   },
   {
     "label": "Security",

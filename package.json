@@ -3,22 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run generate-nav && next dev --turbopack",
+    "dev": "npm run generate-nav && npm run scrape-legal && next dev --turbopack",
     "dev:watch": "node scripts/watch-nav.js",
-    "build": "npm run generate-nav && next build --turbopack",
+    "build": "npm run generate-nav && npm run scrape-legal && next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "generate-nav": "node scripts/generate-nav.js"
+    "generate-nav": "node scripts/generate-nav.js",
+    "scrape-legal": "node scripts/markdown-scraper.js"
   },
   "dependencies": {
-    "@lordicon/react": "^1.11.0",
-    "@react-three/fiber": "^9.3.0",
+    "@react-email/render": "^1.3.1",
     "@vercel/speed-insights": "^1.2.0",
     "lucide-react": "^0.544.0",
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "three": "^0.180.0"
+    "resend": "^6.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

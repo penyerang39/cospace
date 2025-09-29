@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import CTAButton from "../components/CTAButton";
 
 export default function ProductPage() {
   return (
@@ -143,8 +144,11 @@ export default function ProductPage() {
           </div>
         </div>
       </section>
+      <div className="items-center justify-center container-padding w-full"> 
+      <CTAButton variant="primary" text="get started" />
+      </div>
     </main>
-  );
+  );  
 }
 
 
