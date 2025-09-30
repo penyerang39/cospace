@@ -217,7 +217,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
           <div className="relative max-width container-padding h-full flex items-center justify-between">
             <Link href="/" aria-label="Cospace home" className="flex items-center group">
               <Image 
-                src="/branding/svg/neo14Logo.svg" 
+                src="/branding/neo14Logo.svg" 
                 alt="Cospace by NEO14" 
                 width={120} 
                 height={32} 
