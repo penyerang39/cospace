@@ -172,7 +172,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
         <div className="flex items-center justify-between h-16">
           <Link href="/" aria-label="Cospace home" className="flex items-center group">
             <Image 
-              src="/branding/svg/neo14Logo.svg" 
+              src="/branding/neo14Logo.svg" 
               alt="Cospace by NEO14" 
               width={120} 
               height={32} 
