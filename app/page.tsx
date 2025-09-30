@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { LayoutDashboard, Zap, ShieldCheck, Sparkles, Users, Activity, Globe, MessageSquare, FileText, Blocks, BarChart3 } from "lucide-react";
+import { LayoutDashboard, Zap, ShieldCheck, Sparkles, Users, Activity, Globe, MessageSquare, FileText, Blocks, BarChart3, Hash, Mic, Video, Search, Clock, UserPlus, History, Share2, Lock, MessageCircle, GitBranch, Download, Database, Bell, Brain, TrendingUp, RefreshCw, AlertTriangle, Workflow, Settings, Play, Code, Bug, Rocket, CheckCircle, Target, Calendar, Megaphone, Palette, Layers, Eye, ChevronDown } from "lucide-react";
 import CTAButton from "./components/CTAButton";
 import CTALink from "./components/CTALink";
 
@@ -149,6 +149,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       {/* Value Pillars Section */}
       <section className="section-padding">
         <div className="max-width container-padding">
@@ -199,99 +200,579 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Capabilities Section */}
+      {/* ===== PRODUCT FEATURES SECTION ===== */}
       <section className="section-padding bg-foreground/2">
         <div className="max-width container-padding">
           <div className="text-center mb-16">
-            <h2 className="heading-2 mb-4">Featured capabilities</h2>
+            <h2 className="heading-2 mb-4">Product Features</h2>
             <p className="body-large max-w-2xl mx-auto">
               Everything you need to collaborate, create, and manage your work.
             </p>
           </div>
-          <div className="grid-capabilities">
-            <div className="card">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <div className="flex items-center gap-1">
-                  <MessageSquare className="w-6 h-6 text-accent" aria-hidden="true" />
+
+          {/* Chat & Meetings */}
+          <div className="mb-20">
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+              <div>
+                <h3 className="heading-3 mb-4">Chat & Meetings</h3>
+                <p className="body-text mb-6">
+                  Conversations that stay connected to the work. Channels for teams, threads for focus, and instant video calls when you need them.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Hash className="w-5 h-5 text-accent" />
+                    <span className="body-text">Organized channels with searchable history</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <MessageSquare className="w-5 h-5 text-accent" />
+                    <span className="body-text">Threads that keep discussions tidy</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Mic className="w-5 h-5 text-accent" />
+                    <span className="body-text">Voice clips for async updates</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Video className="w-5 h-5 text-accent" />
+                    <span className="body-text">1-click huddles with screen sharing</span>
+                  </div>
                 </div>
               </div>
-              <h3 className="heading-4 mb-3">Real‑Time Chat & Video Meetings</h3>
-              <p className="body-text mb-4">
-                Direct messages, channels, file drops, threads, and 1‑click huddles.
-              </p>
-              <CTALink href="/product/chat" text="Explore Chat & Meetings" />
-            </div>
-            <div className="card">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <FileText className="w-6 h-6 text-accent" aria-hidden="true" />
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image
+                    src="/product/updated_chat.png"
+                    alt="Chat & Meetings interface"
+                    width={1600}
+                    height={1200}
+                    className="w-full h-auto rounded-inherit"
+                  />
+                </div>
               </div>
-              <h3 className="heading-4 mb-3">Files & Docs</h3>
-              <p className="body-text mb-4">
-                Versioning, comments, shared folders, and granular permissions.
-              </p>
-              <CTALink href="/product/files" text="Explore Files & Docs" />
             </div>
-            <div className="card">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Blocks className="w-6 h-6 text-accent" aria-hidden="true" />
+          </div>
+
+          {/* Files & Docs */}
+          <div className="mb-20">
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+              <div className="order-2 md:order-1">
+                <div className="gradient-border rounded-lg">
+                  <div className="image-frame-inner rounded-inherit">
+                    <Image
+                      src="/product/files_main_screen.png"
+                      alt="Files & Docs interface"
+                      width={1600}
+                      height={1200}
+                      className="w-full h-auto rounded-inherit"
+                    />
+                  </div>
+                </div>
               </div>
-              <h3 className="heading-4 mb-3">AppBuilder</h3>
-              <p className="body-text mb-4">
-                Build internal tools and forms without code. Connect data, trigger workflows.
-              </p>
-              <CTALink href="/product/appbuilder" text="Explore AppBuilder" />
+              <div className="order-1 md:order-2">
+                <h3 className="heading-3 mb-4">Files & Docs</h3>
+                <p className="body-text mb-6">
+                  Create, share, and ship together. Real-time collaboration with version control that actually works.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <FileText className="w-5 h-5 text-accent" />
+                    <span className="body-text">Real-time co-editing without conflicts</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <MessageCircle className="w-5 h-5 text-accent" />
+                    <span className="body-text">Comments & suggestions in context</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <History className="w-5 h-5 text-accent" />
+                    <span className="body-text">Full version history with diff view</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Lock className="w-5 h-5 text-accent" />
+                    <span className="body-text">Granular permissions & secure sharing</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="card">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <BarChart3 className="w-6 h-6 text-accent" aria-hidden="true" />
+          </div>
+
+          {/* AppBuilder */}
+          <div className="mb-20">
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+              <div>
+                <h3 className="heading-3 mb-4">AppBuilder</h3>
+                <p className="body-text mb-6">
+                  Internal tools without ticketing the dev team. Build forms, dashboards, and workflows visually in minutes.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Blocks className="w-5 h-5 text-accent" />
+                    <span className="body-text">Point-and-click visual builder</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Database className="w-5 h-5 text-accent" />
+                    <span className="body-text">Connect Google Sheets, Postgres, APIs</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Workflow className="w-5 h-5 text-accent" />
+                    <span className="body-text">Automate approvals & notifications</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <ShieldCheck className="w-5 h-5 text-accent" />
+                    <span className="body-text">Granular permissions per app</span>
+                  </div>
+                </div>
               </div>
-              <h3 className="heading-4 mb-3">Data & Dashboards</h3>
-              <p className="body-text mb-4">
-                Bring spreadsheets, databases, and APIs together. Create live charts.
-              </p>
-              <CTALink href="/product/data" text="Explore Data & Dashboards" />
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image
+                    src="/product/datamodel.png"
+                    alt="AppBuilder interface"
+                    width={1600}
+                    height={1200}
+                    className="w-full h-auto rounded-inherit"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Data & Dashboards */}
+          <div className="mb-20">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="order-2 md:order-1">
+                <div className="gradient-border rounded-lg">
+                  <div className="image-frame-inner rounded-inherit">
+                    <Image
+                      src="/product/dashboards.png"
+                      alt="Data & Dashboards interface"
+                      width={1600}
+                      height={1200}
+                      className="w-full h-auto rounded-inherit"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="order-1 md:order-2">
+                <h3 className="heading-3 mb-4">Data & Dashboards</h3>
+                <p className="body-text mb-6">
+                  All your key metrics—live and trustworthy. Connect data sources, build charts, and get AI insights without the complexity.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Database className="w-5 h-5 text-accent" />
+                    <span className="body-text">No-code connections to any data source</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <BarChart3 className="w-5 h-5 text-accent" />
+                    <span className="body-text">Live charts & tables with smart formatting</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Brain className="w-5 h-5 text-accent" />
+                    <span className="body-text">AI insights & trend analysis</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Bell className="w-5 h-5 text-accent" />
+                    <span className="body-text">Smart alerting when metrics change</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Use Cases Section */}
+      {/* ===== SOLUTIONS SECTION ===== */}
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="text-center mb-16">
-            <h2 className="heading-2 mb-4">Use cases</h2>
+            <h2 className="heading-2 mb-4">Solutions by Industry</h2>
             <p className="body-large max-w-2xl mx-auto">
-              See how teams across industries use Cospace to get work done.
+              Tailored workflows for every team: marketing, design, software, and government.
             </p>
           </div>
-          <div className="grid-use-cases">
-            <div className="card">
-              <div className="accent-border pl-4">
-                <h3 className="heading-4 mb-2">Marketing</h3>
-                <p className="body-text mb-4">plan campaigns, share assets, track KPIs.</p>
-                <CTALink href="/solutions/marketing" text="Explore Marketing Solutions" />
+
+          {/* Software Solutions */}
+          <div className="mb-20">
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+              <div>
+                <h3 className="heading-3 mb-4">Software Development</h3>
+                <p className="body-text mb-6">
+                  Roadmaps, sprints, release notes, and on-call runbooks. Link issues, PRDs, and docs to the code or service.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <GitBranch className="w-5 h-5 text-accent" />
+                    <span className="body-text">Connected roadmaps to actual commits</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent" />
+                    <span className="body-text">Sprint planning with velocity tracking</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Bug className="w-5 h-5 text-accent" />
+                    <span className="body-text">Issue tracking with context</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Rocket className="w-5 h-5 text-accent" />
+                    <span className="body-text">Automated release notes & deployment tracking</span>
+                  </div>
+                </div>
+              </div>
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image
+                    src="/product/Picture5.png"
+                    alt="Software development workflow"
+                    width={1600}
+                    height={1200}
+                    className="w-full h-auto rounded-inherit"
+                  />
+                </div>
               </div>
             </div>
-            <div className="card">
-              <div className="accent-border pl-4">
-                <h3 className="heading-4 mb-2">Design</h3>
-                <p className="body-text mb-4">collect feedback, manage versions, ship on time.</p>
-                <CTALink href="/solutions/design" text="Explore Design Solutions" />
+          </div>
+
+          {/* Marketing Solutions */}
+          <div className="mb-20">
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+              <div className="order-2 md:order-1">
+                <div className="gradient-border rounded-lg">
+                  <div className="image-frame-inner rounded-inherit">
+                    <Image
+                      src="/product/files_main_screen.png"
+                      alt="Marketing campaign planning"
+                      width={1600}
+                      height={1200}
+                      className="w-full h-auto rounded-inherit"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="order-1 md:order-2">
+                <h3 className="heading-3 mb-4">Marketing</h3>
+                <p className="body-text mb-6">
+                  Plan campaigns, track assets, centralize briefs, and review creatives all in one place. Connect ad spend data and build ROAS dashboards.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Target className="w-5 h-5 text-accent" />
+                    <span className="body-text">Campaign planning with templates</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Share2 className="w-5 h-5 text-accent" />
+                    <span className="body-text">Asset management with version control</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <BarChart3 className="w-5 h-5 text-accent" />
+                    <span className="body-text">Multi-channel ROAS dashboards</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Users className="w-5 h-5 text-accent" />
+                    <span className="body-text">Team collaboration on creatives</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="card">
-              <div className="accent-border pl-4">
-                <h3 className="heading-4 mb-2">Software</h3>
-                <p className="body-text mb-4">plan sprints, ship releases, document decisions.</p>
-                <CTALink href="/solutions/software" text="Explore Software Solutions" />
+          </div>
+
+          {/* Design Solutions */}
+          <div className="mb-20">
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+              <div>
+                <h3 className="heading-3 mb-4">Design</h3>
+                <p className="body-text mb-6">
+                  Manage versions, share mocks, collect feedback, and ship on time. Link design tasks and specs to the latest files.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Layers className="w-5 h-5 text-accent" />
+                    <span className="body-text">Version control with visual diffs</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <MessageCircle className="w-5 h-5 text-accent" />
+                    <span className="body-text">Contextual feedback on designs</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Share2 className="w-5 h-5 text-accent" />
+                    <span className="body-text">Secure sharing with stakeholders</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <GitBranch className="w-5 h-5 text-accent" />
+                    <span className="body-text">Design handoff to development</span>
+                  </div>
+                </div>
+              </div>
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image
+                    src="/product/Picture2.png"
+                    alt="Design workflow interface"
+                    width={1600}
+                    height={1200}
+                    className="w-full h-auto rounded-inherit"
+                  />
+                </div>
               </div>
             </div>
-            <div className="card">
-              <div className="accent-border pl-4">
-                <h3 className="heading-4 mb-2">Government</h3>
-                <p className="body-text mb-4">secure collaboration, document exchange, and audit logs.</p>
-                <CTALink href="/solutions/government" text="Explore Government Solutions" />
+          </div>
+
+          {/* Government Solutions */}
+          <div className="mb-20">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="order-2 md:order-1">
+                <div className="gradient-border rounded-lg">
+                  <div className="image-frame-inner rounded-inherit">
+                    <Image
+                      src="/product/Picture8.png"
+                      alt="Government security dashboard"
+                      width={1600}
+                      height={1200}
+                      className="w-full h-auto rounded-inherit"
+                    />
+                  </div>
+                </div>
               </div>
+              <div className="order-1 md:order-2">
+                <h3 className="heading-3 mb-4">Government</h3>
+                <p className="body-text mb-6">
+                  Secure document exchange, private file storage, and safe communication. Fine-grained access controls, audit logs, and data residency options.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <ShieldCheck className="w-5 h-5 text-accent" />
+                    <span className="body-text">FedRAMP authorized with ATO ready</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Lock className="w-5 h-5 text-accent" />
+                    <span className="body-text">AES-256 encryption with BYOK options</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Eye className="w-5 h-5 text-accent" />
+                    <span className="body-text">Comprehensive audit logging</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Globe className="w-5 h-5 text-accent" />
+                    <span className="body-text">US-only data residency options</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== COMMUNITY SECTION ===== */}
+      <section className="section-padding bg-foreground/2">
+        <div className="max-width container-padding">
+          <div className="text-center mb-16">
+            <h2 className="heading-2 mb-4">Community</h2>
+            <p className="body-large max-w-2xl mx-auto">
+              Build better workflows with others. Join thousands of teams sharing tips, templates, and best practices.
+            </p>
+          </div>
+          <div className="grid-features">
+            <div className="card-feature">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <MessageCircle className="w-6 h-6 text-accent" />
+              </div>
+              <h3 className="heading-4 mb-3">Discussion forum</h3>
+              <p className="body-text">
+                Ask questions, share tips, and connect with other Cospace users worldwide.
+              </p>
+            </div>
+            <div className="card-feature">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <FileText className="w-6 h-6 text-accent" />
+              </div>
+              <h3 className="heading-4 mb-3">Templates gallery</h3>
+              <p className="body-text">
+                Browse and share workflow templates for every team and use case.
+              </p>
+            </div>
+            <div className="card-feature">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <Sparkles className="w-6 h-6 text-accent" />
+              </div>
+              <h3 className="heading-4 mb-3">Release notes & roadmap</h3>
+              <p className="body-text">
+                Stay updated on new features and influence our product direction.
+              </p>
+            </div>
+            <div className="card-feature">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <Calendar className="w-6 h-6 text-accent" />
+              </div>
+              <h3 className="heading-4 mb-3">Events & webinars</h3>
+              <p className="body-text">
+                Join live sessions, workshops, and networking events with fellow users.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== PRICING SECTION ===== */}
+      <section className="section-padding">
+        <div className="max-width container-padding">
+          <div className="text-center mb-16">
+            <h2 className="heading-2 mb-4">Simple plans that scale with you</h2>
+            <p className="body-large max-w-2xl mx-auto">
+              Choose the plan that fits your team. All plans include our core collaboration features with transparent, usage-based pricing.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-4 gap-8">
+            {/* Free Plan */}
+            <div className="card flex flex-col justify-between">
+              <div>
+                <div className="mb-6">
+                  <h3 className="heading-4 mb-2">Free</h3>
+                  <div className="mb-4 justify-between">
+                    <span className="text-3xl font-bold">$0</span>
+                    <span className="text-muted"> forever</span>
+                  </div>
+                  <p className="body-small text-muted">Perfect for small teams getting started</p>
+                </div>
+                
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Up to 5 users</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">5 GB storage</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Core chat & docs</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Basic dashboards</span>
+                  </div>
+                </div>
+              </div>
+              
+              <CTAButton variant="secondary" text="get started" className="w-full" />
+            </div>
+
+            {/* Pro Plan */}
+            <div className="card border-accent/20 relative flex flex-col justify-between">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">Most popular</span>
+              </div>
+              
+              <div>
+                <div className="mb-6">
+                  <h3 className="heading-4 mb-2">Pro</h3>
+                  <div className="mb-4">
+                    <span className="text-3xl font-bold">$9</span>
+                    <span className="text-muted">/user/month</span>
+                  </div>
+                  <p className="body-small text-muted">For growing teams that need more features</p>
+                </div>
+                
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Unlimited users</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">100 GB storage</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Meetings & Huddles</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">AppBuilder (standard)</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Basic SSO</span>
+                  </div>
+                </div>
+              </div>
+              
+              <CTAButton variant="primary" text="get started" className="w-full" />
+            </div>
+
+            {/* Business Plan */}
+            <div className="card flex flex-col justify-between">
+              <div>
+                <div className="mb-6">
+                  <h3 className="heading-4 mb-2">Business</h3>
+                  <div className="mb-4">
+                    <span className="text-3xl font-bold">$18</span>
+                    <span className="text-muted">/user/month</span>
+                  </div>
+                  <p className="body-small text-muted">For teams that need advanced security & controls</p>
+                </div>
+                
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">1 TB storage</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Advanced AppBuilder</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Database connectors</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">SSO/SAML</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">SCIM & Audit logs</span>
+                  </div>
+                </div>
+              </div>
+              
+              <CTAButton variant="primary" text="get started" className="w-full" />
+            </div>
+
+            {/* Enterprise Plan */}
+            <div className="card flex flex-col justify-between">
+              <div>
+                <div className="mb-6">
+                  <h3 className="heading-4 mb-2">Enterprise</h3>
+                  <div className="mb-4">
+                    <span className="text-3xl font-bold">Custom</span>
+                  </div>
+                  <p className="body-small text-muted">For organizations with complex requirements</p>
+                </div>
+                
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Enterprise security</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">BYOK encryption</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Private cloud/VPC</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">EU/US data residency</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Dedicated support</span>
+                  </div>
+                </div>
+              </div>
+              
+              <CTAButton variant="primary" text="request pricing" className="w-full" />
             </div>
           </div>
         </div>

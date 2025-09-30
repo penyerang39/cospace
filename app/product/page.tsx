@@ -40,7 +40,7 @@ export default function ProductPage() {
                 Voice rooms and instant video calls with screen share.<br/>
                 Focus mode and notification controls to protect deep work.
               </p>
-              <a href="/product/chat-meetings" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
+              <a href="/product/chat" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
                 Explore Chat & Meetings
                 <ArrowRight className="w-4 h-4" />
               </a>
@@ -67,7 +67,7 @@ export default function ProductPage() {
                 Shared drives and role‑based permissions down to the file.<br/>
                 Fast global search across files, messages, and tasks.
               </p>
-              <a href="/product/files-docs" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
+              <a href="/product/files" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
                 Explore Files & Docs
                 <ArrowRight className="w-4 h-4" />
               </a>
@@ -121,7 +121,7 @@ export default function ProductPage() {
                 Build live charts, tables, and alerts in minutes.<br/>
                 AI summaries to spot trends and anomalies.
               </p>
-              <a href="/product/data-dashboards" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
+              <a href="/product/data" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
                 Explore Data & Dashboards
                 <ArrowRight className="w-4 h-4" />
               </a>
@@ -148,7 +148,7 @@ export default function ProductPage() {
                 Audit logs, retention policies, legal hold.<br/>
                 Bring‑your‑own‑key (BYOK) encryption (Business/Enterprise).
               </p>
-              <a href="/product/admin-security" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
+              <a href="/security" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
                 View Security
                 <ArrowRight className="w-4 h-4" />
               </a>

@@ -1,111 +1,142 @@
 import React from 'react';
 import Image from 'next/image';
-import CTALink from '../components/CTALink';
+import { ArrowRight } from 'lucide-react';
+import CTAButton from '../components/CTAButton';
+import ScrollHint from '../components/ScrollHint';
 
-type Solution = {
-  slug: 'marketing' | 'design' | 'software' | 'government';
-  title: string;
-  points: string[];
-};
-
-const solutions: Solution[] = [
-  {
-    slug: 'marketing',
-    title: 'Marketing Teams',
-    points: [
-      'Plan campaigns, track assets, centralize briefs, review creatives.',
-      'Connect ad spend data and build ROAS dashboards.',
-    ],
-  },
-  {
-    slug: 'design',
-    title: 'Design Teams',
-    points: [
-      'Manage versions, share mocks, collect feedback, and ship on time.',
-      'Link design tasks and specs to the latest files.',
-    ],
-  },
-  {
-    slug: 'software',
-    title: 'Software Teams',
-    points: [
-      'Roadmaps, sprints, release notes, on‑call runbooks.',
-      'Link issues, PRDs, and docs to the code or service.',
-    ],
-  },
-  {
-    slug: 'government',
-    title: 'Government & Public Sector',
-    points: [
-      'Secure document exchange, private file storage, and safe communication.',
-      'Fine‑grained access controls, audit logs, and data residency.',
-    ],
-  },
-];
-
-function buildPlaceholderDataUri(label: string) {
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'>
-    <defs>
-      <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
-        <stop offset='0%' stop-color='#111827'/>
-        <stop offset='100%' stop-color='#1f2937'/>
-      </linearGradient>
-    </defs>
-    <rect width='100%' height='100%' fill='url(#g)'/>
-    <g fill='white' fill-opacity='0.08'>
-      <circle cx='150' cy='120' r='80'/>
-      <circle cx='1050' cy='560' r='120'/>
-      <circle cx='600' cy='300' r='140'/>
-    </g>
-    <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle'
-      font-family='Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial'
-      font-size='44' fill='white' fill-opacity='0.9'>${label}</text>
-  </svg>`;
-  const encoded = encodeURIComponent(svg)
-    .replace(/'/g, '%27')
-    .replace(/"/g, '%22');
-  return `data:image/svg+xml;charset=UTF-8,${encoded}`;
-}
-
-export default function Page() {
+export default function SolutionsPage() {
   return (
-    <main className='px-6 py-12 md:py-16 lg:py-20'>
-      <div className='mx-auto max-w-6xl'>
-        <header className='mb-10 md:mb-12'>
-          <h1 className='text-3xl font-semibold tracking-tight md:text-4xl'>Solutions</h1>
-          <p className='mt-2 text-muted-foreground'>Choose your team to see how it works.</p>
-        </header>
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <section className="section-padding min-h-screen flex items-center relative">
+        <div className="max-width container-padding w-full">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="heading-1 mb-6">
+              Solutions <span className="gradient-text">Overview</span>
+            </h1>
+            <p className="body-large mb-8 max-w-2xl mx-auto">
+              Tailored workflows for every team: marketing, design, software, and government. Explore how Cospace unifies chat, files, docs, and data.
+            </p>
+          </div>
+        </div>
+        <ScrollHint />
+      </section>
 
-        <section className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-          {solutions.map(({ slug, title, points }) => (
-            <article key={slug} className='overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-md'>
-              <div className='relative'>
-                <Image
-                  src={buildPlaceholderDataUri(title)}
-                  alt={`${title} placeholder`}
-                  width={1200}
-                  height={675}
-                  className='h-auto w-full aspect-[16/9] object-cover'
-                  priority={slug === 'marketing'}
-                  sizes='(min-width: 1024px) 600px, (min-width: 768px) 50vw, 100vw'
-                />
+      {/* Marketing - image left */}
+      <section className="min-h-[80vh] flex items-stretch">
+        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
+          <div className="order-1">
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/updated_data1.png" alt="Marketing preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
               </div>
+            </div>
+          </div>
+          <div className="order-2">
+            <div className="w-full">
+              <h3 className="heading-4 mb-3">Marketing</h3>
+              <p className="body-text mb-4">
+                Plan campaigns, track assets, centralize briefs, and review creatives. Connect ad platforms and build ROAS dashboards.
+              </p>
+              <a href="/solutions/marketing" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
+                Explore Marketing
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div className='p-5 md:p-6'>
-                <h2 className='text-xl font-medium tracking-tight'>{title}</h2>
-                <ul className='mt-3 space-y-2 text-sm text-muted-foreground'>
-                  {points.map((p) => (
-                    <li key={p}>{p}</li>
-                  ))}
-                </ul>
-                <div className='mt-4'>
-                  <CTALink href={`/solutions/${slug}`} text='See how it works' />
-                </div>
+      {/* Design - image right */}
+      <section className="min-h-[80vh] flex items-stretch">
+        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
+          <div className="order-1 md:order-2">
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/Picture1.png" alt="Design preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
               </div>
-            </article>
-          ))}
-        </section>
-      </div>
+            </div>
+          </div>
+          <div className="order-2 md:order-1">
+            <div className="w-full">
+              <h3 className="heading-4 mb-3">Design</h3>
+              <p className="body-text mb-4">
+                Manage versions, share mocks, collect feedback, and ship on time. Keep specs linked to the latest files.
+              </p>
+              <a href="/solutions/design" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
+                Explore Design
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Software - image left */}
+      <section className="min-h-[80vh] flex items-stretch">
+        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
+          <div className="order-1">
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/Picture4.png" alt="Software preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
+            </div>
+          </div>
+          <div className="order-2">
+            <div className="w-full">
+              <h3 className="heading-4 mb-3">Software</h3>
+              <p className="body-text mb-4">
+                Roadmaps, sprints, release notes, and on‑call runbooks. Link issues, PRDs, and docs to code.
+              </p>
+              <a href="/solutions/software" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
+                Explore Software
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Government - image right */}
+      <section className="min-h-[80vh] flex items-stretch">
+        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
+          <div className="order-1 md:order-2">
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/Picture7.png" alt="Government preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
+            </div>
+          </div>
+          <div className="order-2 md:order-1">
+            <div className="w-full">
+              <h3 className="heading-4 mb-3">Government</h3>
+              <p className="body-text mb-4">
+                Secure document exchange, private file storage, and safe communication. Fine‑grained access controls and audit logs.
+              </p>
+              <a href="/solutions/government" className="inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-colors">
+                Explore Government
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="section-padding">
+        <div className="max-width container-padding">
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="heading-2 mb-6">Ready to explore solutions?</h2>
+            <p className="body-large mb-8">
+              See how Cospace adapts to your team's workflow with shared context across chat, files, docs, and data.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <CTAButton variant="primary" text="get started" />
+              <CTAButton variant="secondary" text="book a demo" />
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
