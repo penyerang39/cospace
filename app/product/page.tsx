@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import CTAButton from "../components/CTAButton";
+import ScrollHint from "../components/ScrollHint";
 
 export default function ProductPage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="section-padding min-h-screen flex items-center">
+      <section className="section-padding min-h-screen flex items-center relative">
         <div className="max-width container-padding w-full">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="heading-1 mb-6">
@@ -17,6 +18,7 @@ export default function ProductPage() {
             </p>
           </div>
         </div>
+        <ScrollHint />
       </section>
 
       {/* Product Sections - full width rows, images within margins and not cropped */}
@@ -26,7 +28,7 @@ export default function ProductPage() {
           <div className="order-1">
             <div className="gradient-border rounded-lg">
               <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/picture2.png" alt="Chat & Meetings preview" width={1600} height={900} className="w-full h-auto rounded-inherit" priority />
+                <Image src="/product/Picture2.png" alt="Chat & Meetings preview" width={1600} height={900} className="w-full h-auto rounded-inherit" priority />
               </div>
             </div>
           </div>
@@ -134,7 +136,7 @@ export default function ProductPage() {
           <div className="order-1">
             <div className="gradient-border rounded-lg">
               <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/picture6.png" alt="Admin & Security preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+                <Image src="/product/Picture6.png" alt="Admin & Security preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
               </div>
             </div>
           </div>

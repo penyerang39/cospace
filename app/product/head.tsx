@@ -1,0 +1,13 @@
+export default function Head() {
+  return (
+    <>
+      <title>Cospace Product Overview — Chat, Files, AppBuilder, Data</title>
+      <meta
+        name='description'
+        content='See how Cospace unifies messaging, docs, internal tools, and dashboards. Move faster with fewer apps.'
+      />
+    </>
+  );
+}
+
+

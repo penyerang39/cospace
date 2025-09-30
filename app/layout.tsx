@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { getNavigation } from "./lib/navigation";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import AutoReveal from "./components/AutoReveal";
 
 const interFont = Inter({
   variable: "--font-inter",
@@ -52,6 +53,7 @@ export default function RootLayout({
           />
         </div>
         {children}
+        <AutoReveal />
         <Footer />
         <SpeedInsights />
       </body>

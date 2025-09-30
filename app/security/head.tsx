@@ -1,0 +1,13 @@
+export default function Head() {
+  return (
+    <>
+      <title>Cospace Security — Encryption, SSO, Audit Logs, BYOK</title>
+      <meta
+        name='description'
+        content='Enterprise‑grade security and compliance, with EU/US data residency.'
+      />
+    </>
+  );
+}
+
+
