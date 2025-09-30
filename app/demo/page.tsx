@@ -159,7 +159,7 @@ export default function DemoPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-10">
       {/* uses global progress bar under Navbar */}
-      <h1 className="text-3xl font-semibold tracking-tight">Book a Demo</h1>
+      <h1 className="heading-1 gradient-text h-flex pb-2">Book a Demo</h1>
       <p className="mt-2 text-muted-foreground">Tell us about your needs. We’ll reach out shortly.</p>
 
       <form

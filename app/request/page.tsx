@@ -147,8 +147,8 @@ export default function RequestPricingPage() {
   }, [])
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">Request Pricing</h1>
+    <div className="mx-auto max-w-3xl h-flex px-6 py-10">
+      <h1 className="heading-1 gradient-text h-flex pb-2">Request Pricing</h1>
       <p className="mt-2 text-muted-foreground">Share your requirements and we'll send an indicative proposal.</p>
 
       <form onSubmit={onSubmit} onChange={(e) => computeProgress(e.currentTarget as HTMLFormElement)} className="mt-8 space-y-6">

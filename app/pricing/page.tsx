@@ -1,8 +1,35 @@
-import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap } from "lucide-react";
+'use client';
+
+import * as React from 'react';
+import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from "lucide-react";
 import CTAButton from "../components/CTAButton";
-import CTALink from "../components/CTALink";
 
 export default function PricingPage() {
+  const [openFAQ, setOpenFAQ] = React.useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setOpenFAQ(openFAQ === index ? null : index);
+  };
+
+  const faqs = [
+    {
+      question: "Can I change plans later?",
+      answer: "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate the billing accordingly."
+    },
+    {
+      question: "What's included in the free plan?",
+      answer: "The free plan includes core chat, file sharing, basic documents, and dashboards for up to 5 users with 5GB storage. Perfect for small teams to get started."
+    },
+    {
+      question: "Do you offer discounts for nonprofits and education?",
+      answer: "Yes, we offer special pricing for qualified nonprofit organizations and educational institutions. Contact our sales team for details."
+    },
+    {
+      question: "What payment methods do you accept?",
+      answer: "We accept all major credit cards, ACH transfers, and can work with purchase orders for Enterprise customers."
+    }
+  ];
+
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
@@ -18,6 +45,11 @@ export default function PricingPage() {
             <p className="body-text mb-12">
               Annual discount ~20% • Monthly billing available • Nonprofit & education discounts on request
             </p>
+            <div className="max-w-2xl mx-auto p-4 rounded-lg bg-muted/30 border border-border/50">
+              <p className="body-small text-muted-foreground text-center">
+                Pricing is tailored to your company size, deployment type, and use case. As a guideline, most Cospace clients invest between $12–$60 per user/month, depending on configuration. For enterprises and white-label partners, we provide custom plans.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -27,7 +59,8 @@ export default function PricingPage() {
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-4 gap-8">
             {/* Free Plan */}
-            <div className="card">
+            <div className="card flex flex-col justify-between">
+              <div>
               <div className="mb-6">
                 <h3 className="heading-4 mb-2">Free</h3>
                 <div className="mb-4 justify-between">
@@ -61,6 +94,7 @@ export default function PricingPage() {
                 <div className="flex items-center gap-3">
                   <X className="w-5 h-5 text-muted flex-shrink-0" />
                   <span className="body-text text-muted">AppBuilder</span>
+                  </div>
                 </div>
               </div>
               
@@ -68,11 +102,12 @@ export default function PricingPage() {
             </div>
 
             {/* Pro Plan */}
-            <div className="card border-accent/20 relative">
+            <div className="card border-accent/20 relative flex flex-col justify-between">
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                 <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">Most popular</span>
               </div>
               
+              <div>
               <div className="mb-6">
                 <h3 className="heading-4 mb-2">Pro</h3>
                 <div className="mb-4">
@@ -110,6 +145,7 @@ export default function PricingPage() {
                 <div className="flex items-center gap-3">
                   <Check className="w-5 h-5 text-accent flex-shrink-0" />
                   <span className="body-text">Basic SSO</span>
+                  </div>
                 </div>
               </div>
               
@@ -117,7 +153,8 @@ export default function PricingPage() {
             </div>
 
             {/* Business Plan */}
-            <div className="card">
+            <div className="card flex flex-col justify-between">
+              <div>
               <div className="mb-6">
                 <h3 className="heading-4 mb-2">Business</h3>
                 <div className="mb-4">
@@ -155,6 +192,7 @@ export default function PricingPage() {
                 <div className="flex items-center gap-3">
                   <Check className="w-5 h-5 text-accent flex-shrink-0" />
                   <span className="body-text">DLP & BYOK (add-on)</span>
+                  </div>
                 </div>
               </div>
               
@@ -162,43 +200,45 @@ export default function PricingPage() {
             </div>
 
             {/* Enterprise Plan */}
-            <div className="card">
-              <div className="mb-6">
-                <h3 className="heading-4 mb-2">Enterprise</h3>
-                <div className="mb-4">
-                  <span className="text-3xl font-bold">Custom</span>
+            <div className="card flex flex-col justify-between">
+              <div>
+                <div className="mb-6">
+                  <h3 className="heading-4 mb-2">Enterprise</h3>
+                  <div className="mb-4">
+                    <span className="text-3xl font-bold">Custom</span>
+                  </div>
+                  <p className="body-small text-muted">For organizations with complex requirements</p>
                 </div>
-                <p className="body-small text-muted">For organizations with complex requirements</p>
-              </div>
-              
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Enterprise security</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">BYOK encryption</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Private cloud/VPC</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">EU/US data residency</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Uptime SLA</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Dedicated support</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Custom onboarding</span>
+                
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Enterprise security</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">BYOK encryption</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Private cloud/VPC</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">EU/US data residency</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Uptime SLA</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Dedicated support</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="body-text">Custom onboarding</span>
+                  </div>
                 </div>
               </div>
               
@@ -269,34 +309,27 @@ export default function PricingPage() {
             <h2 className="heading-2 mb-4">Frequently asked questions</h2>
           </div>
           
-          <div className="max-w-3xl mx-auto space-y-8">
-            <div className="card">
-              <h4 className="heading-4 mb-3">Can I change plans later?</h4>
-              <p className="body-text">
-                Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate the billing accordingly.
-              </p>
-            </div>
-            
-            <div className="card">
-              <h4 className="heading-4 mb-3">What's included in the free plan?</h4>
-              <p className="body-text">
-                The free plan includes core chat, file sharing, basic documents, and dashboards for up to 5 users with 5GB storage. Perfect for small teams to get started.
-              </p>
-            </div>
-            
-            <div className="card">
-              <h4 className="heading-4 mb-3">Do you offer discounts for nonprofits and education?</h4>
-              <p className="body-text">
-                Yes, we offer special pricing for qualified nonprofit organizations and educational institutions. Contact our sales team for details.
-              </p>
-            </div>
-            
-            <div className="card">
-              <h4 className="heading-4 mb-3">What payment methods do you accept?</h4>
-              <p className="body-text">
-                We accept all major credit cards, ACH transfers, and can work with purchase orders for Enterprise customers.
-              </p>
-            </div>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqs.map((faq, index) => (
+              <div key={index} className="card">
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full flex items-center justify-between text-left"
+                >
+                  <h4 className="heading-4">{faq.question}</h4>
+                  <ChevronDown 
+                    className={`w-5 h-5 transition-transform duration-200 ${
+                      openFAQ === index ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                {openFAQ === index && (
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <p className="body-text">{faq.answer}</p>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -310,8 +343,8 @@ export default function PricingPage() {
               Start with our free plan or book a demo to see how Cospace can transform your team's workflow.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <CTAButton variant="primary" text="get started" />
-              <CTALink href="#" text="Talk to sales" />
+              <CTAButton variant="primary" text="request pricing" />
+              <CTAButton variant="secondary" text="talk to sales" />
             </div>
           </div>
         </div>

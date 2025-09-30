@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 interface CTAButtonProps {
   variant: 'primary' | 'secondary';
-  text: 'book a demo' | 'request pricing' | 'see more' | 'get started';
+  text: 'book a demo' | 'request pricing' | 'see more' | 'get started' | 'talk to sales';
   className?: string;
 }
 
@@ -15,6 +15,7 @@ const textVariants = {
   'request pricing': 'Request pricing',
   'see more': 'See more',
   'get started': 'Get started',
+  'talk to sales': 'Talk to sales',
 };
 
 export default function CTAButton({ variant, text, className = '' }: CTAButtonProps) {
@@ -53,6 +54,10 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
         return '/request';
       case 'see more':
         return '/demo';
+      case 'get started':
+        return '/request';
+      case 'talk to sales':
+        return '/request';
       default:
         return '/demo';
     }
