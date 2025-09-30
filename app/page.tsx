@@ -318,7 +318,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <CTAButton variant="primary" text="get started" />
-              <CTAButton variant="secondary" text="request pricing" />
+              <CTAButton variant="secondary" text="book a demo" />
             </div>
           </div>
         </div>

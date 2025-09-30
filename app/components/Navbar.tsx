@@ -27,6 +27,9 @@ const productImages = [
   "/product/files_main_screen.png",
 ];
 
+// Hide parent overview link for specific groups
+const HIDE_OVERVIEW_FOR = new Set(["Company", "Legal"]);
+
 function useRandomProductImage() {
   const chosenRef = useRef<string | null>(null);
   if (!chosenRef.current) {
@@ -91,7 +94,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
           <div className="grid grid-cols-12 gap-8 p-8">
             <div className="col-span-7">
               <ul className="gap-y-2">
-              {group.href && (
+              {group.href && !HIDE_OVERVIEW_FOR.has(group.label) && (
                 <li className="col-span-2">
                   <div className="group">
                     <Link
@@ -296,7 +299,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
                   </span>
                 </div>
                 <ul className="py-2">
-                  {activeParent.href && (
+                  {activeParent.href && !HIDE_OVERVIEW_FOR.has(activeParent.label) && (
                     <li>
                       <Link
                         href={activeParent.href}

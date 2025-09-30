@@ -49,7 +49,7 @@ export default function ProductPage() {
 
       {/* Files & Docs - image right on desktop */}
       <section className="min-h-[80vh] flex items-stretch">
-        <div className="max-width container-padding grid md:grid-cols-2 sm:items-start items-center gap-8 w-full">
+        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
           <div className="order-1 md:order-2">
             <div className="gradient-border rounded-lg">
               <div className="image-frame-inner rounded-inherit">
@@ -150,6 +150,23 @@ export default function ProductPage() {
                 View Security
                 <ArrowRight className="w-4 h-4" />
               </a>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Final CTA Section */}
+      <section className="section-padding">
+        <div className="max-width container-padding">
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="heading-2 mb-6">Ready to get started?</h2>
+            <p className="body-large mb-8">
+              Bring chat, files, docs, and data into one calm workspace.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <CTAButton variant="primary" text="get started" />
+              <CTAButton variant="secondary" text="book a demo" />
             </div>
           </div>
         </div>

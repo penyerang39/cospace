@@ -19,106 +19,95 @@ export default function ChatPage() {
         </div>
       </section>
 
-      {/* Content Section - Cards left, Image right */}
-      <section className="section-padding">
-        <div className="max-width container-padding grid md:grid-cols-2 items-start gap-8 w-full">
-          {/* Cards Column - Left */}
-          <div className="order-1">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-fit">
-              {/* Top Row - 3 cards */}
-              {/* Channels */}
-              <div className="card-feature h-full">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-accent/10">
-                    <Users className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="heading-4">Channels</h3>
-                </div>
-                <p className="body-text">
-                  Dedicated spaces for teams and projects with topic descriptions.
-                </p>
-              </div>
-
-              {/* Threads */}
-              <div className="card-feature h-full">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-accent/10">
-                    <MessageSquare className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="heading-4">Threads</h3>
-                </div>
-                <p className="body-text">
-                  Keep discussions tidy with threaded conversations.
-                </p>
-              </div>
-
-              {/* Clips */}
-              <div className="card-feature h-full">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-accent/10">
-                    <Video className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="heading-4">Clips</h3>
-                </div>
-                <p className="body-text">
-                  Quick voice and video snippets for async updates.
-                </p>
-              </div>
-
-              {/* Bottom Row - 3 cards */}
-              {/* Huddles */}
-              <div className="card-feature h-full">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-accent/10">
-                    <Mic className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="heading-4">Huddles</h3>
-                </div>
-                <p className="body-text">
-                  1-click voice rooms for instant collaboration.
-                </p>
-              </div>
-
-              {/* Search & Commands */}
-              <div className="card-feature h-full">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-accent/10">
-                    <Search className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="heading-4">Global Search</h3>
-                </div>
-                <p className="body-text">
-                  Find anything instantly with powerful search.
-                </p>
-              </div>
-
-              {/* Keyboard Shortcuts */}
-              <div className="card-feature h-full">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-accent/10">
-                    <Keyboard className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="heading-4">Keyboard-First</h3>
-                </div>
-                <p className="body-text">
-                  Navigate with keyboard shortcuts for efficiency.
-                </p>
+      {/* Main Feature Image */}
+      <section className="">
+      <div className="gradient-border rounded-lg w-60%">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/picture6.png" alt="Admin & Security preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
               </div>
             </div>
-          </div>
+      </section>
 
-          {/* Image Column - Right */}
-          <div className="order-2">
-            <div className="relative w-fit h-fit overflow-hidden rounded-lg bg-white">
-              <Image 
-                src="/product/updated_chat.png" 
-                alt="Chat & Meetings interface showing channels, threads, and video calls" 
-                width={600}
-                height={400}
-                className="object-contain" 
-                priority 
-                sizes="(min-width: 768px) 40vw, 90vw" 
-              />
+      {/* Features Grid */}
+      <section className="section-padding">
+        <div className="max-width container-padding w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Channels */}
+            <div className="card-feature">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-accent/10">
+                  <Users className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="heading-4">Channels</h3>
+              </div>
+              <p className="body-text">
+                Dedicated spaces for teams and projects with topic descriptions. Keep conversations organized and findable with clear channel purposes.
+              </p>
+            </div>
+
+            {/* Threads */}
+            <div className="card-feature">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-accent/10">
+                  <MessageSquare className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="heading-4">Threads</h3>
+              </div>
+              <p className="body-text">
+                Keep discussions tidy with threaded conversations. Convert any message to a task with one click to maintain workflow continuity.
+              </p>
+            </div>
+
+            {/* Clips */}
+            <div className="card-feature">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-accent/10">
+                  <Video className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="heading-4">Clips</h3>
+              </div>
+              <p className="body-text">
+                Quick voice and video snippets for async updates. Share context-rich information without scheduling meetings.
+              </p>
+            </div>
+
+            {/* Huddles */}
+            <div className="card-feature">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-accent/10">
+                  <Mic className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="heading-4">Huddles</h3>
+              </div>
+              <p className="body-text">
+                1-click voice rooms for instant collaboration. Escalate to video with screen share when you need visual context.
+              </p>
+            </div>
+
+            {/* Search & Commands */}
+            <div className="card-feature">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-accent/10">
+                  <Search className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="heading-4">Global Search</h3>
+              </div>
+              <p className="body-text">
+                Find anything instantly with powerful search across all conversations, files, and tasks. Keyboard-first commands for power users.
+              </p>
+            </div>
+
+            {/* Keyboard Shortcuts */}
+            <div className="card-feature">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-accent/10">
+                  <Keyboard className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="heading-4">Keyboard-First</h3>
+              </div>
+              <p className="body-text">
+                Navigate and control everything with keyboard shortcuts. Built for efficiency and speed in your daily workflow.
+              </p>
             </div>
           </div>
         </div>

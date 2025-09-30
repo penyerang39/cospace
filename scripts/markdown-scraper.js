@@ -194,9 +194,26 @@ class MarkdownScraper {
   processHtml(rawHtml) {
     if (!rawHtml) return '';
 
+    // Strip outer wrappers and unwanted nodes from Word-exported HTML
     let html = rawHtml
-      // Strip inline styles to enforce design system
+      // Remove DOCTYPE
+      .replace(/<!DOCTYPE[\s\S]*?>/gi, '')
+      // Remove comments
+      .replace(/<!--[\s\S]*?-->/g, '')
+      // Drop <style> blocks
+      .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, '')
+      // Drop <script> blocks
+      .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+      // Remove entire <head> section
+      .replace(/<head[\s\S]*?>[\s\S]*?<\/head>/gi, '')
+      // Keep only body innerHTML when present
+      .replace(/^[\s\S]*?<body[^>]*>/i, '')
+      .replace(/<\/body>[\s\S]*$/i, '')
+      // Remove any remaining html tags
+      .replace(/<\/?html[^>]*>/gi, '')
+      // Strip inline styles to enforce design system (double and single quoted)
       .replace(/\sstyle=\"[^\"]*\"/gi, '')
+      .replace(/\sstyle='[^']*'/gi, '')
       // Normalize bold/italic tags
       .replace(/<b>/gi, '<strong>')
       .replace(/<\/b>/gi, '</strong>')
@@ -206,10 +223,18 @@ class MarkdownScraper {
       .replace(/<span>(\s|&nbsp;)*<\/span>/gi, '')
       // Convert non-breaking spaces to regular spaces
       .replace(/&nbsp;/g, ' ')
-      // Remove target attributes from links
-      .replace(/\s(target|rel)=\"[^\"]*\"/gi, '')
+      // Remove target/rel attributes from links
+      .replace(/\s(target|rel)\=\"[^\"]*\"/gi, '')
+      .replace(/\s(target|rel)='[^']*'/gi, '')
+      // Remove MS Word/Office specific attributes and classes (quoted and unquoted)
+      .replace(/\s(xmlns|lang|xml:lang|v:|o:|w:)[^=]*=\"[^\"]*\"/gi, '')
+      .replace(/\s(xmlns|lang|xml:lang|v:|o:|w:)[^=]*='[^']*'/gi, '')
+      .replace(/\sclass=\"Mso[^\"]*\"/gi, '')
+      .replace(/\sclass='Mso[^']*'/gi, '')
+      .replace(/\sclass=Mso[^\s>]+/gi, '')
+      .replace(/\sclass=WordSection1/gi, '')
       // Ensure mailto links remain intact if plain emails are present
-      .replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1">$1</a>');
+      .replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href=\"mailto:$1\">$1</a>');
 
     // Add Tailwind classes to common elements if missing (light-touch)
     // Headings spacing
@@ -265,13 +290,12 @@ class MarkdownScraper {
    * Generate a React component that renders provided HTML safely within our styled container
    */
   generateReactHtmlComponent(processedHtml) {
+    const inlined = JSON.stringify(processedHtml);
     return `import React from 'react';
 
 export default function Page() {
   return (
-    <main className="max-w-4xl mx-auto px-6 py-8">
-      <div className="prose prose-lg dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: ` + '`' + '${processedHtml.replace(/`/g, "\\`")}' + '`' + ` }} />
-    </main>
+    <main className=\"max-w-4xl mx-auto px-6 py-8\">\n      <div className=\"prose prose-lg dark:prose-invert max-w-none\" dangerouslySetInnerHTML={{ __html: ${inlined} }} />\n    </main>
   );
 }`;
   }
