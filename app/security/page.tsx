@@ -1,10 +1,217 @@
-import React from 'react';
+import Image from "next/image";
+import { Shield, Lock, Eye, Globe, FileCheck, Users, Key, AlertTriangle } from "lucide-react";
+import CTAButton from "../components/CTAButton";
+import CTALink from "../components/CTALink";
 
-export default function Page() {
+export default function SecurityPage() {
   return (
-    <main style={{ padding: '3rem' }}>
-      <h1>/security</h1>
-      <p>Placeholder for security page.</p>
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <section className="section-padding min-h-screen flex items-center">
+        <div className="max-width container-padding w-full">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="heading-1 mb-6">
+              <span className="gradient-text">Private</span> by Design
+            </h1>
+            <p className="body-large mb-8 max-w-2xl mx-auto">
+              Enterprise-grade security and compliance built into every layer. Your data stays protected, your team stays productive.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Encryption & Data Protection - image left */}
+      <section className="min-h-[80vh] flex items-stretch">
+        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
+          <div className="order-1">
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/updated_data1.png" alt="Encryption and data protection visualization" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
+            </div>
+          </div>
+          <div className="order-2">
+            <div className="w-full">
+              <h3 className="heading-4 mb-3">Encryption & Data Protection</h3>
+              <p className="body-text mb-4">
+                <strong>AES-256 encryption at rest</strong> — Your files, messages, and data are encrypted using military-grade standards.<br/>
+                <strong>TLS 1.2+ encryption in transit</strong> — All communications are secured end-to-end.<br/>
+                <strong>Bring-Your-Own-Key (BYOK)</strong> — Business+ plans support customer-managed encryption keys for ultimate control.
+              </p>
+              <div className="flex flex-col gap-2">
+                <CTALink href="/security/whitepaper" text="Download Security Whitepaper (PDF)" />
+                <CTALink href="/security/encryption-details" text="Technical Encryption Specifications" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Access Control & Authentication - image right */}
+      <section className="min-h-[80vh] flex items-stretch">
+        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
+          <div className="order-1 md:order-2">
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/updated_chat.png" alt="Access control and authentication dashboard" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
+            </div>
+          </div>
+          <div className="order-2 md:order-1">
+            <div className="w-full">
+              <h3 className="heading-4 mb-3">Access Control & Authentication</h3>
+              <p className="body-text mb-4">
+                <strong>SSO/SAML integration</strong> — Connect with your existing identity provider.<br/>
+                <strong>SCIM provisioning</strong> — Automated user and group management.<br/>
+                <strong>Multi-Factor Authentication (MFA)</strong> — Add an extra layer of security with TOTP, SMS, or hardware keys.<br/>
+                <strong>Granular role-based permissions</strong> — Control access down to individual files and conversations.
+              </p>
+              <div className="flex flex-col gap-2">
+                <CTALink href="/security/sso-setup" text="SSO Integration Guide" />
+                <CTALink href="/security/permissions-guide" text="Role Management Documentation" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Audit & Compliance - image left */}
+      <section className="min-h-[80vh] flex items-stretch">
+        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
+          <div className="order-1">
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/dashboards.png" alt="Audit logs and compliance interface" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
+            </div>
+          </div>
+          <div className="order-2">
+            <div className="w-full">
+              <h3 className="heading-4 mb-3">Audit Logs & Compliance</h3>
+              <p className="body-text mb-4">
+                <strong>Comprehensive audit trails</strong> — Track all user actions, file access, and system changes.<br/>
+                <strong>Configurable retention policies</strong> — Meet your organization's data retention requirements.<br/>
+                <strong>Legal hold capabilities</strong> — Preserve data for litigation and regulatory purposes.<br/>
+                <strong>GDPR & CCPA aligned</strong> — Built-in compliance with global privacy regulations.
+              </p>
+              <div className="flex flex-col gap-2">
+                <CTALink href="/security/dpa-request" text="Request Data Processing Agreement" />
+                <CTALink href="/security/compliance-certifications" text="View Compliance Certifications" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Data Residency & Infrastructure - image right */}
+      <section className="min-h-[80vh] flex items-stretch">
+        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
+          <div className="order-1 md:order-2">
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/datamodel.png" alt="Global infrastructure and data residency map" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
+            </div>
+          </div>
+          <div className="order-2 md:order-1">
+            <div className="w-full">
+              <h3 className="heading-4 mb-3">Data Residency & Infrastructure</h3>
+              <p className="body-text mb-4">
+                <strong>Choose your data location</strong> — Host your data in EU or US regions to meet regulatory requirements.<br/>
+                <strong>Standard Contractual Clauses (SCCs)</strong> — Compliant cross-border data transfers.<br/>
+                <strong>99.95% uptime SLA</strong> — Redundant infrastructure across multiple availability zones.<br/>
+                <strong>Business+ exclusive features</strong> — BYOK encryption and enhanced data sovereignty controls.
+              </p>
+              <div className="flex flex-col gap-2">
+                <CTALink href="/security/data-residency-options" text="Data Residency Options" />
+                <CTALink href="/security/infrastructure-details" text="Infrastructure & SLA Details" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Security Testing & Monitoring - image left */}
+      <section className="min-h-[80vh] flex items-stretch">
+        <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
+          <div className="order-1">
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image src="/product/Picture3.png" alt="Security testing and monitoring dashboard" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+              </div>
+            </div>
+          </div>
+          <div className="order-2">
+            <div className="w-full">
+              <h3 className="heading-4 mb-3">Security Testing & Monitoring</h3>
+              <p className="body-text mb-4">
+                <strong>Regular penetration testing</strong> — Third-party security assessments conducted quarterly.<br/>
+                <strong>Continuous security monitoring</strong> — 24/7 threat detection and incident response.<br/>
+                <strong>Vulnerability management</strong> — Proactive identification and remediation of security issues.<br/>
+                <strong>Bug bounty program</strong> — Responsible disclosure and rewards for security researchers.
+              </p>
+              <div className="flex flex-col gap-2">
+                <CTALink href="/security/pentest-summary" text="Latest Penetration Test Summary" />
+                <CTALink href="/security/vulnerability-disclosure" text="Security Vulnerability Disclosure Policy" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Security Resources Section */}
+      <section className="section-padding bg-foreground/2">
+        <div className="max-width container-padding">
+          <div className="text-center mb-16">
+            <h2 className="heading-2 mb-4">Security Resources</h2>
+            <p className="body-large max-w-2xl mx-auto">
+              Access comprehensive documentation, reports, and tools to evaluate and implement our security measures.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="card">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <Shield className="w-6 h-6 text-accent" />
+              </div>
+              <h3 className="heading-4 mb-3">Security Documentation</h3>
+              <p className="body-text mb-4">Detailed technical specifications, architecture diagrams, and implementation guides.</p>
+              <CTALink href="/security/whitepaper" text="Download Security Whitepaper" />
+            </div>
+            <div className="card">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <Key className="w-6 h-6 text-accent" />
+              </div>
+              <h3 className="heading-4 mb-3">Legal & Compliance</h3>
+              <p className="body-text mb-4">Data processing agreements, privacy policies, and compliance certifications.</p>
+              <CTALink href="/security/dpa-request" text="Request DPA & Legal Documents" />
+            </div>
+            <div className="card">
+              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                <Eye className="w-6 h-6 text-accent" />
+              </div>
+              <h3 className="heading-4 mb-3">Security Testing</h3>
+              <p className="body-text mb-4">Third-party penetration test results, vulnerability assessments, and security audits.</p>
+              <CTALink href="/security/pentest-summary" text="View Latest Test Results" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="section-padding">
+        <div className="max-width container-padding">
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="heading-2 mb-6">Questions about security?</h2>
+            <p className="body-large mb-8">
+              Our security team is here to help. Schedule a dedicated security review or get answers to your compliance questions.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <CTAButton variant="primary" text="get started" />
+              <CTAButton variant="secondary" text="contact us" />
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

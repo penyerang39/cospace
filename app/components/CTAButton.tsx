@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 interface CTAButtonProps {
   variant: 'primary' | 'secondary';
-  text: 'book a demo' | 'request pricing' | 'see more' | 'get started' | 'talk to sales';
+  text: 'book a demo' | 'request pricing' | 'see more' | 'get started' | 'talk to sales' | 'contact us';
   className?: string;
 }
 
@@ -16,11 +16,13 @@ const textVariants = {
   'see more': 'See more',
   'get started': 'Get started',
   'talk to sales': 'Talk to sales',
+  'contact us': 'Contact Us',
 };
 
 export default function CTAButton({ variant, text, className = '' }: CTAButtonProps) {
+  const CONTACT_MAILTO = 'mailto:sales@neo14.ai';
   const [isVisible, setIsVisible] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const iconRef = useRef<HTMLSpanElement>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
       }
     );
 
-    const current = buttonRef.current;
+    const current = iconRef.current;
     if (current) observer.observe(current);
 
     return () => {
@@ -58,28 +60,53 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
         return '/request';
       case 'talk to sales':
         return '/request';
+      case 'contact us':
+        return CONTACT_MAILTO;
       default:
         return '/demo';
     }
   })();
+  const isMailto = targetHref.startsWith('mailto:');
+
+  if (isMailto) {
+    return (
+      <a
+        href={targetHref}
+        className={`${baseClasses} ${variantClasses} ${className}`}
+      >
+        <span>{textVariants[text]}</span>
+        <span ref={iconRef}>
+          <ArrowRight 
+            className={`w-4 h-4 transition-all duration-500 ${
+              isVisible 
+                ? 'opacity-100 translate-x-0' 
+                : 'opacity-0 -translate-x-2'
+            }`}
+          />
+        </span>
+      </a>
+    );
+  }
 
   return (
     <button
-      ref={buttonRef}
       type="button"
       className={`${baseClasses} ${variantClasses} ${className}`}
       onClick={() => {
-        if (targetHref) router.push(targetHref);
+        if (!targetHref) return;
+        router.push(targetHref);
       }}
     >
       <span>{textVariants[text]}</span>
-      <ArrowRight 
-        className={`w-4 h-4 transition-all duration-500 ${
-          isVisible 
-            ? 'opacity-100 translate-x-0' 
-            : 'opacity-0 -translate-x-2'
-        }`}
-      />
+      <span ref={iconRef}>
+        <ArrowRight 
+          className={`w-4 h-4 transition-all duration-500 ${
+            isVisible 
+              ? 'opacity-100 translate-x-0' 
+              : 'opacity-0 -translate-x-2'
+          }`}
+        />
+      </span>
     </button>
   );
 }
