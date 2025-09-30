@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { getNavigation } from "./lib/navigation";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import AutoReveal from "./components/AutoReveal";
+import SeoInjector from "./components/SeoInjector";
 
 const interFont = Inter({
   variable: "--font-inter",
@@ -41,6 +42,7 @@ export default function RootLayout({
       <body
         className={`${interFont.variable} antialiased`}
       >
+        <SeoInjector />
         <Navbar navigation={navigation} />
         {/* Global form progress bar just below the navbar */}
         <div

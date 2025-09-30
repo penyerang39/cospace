@@ -37,7 +37,7 @@ html {
   opacity: 0.001;
   transform: translateY(12px);
   transition-property: opacity, transform;
-  transition-duration: 600ms;
+  transition-duration: 500ms;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
@@ -47,13 +47,18 @@ html {
   transform: none;
   /* Keep transition on the element after reveal so the state change animates */
   transition-property: opacity, transform;
-  transition-duration: 600ms;
+  transition-duration: 500ms;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Group-level helper for staggered lists (opt-in) */
 [data-reveal-group] > * {
   transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Side-enter variants */
+.reveal-init[data-reveal-side='left'] {
+  transform: translate(-16px, 12px);
 }
 
 /* Typography System */

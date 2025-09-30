@@ -52,6 +52,12 @@ export default function AutoReveal() {
       // Add the element itself
       if (!el.classList.contains('reveal-visible')) {
         el.classList.add('reveal-init');
+        // If element appears visually on the left side of viewport, mark it for side-enter
+        const rect = el.getBoundingClientRect();
+        const viewportW = window.innerWidth || document.documentElement.clientWidth;
+        if (rect.left < viewportW * 0.33) {
+          el.setAttribute('data-reveal-side', 'left');
+        }
         allTargets.push(el);
       }
       // If it's a section, prepare its children for staggered reveal
@@ -60,6 +66,12 @@ export default function AutoReveal() {
         children.forEach((child) => {
           if (!child.classList.contains('reveal-visible')) {
             child.classList.add('reveal-init');
+            // Side detection for images/elements on the left half of section
+            const childRect = child.getBoundingClientRect();
+            const sectionRect = el.getBoundingClientRect();
+            if (childRect.left - sectionRect.left < sectionRect.width * 0.33) {
+              child.setAttribute('data-reveal-side', 'left');
+            }
             allTargets.push(child);
           }
         });
@@ -76,9 +88,17 @@ export default function AutoReveal() {
           // Stagger children if parent has many items
           const isSection = target.tagName.toLowerCase() === 'section';
           if (isSection) {
-            const children = target.querySelectorAll<HTMLElement>('.reveal-init');
+            // First, reveal the section itself
+            applyVisible(target);
+            // Then reveal its children after the section's transition ends
+            const children = Array.from(
+              target.querySelectorAll<HTMLElement>('.reveal-init')
+            );
+            const sectionDurationMs = 500; // keep in sync with CSS
             children.forEach((child, index) => {
-              applyVisible(child, Math.min(index * 60, 480));
+              const delay = sectionDurationMs + Math.min(index * 120, 960);
+              child.style.transitionDelay = `${delay}ms`;
+              applyVisible(child);
             });
           }
 
@@ -86,14 +106,14 @@ export default function AutoReveal() {
           if (target.classList.contains('reveal-init')) {
             // If part of a common list/grid, add a small per-item stagger
             const index = Array.from(target.parentElement?.children || []).indexOf(target);
-            const delay = index >= 0 ? Math.min(index * 70, 560) : 0;
+            const delay = index >= 0 ? Math.min(index * 120, 960) : 0;
             applyVisible(target, delay);
           }
 
           observer.unobserve(target);
         }
       }
-    }, { root: null, threshold: 0.05, rootMargin });
+    }, { root: null, threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
 
     allTargets.forEach((el) => observer.observe(el));
 
@@ -130,10 +150,10 @@ export default function AutoReveal() {
       const viewportH = window.innerHeight || document.documentElement.clientHeight;
       allTargets.forEach((el) => {
         const rect = el.getBoundingClientRect();
-        if (rect.top < viewportH * 0.9 && rect.bottom > 0) {
-          // Apply a minimal delay based on index within parent for subtle stagger
+        if (rect.top < viewportH * 0.75 && rect.bottom > 0) {
+          // Apply a slightly longer delay for initial in-view elements
           const index = Array.from(el.parentElement?.children || []).indexOf(el);
-          const delay = index >= 0 ? Math.min(index * 60, 480) : 0;
+          const delay = index >= 0 ? Math.min(index * 120, 960) : 0;
           applyVisible(el, delay);
           observer.unobserve(el);
         }
