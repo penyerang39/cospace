@@ -1,9 +1,9 @@
 export const navPreviews: Record<string, string> = {
-  '/product': '/product/updated_projects.png',
+  '/product': '/product/updated_data.png',
   '/product/appbuilder': '/product/Picture1.png',
   '/product/chat': '/product/updated_chat.png',
   '/product/data': '/product/updated_data.png',
-  '/product/files': '/product/updated_files.png',
+  '/product/files': '/product/files_main_screen.png',
   '/solutions': '/product/Picture2.png',
   '/solutions/design': '/product/Picture3.png',
   '/solutions/government': '/product/Picture4.png',

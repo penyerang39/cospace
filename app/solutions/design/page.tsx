@@ -2,49 +2,28 @@ import Image from "next/image";
 import { Palette, GitBranch, MessageCircle, Clock, Users, Share2, Eye, Layers } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
+import ScrollHint from "../../components/ScrollHint";
 
 export default function DesignPage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="section-padding min-h-[80vh] flex items-center">
+      <section className="section-padding min-h-screen flex items-center relative">
         <div className="max-width container-padding w-full">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            {/* Text content */}
-            <div className="order-2 md:order-1">
-              <h1 className="heading-1 mb-6">
-                <span className="gradient-text">Design</span> Solutions
-              </h1>
-              <p className="body-large mb-8 max-w-2xl">
-                Manage versions, share mocks, collect feedback, and ship on time. Link design tasks and specs to the latest files.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <CTAButton variant="primary" text="get started" />
-                <CTAButton variant="secondary" text="book a demo" />
-              </div>
-              <p className="body-small">
-                Trusted by design teams at 500+ companies.
-              </p>
-            </div>
-            {/* Image */}
-            <div className="order-1 md:order-2">
-              <div className="relative w-full aspect-[16/10] md:h-[60vh] overflow-hidden rounded-lg bg-foreground/2">
-                <Image
-                  src="/product/Picture1.png"
-                  alt="Design collaboration interface"
-                  fill
-                  priority
-                  className="object-contain"
-                  sizes="(min-width: 768px) 50vw, 90vw"
-                />
-              </div>
-            </div>
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="heading-1 mb-6">
+              <span className="gradient-text">Design</span> Solutions
+            </h1>
+            <p className="body-large mb-8 max-w-2xl mx-auto">
+              Manage versions, share mocks, collect feedback, and ship on time. Link design tasks and specs to the latest files.
+            </p>
           </div>
         </div>
+        <ScrollHint />
       </section>
 
       {/* Key Features Section */}
-      <section className="section-padding bg-foreground/2">
+      <section className="section-padding">
         <div className="max-width container-padding">
           <div className="text-center mb-16">
             <h2 className="heading-2 mb-4">Design workflow, perfected</h2>
@@ -117,27 +96,31 @@ export default function DesignPage() {
                 </div>
               </div>
             </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-foreground/2">
-              <Image
-                src="/product/Picture2.png"
-                alt="Design feedback interface"
-                fill
-                className="object-contain"
-                sizes="(min-width: 768px) 40vw, 90vw"
-              />
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image
+                  src="/product/Picture2.png"
+                  alt="Design feedback interface"
+                  width={1600}
+                  height={1200}
+                  className="w-full h-auto rounded-inherit"
+                />
+              </div>
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-foreground/2">
-                <Image
-                  src="/product/Picture3.png"
-                  alt="Design system management"
-                  fill
-                  className="object-contain"
-                  sizes="(min-width: 768px) 40vw, 90vw"
-                />
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image
+                    src="/product/Picture3.png"
+                    alt="Design system management"
+                    width={1600}
+                    height={1200}
+                    className="w-full h-auto rounded-inherit"
+                  />
+                </div>
               </div>
             </div>
             <div className="order-1 md:order-2">

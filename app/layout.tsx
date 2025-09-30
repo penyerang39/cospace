@@ -28,6 +28,26 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/favicon/site.webmanifest",
+  openGraph: {
+    title: "Cospace by NEO14",
+    description: "Cospace replaces a patchwork of tools (Slack, Dropbox, Asana, dashboards) with one secure workspace built for speed and clarity.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace by NEO14",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cospace by NEO14",
+    description: "Cospace replaces a patchwork of tools (Slack, Dropbox, Asana, dashboards) with one secure workspace built for speed and clarity.",
+    images: [
+      "/branding/neo14Logo.svg",
+    ],
+  },
 };
 
 export default function RootLayout({
