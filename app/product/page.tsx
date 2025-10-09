@@ -2,24 +2,17 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import CTAButton from "../components/CTAButton";
 import ScrollHint from "../components/ScrollHint";
+import PageMain from "../components/PageMain";
 
 export default function ProductPage() {
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding min-h-screen flex items-center relative">
-        <div className="max-width container-padding w-full">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="heading-1 mb-6">
-              Product <span className="gradient-text">Overview</span>
-            </h1>
-            <p className="body-large mb-8 max-w-2xl mx-auto">
-              Everything you need to work together—without switching apps.
-            </p>
-          </div>
-        </div>
+      <PageMain
+        title={<>Product <span className="gradient-text">Overview</span></>}
+        subtitle={<>Everything you need to work together—without switching apps.</>}
+      >
         <ScrollHint />
-      </section>
+      </PageMain>
 
       {/* Product Sections - full width rows, images within margins and not cropped */}
       {/* Chat & Meetings - image left (mobile image first), desktop text on right */}

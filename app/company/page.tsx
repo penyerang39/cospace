@@ -2,25 +2,19 @@ import { Building2, Users, Mail, ChevronDown } from "lucide-react";
 import CTAButton from "../components/CTAButton";
 import CTALink from "../components/CTALink";
 import ScrollHint from "../components/ScrollHint";
+import PageMain from "../components/PageMain";
 
 export default function CompanyPage() {
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding min-h-[80vh] flex items-center">
-        <div className="max-width container-padding w-full">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="heading-1 mb-6">
-              Meet the team building <span className="gradient-text">the future of work</span>
-            </h1>
-            <p className="body-large mb-8 max-w-2xl mx-auto">
-              NEO14 Technologies creates secure, integrated tools that help teams move faster with less noise. 
-              We're building the calm, complete workspace for modern teams.
-            </p>
-          </div>
-        </div>
+      <PageMain
+        title={<>Meet the team building <span className="gradient-text">the future of work</span></>}
+        subtitle={
+          <>NEO14 Technologies creates secure, integrated tools that help teams move faster with less noise. We're building the calm, complete workspace for modern teams.</>
+        }
+      >
         <ScrollHint />
-      </section>
+      </PageMain>
 
       {/* Company Sections Overview */}
       <section className="section-padding">

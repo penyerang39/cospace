@@ -48,7 +48,25 @@ export default function AutoReveal() {
       el.classList.remove('reveal-init');
       el.classList.add('reveal-visible');
     };
+    
+    // Helper to check if element or its ancestors have data-no-reveal
+    const shouldSkipReveal = (el: HTMLElement): boolean => {
+      let current: HTMLElement | null = el;
+      while (current) {
+        if (current.hasAttribute('data-no-reveal')) {
+          return true;
+        }
+        current = current.parentElement;
+      }
+      return false;
+    };
+    
     for (const el of itemNodeList) {
+      // Skip elements with data-no-reveal or inside data-no-reveal containers
+      if (shouldSkipReveal(el)) {
+        continue;
+      }
+      
       // Add the element itself
       if (!el.classList.contains('reveal-visible')) {
         el.classList.add('reveal-init');
@@ -64,6 +82,9 @@ export default function AutoReveal() {
       if (el.tagName.toLowerCase() === 'section') {
         const children = collectSectionChildren(el);
         children.forEach((child) => {
+          // Skip children inside data-no-reveal containers
+          if (shouldSkipReveal(child)) return;
+          
           if (!child.classList.contains('reveal-visible')) {
             child.classList.add('reveal-init');
             // Side detection for images/elements on the left half of section
@@ -122,6 +143,10 @@ export default function AutoReveal() {
       for (const mutation of mutations) {
         mutation.addedNodes.forEach((node) => {
           if (!(node instanceof HTMLElement)) return;
+          
+          // Skip if node or its ancestors have data-no-reveal
+          if (shouldSkipReveal(node)) return;
+          
           if (
             node.matches(itemSelectors) ||
             (node.parentElement && node.parentElement.matches('section'))
@@ -134,6 +159,9 @@ export default function AutoReveal() {
           // Also scan children of added subtree
           const subtree = node.querySelectorAll<HTMLElement>(itemSelectors);
           subtree.forEach((el) => {
+            // Skip if element or its ancestors have data-no-reveal
+            if (shouldSkipReveal(el)) return;
+            
             if (!el.classList.contains('reveal-visible')) {
               el.classList.add('reveal-init');
               observer.observe(el);

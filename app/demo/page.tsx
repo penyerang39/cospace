@@ -160,7 +160,7 @@ export default function DemoPage() {
     <div className="mx-auto max-w-3xl px-6 py-10">
       {/* uses global progress bar under Navbar */}
       <h1 className="heading-1 gradient-text h-flex pb-2">Book a Demo</h1>
-      <p className="mt-2 text-muted-foreground">Tell us about your needs. We’ll reach out shortly.</p>
+      <p className="mt-2 text-muted-foreground normal-text">Tell us about your needs. We'll reach out shortly.</p>
 
       <form
         onSubmit={onSubmit}
@@ -213,34 +213,34 @@ export default function DemoPage() {
           </div>
         )}
         <section className="space-y-4">
-          <h2 className="text-xl font-medium">Basic Contact Info</h2>
+          <h2 className="text-xl font-medium normal-text">Basic Contact Info</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span>Full Name</span>
-              <input name="fullName" className="border rounded px-3 py-2" required />
+              <span className="normal-text">Full Name</span>
+              <input name="fullName" className="rounded px-3 py-2" required />
             </label>
             <label className="flex flex-col gap-1">
-              <span>Work Email</span>
-              <input type="email" name="workEmail" className="border rounded px-3 py-2" required />
+              <span className="normal-text">Work Email</span>
+              <input type="email" name="workEmail" className="rounded px-3 py-2" required />
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
-              <span>Phone (optional)</span>
-              <input name="phone" className="border rounded px-3 py-2" />
+              <span className="normal-text">Phone (optional)</span>
+              <input name="phone" className="rounded px-3 py-2" />
             </label>
           </div>
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-medium">Company Information</h2>
+          <h2 className="text-xl font-medium normal-text">Company Information</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span>Company Name</span>
-              <input name="companyName" className="border rounded px-3 py-2" required />
+              <span className="normal-text">Company Name</span>
+              <input name="companyName" className="rounded px-3 py-2" required />
             </label>
             <label className="flex flex-col gap-1">
-              <span>Industry / Sector</span>
+              <span className="normal-text">Industry / Sector</span>
               <div className="relative">
-                <select name="industry" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="industry" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {industries.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -250,9 +250,9 @@ export default function DemoPage() {
               </div>
             </label>
             <label className="flex flex-col gap-1">
-              <span>Company Size</span>
+              <span className="normal-text">Company Size</span>
               <div className="relative">
-                <select name="companySize" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="companySize" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {companySizes.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -262,19 +262,19 @@ export default function DemoPage() {
               </div>
             </label>
             <label className="flex flex-col gap-1">
-              <span>Location (Country/Region)</span>
-              <input name="location" className="border rounded px-3 py-2" required />
+              <span className="normal-text">Location (Country/Region)</span>
+              <input name="location" className="rounded px-3 py-2" required />
             </label>
           </div>
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-medium">Use Case / Intent</h2>
+          <h2 className="text-xl font-medium normal-text">Use Case / Intent</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span>Projected Number of Users</span>
+              <span className="normal-text">Projected Number of Users</span>
               <div className="relative">
-                <select name="projectedUsers" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="projectedUsers" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {projectedUsers.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -284,9 +284,9 @@ export default function DemoPage() {
               </div>
             </label>
             <label className="flex flex-col gap-1">
-              <span>Deployment Preference</span>
+              <span className="normal-text">Deployment Preference</span>
               <div className="relative">
-                <select name="deploymentPreference" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="deploymentPreference" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {deployment.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -296,30 +296,30 @@ export default function DemoPage() {
               </div>
             </label>
             <div className="sm:col-span-2">
-              <span className="block mb-2">Primary Interest in Cospace</span>
+              <span className="block mb-2 normal-text">Primary Interest in Cospace</span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {interests.map((v) => (
-                  <label key={v} className="flex items-center gap-2 border rounded px-3 py-2 min-h-[44px]">
+                  <label key={v} className="flex items-center gap-2 rounded px-3 py-2 min-h-[44px] border">
                     <input type="checkbox" name="primaryInterest" value={v} className="h-5 w-5 shrink-0" />
-                    <span>{v}</span>
+                    <span className="normal-text">{v}</span>
                   </label>
                 ))}
               </div>
             </div>
             <label className="flex flex-col gap-1 sm:col-span-2">
-              <span>Your Biggest Current Challenge</span>
-              <input name="biggestChallenge" className="border rounded px-3 py-2" placeholder="e.g., data silos, security, cost of multiple tools" required />
+              <span className="normal-text">Your Biggest Current Challenge</span>
+              <input name="biggestChallenge" className="rounded px-3 py-2 normal-text" placeholder="e.g., data silos, security, cost of multiple tools" required />
             </label>
           </div>
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-medium">Qualification & Follow-Up</h2>
+          <h2 className="text-xl font-medium normal-text">Qualification & Follow-Up</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span>Are you evaluating for</span>
+              <span className="normal-text">Are you evaluating for</span>
               <div className="relative">
-                <select name="evaluatingFor" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="evaluatingFor" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {evaluatingFor.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -329,9 +329,9 @@ export default function DemoPage() {
               </div>
             </label>
             <label className="flex flex-col gap-1">
-              <span>When do you plan to implement?</span>
+              <span className="normal-text">When do you plan to implement?</span>
               <div className="relative">
-                <select name="implementationTimeline" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="implementationTimeline" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {timelines.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -341,9 +341,9 @@ export default function DemoPage() {
               </div>
             </label>
             <label className="flex flex-col gap-1">
-              <span>Would you like a live demo?</span>
+              <span className="normal-text">Would you like a live demo?</span>
               <div className="relative">
-                <select name="wantsLiveDemo" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent">
+                <select name="wantsLiveDemo" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent">
                   <option>No</option>
                   <option>Yes</option>
                 </select>
@@ -354,10 +354,10 @@ export default function DemoPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-medium">Consent / Marketing</h2>
+          <h2 className="text-xl font-medium normal-text">Consent / Marketing</h2>
           <label className="flex items-start gap-3 py-2 min-h-[44px]">
             <input type="checkbox" name="consent" required className="mt-0.5 h-5 w-5 shrink-0" />
-            <span>
+            <span className="normal-text">
               I agree to receive demo access and related communication from Neo14 Technologies. Read our
               {' '}<Link href="/legal/privacy" className="underline">Privacy Policy</Link>.
             </span>
@@ -365,10 +365,10 @@ export default function DemoPage() {
         </section>
 
         {error && (
-          <div className="text-red-600">{error}</div>
+          <div className="text-red-600 normal-text">{error}</div>
         )}
         {success && (
-          <div className="text-green-700">Thanks! We'll reach out shortly.</div>
+          <div className="text-green-700 normal-text">Thanks! We'll reach out shortly.</div>
         )}
 
         <button

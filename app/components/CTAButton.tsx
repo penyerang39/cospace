@@ -73,6 +73,14 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
       <a
         href={targetHref}
         className={`${baseClasses} ${variantClasses} ${className}`}
+        target="_self"
+        rel="noopener noreferrer"
+        onClick={(e) => {
+          // Ensure native handler prompt by forcing a direct navigation
+          // Some SPA routers or browser settings may ignore bare mailto anchors
+          e.preventDefault();
+          window.location.href = targetHref;
+        }}
       >
         <span>{textVariants[text]}</span>
         <span ref={iconRef}>

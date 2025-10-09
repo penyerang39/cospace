@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from "lucide-react";
 import CTAButton from "../components/CTAButton";
+import PageMain from "../components/PageMain";
 
 export default function PricingPage() {
   const [openFAQ, setOpenFAQ] = React.useState<number | null>(null);
@@ -32,27 +33,14 @@ export default function PricingPage() {
 
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding min-h-[80vh] flex items-center">
-        <div className="max-width container-padding w-full">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="heading-1 mb-6">
-              Simple plans that <span className="gradient-text">scale with you</span>
-            </h1>
-            <p className="body-large mb-8 max-w-2xl mx-auto">
-              Choose the plan that fits your team. All plans include our core collaboration features with transparent, usage-based pricing.
-            </p>
-            <p className="body-text mb-12">
-              Annual discount ~20% • Monthly billing available • Nonprofit & education discounts on request
-            </p>
-            <div className="max-w-2xl mx-auto p-4 rounded-lg bg-muted/30 border border-border/50">
-              <p className="body-small text-muted-foreground text-center">
-                Pricing is tailored to your company size, deployment type, and use case. As a guideline, most Cospace clients invest between $12–$60 per user/month, depending on configuration. For enterprises and white-label partners, we provide custom plans.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageMain
+        title={<>Simple plans that <span className="gradient-text">scale with you</span></>}
+        subtitle={
+          <>
+            Choose the plan that fits your team. All plans include our core collaboration features with transparent, usage-based pricing.
+          </>
+        }
+      />
 
       {/* Pricing Plans */}
       <section className="section-padding">

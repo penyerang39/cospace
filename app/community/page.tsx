@@ -1,30 +1,19 @@
 import { Users, MessageCircle, Calendar, BookOpen, Lightbulb, Star, ArrowRight } from "lucide-react";
 import CTAButton from "../components/CTAButton";
 import CTALink from "../components/CTALink";
+import PageMain from "../components/PageMain";
 
 export default function CommunityPage() {
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding min-h-[80vh] flex items-center">
-        <div className="max-width container-padding w-full">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="heading-1 mb-6">
-              <span className="gradient-text">Build better workflows</span> with others
-            </h1>
-            <p className="body-large mb-8 max-w-2xl mx-auto">
-              Join thousands of teams sharing tips, templates, and best practices. Get inspired, get help, and help others succeed.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <CTAButton variant="primary" text="get started" />
-              <CTAButton variant="secondary" text="book a demo" />
-            </div>
-            <p className="body-small">
-              15,000+ active community members • 500+ shared templates • Weekly events
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageMain
+        title={<><span className="gradient-text">Build better workflows</span> with others</>}
+        subtitle={
+          <>
+            Join thousands of teams sharing tips, templates, and best practices. Get inspired, get help, and help others succeed.
+          </>
+        }
+      />
 
       {/* Community Features */}
       <section className="section-padding bg-foreground/2">

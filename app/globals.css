@@ -4,7 +4,7 @@
   --background: #ffffff;
   --foreground: #171717;
   --accent: #679bff;
-  --muted: #868686;
+  --muted: #7D8DAA;
 }
 
 @theme inline {
@@ -25,6 +25,12 @@ body {
 img, image, picture, canvas, video {
   image-rendering: auto;
   -ms-interpolation-mode: bicubic; /* legacy IE */
+}
+
+/* Normal text capitalization - forces proper sentence case */
+.normal-text {
+  text-transform: none !important;
+  font-variant: normal !important;
 }
 
 html {
@@ -408,7 +414,7 @@ html {
   }
 }
 
-/* Form Controls Focus Styles */
+/* Form Controls Default Styles */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -417,7 +423,11 @@ input[type="number"],
 select,
 textarea {
   outline: none;
+  border: 1px solid color-mix(in srgb, var(--muted) 40%, transparent);
+  background: var(--background);
 }
+
+/* Form Controls Focus Styles */
 
 input[type="text"]:focus,
 input[type="email"]:focus,

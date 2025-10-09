@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     // Let Next generate multiple DPR variants and choose based on device pixel ratio
     deviceSizes: [320, 640, 768, 1024, 1280, 1536, 1920, 2560, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    qualities: [25, 50, 90],
     formats: ["image/avif", "image/webp"],
   },
 };

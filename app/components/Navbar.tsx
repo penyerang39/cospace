@@ -42,10 +42,25 @@ function useRandomProductImage() {
 function Dropdown({ group }: { group: MenuGroup }) {
   const [open, setOpen] = useState(false);
   const [hoverHref, setHoverHref] = useState<string | undefined>(undefined);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const fallbackImage = useRandomProductImage();
   const activeHref = hoverHref || group.href;
   const previewSrc = (activeHref && (previews as Record<string, string>)[activeHref]) || fallbackImage;
   const hasChildren = (group.items?.length ?? 0) > 0;
+
+  const handleMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setOpen(false);
+    }, 200);
+  };
 
   if (!hasChildren) {
     return (
@@ -65,8 +80,8 @@ function Dropdown({ group }: { group: MenuGroup }) {
   return (
     <li
       className="h-16 flex items-stretch relative group"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <Link
         className="px-4 h-full flex items-center text-foreground hover:text-foreground/80 transition-colors duration-200 font-medium relative"
@@ -89,6 +104,8 @@ function Dropdown({ group }: { group: MenuGroup }) {
         }`}
         role="menu"
         style={{ top: '4rem' }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-12 gap-8 p-8">
@@ -176,7 +193,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
               alt="Cospace by NEO14" 
               width={120} 
               height={32} 
-              className="transition-transform duration-200 group-hover:scale-105"
+              className="transition-transform duration-200"
             />
           </Link>
 
@@ -221,7 +238,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
                 alt="Cospace by NEO14" 
                 width={120} 
                 height={32} 
-                className="transition-transform duration-200 group-hover:scale-105"
+                className="transition-transform duration-200"
               />
             </Link>
             <button

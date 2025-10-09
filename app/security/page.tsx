@@ -2,23 +2,15 @@ import Image from "next/image";
 import { Shield, Lock, Eye, Globe, FileCheck, Users, Key, AlertTriangle } from "lucide-react";
 import CTAButton from "../components/CTAButton";
 import CTALink from "../components/CTALink";
+import PageMain from "../components/PageMain";
 
 export default function SecurityPage() {
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding min-h-screen flex items-center">
-        <div className="max-width container-padding w-full">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="heading-1 mb-6">
-              <span className="gradient-text">Private</span> by Design
-            </h1>
-            <p className="body-large mb-8 max-w-2xl mx-auto">
-              Enterprise-grade security and compliance built into every layer. Your data stays protected, your team stays productive.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageMain
+        title={<><span className="gradient-text">Private</span> by Design</>}
+        subtitle={<>Enterprise-grade security and compliance built into every layer. Your data stays protected, your team stays productive.</>}
+      />
 
       {/* Encryption & Data Protection - image left */}
       <section className="min-h-[80vh] flex items-stretch">

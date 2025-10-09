@@ -15,6 +15,8 @@ alwaysApply: true
 3. Follow the principle of least privilege - only add dependencies and complexity when necessary
 4. Write self-documenting code with clear, descriptive variable and function names
 5. Use consistent styling, ' over " unless necessary, camelCase for components, kebab-case for images, etc. 
+6. Never use emojis for any reason unless explicitly requested to.
+7. Heavily focus on DRY "Do not repeat yourself" principles for all elements, create reusable components for anything you use more than ones, create classes any time you reuse several variables across elements.
 
 ## Component Architecture:
 1. Create reusable components in `/components` directory with proper TypeScript interfaces

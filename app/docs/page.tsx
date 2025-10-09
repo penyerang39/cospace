@@ -1,30 +1,16 @@
 import { BookOpen, ArrowRight, Users, MessageSquare, FileText, Blocks, BarChart3, Shield, Code, Zap } from "lucide-react";
 import CTAButton from "../components/CTAButton";
 import CTALink from "../components/CTALink";
+import PageMain from "../components/PageMain";
 
 export default function DocsPage() {
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding min-h-[80vh] flex items-center">
-        <div className="max-width container-padding w-full">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="heading-1 mb-6">
-              <span className="gradient-text">Documentation</span>
-            </h1>
-            <p className="body-large mb-8 max-w-2xl mx-auto">
-              Guides to get productive fast. Everything you need to master Cospace and build better workflows for your team.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <CTAButton variant="primary" text="get started" />
-              <CTAButton variant="secondary" text="book a demo" />
-            </div>
-            <p className="body-small">
-              Updated daily • Searchable • Available in multiple languages
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageMain
+        fullHeight={false}
+        title={<><span className="gradient-text">Documentation</span></>}
+        subtitle={<>Guides to get productive fast. Everything you need to master Cospace and build better workflows for your team.</>}
+      />
 
       {/* Quick Start Section */}
       <section className="section-padding bg-foreground/2">

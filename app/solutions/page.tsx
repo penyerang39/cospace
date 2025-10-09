@@ -3,24 +3,17 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import CTAButton from '../components/CTAButton';
 import ScrollHint from '../components/ScrollHint';
+import PageMain from '../components/PageMain';
 
 export default function SolutionsPage() {
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding min-h-screen flex items-center relative">
-        <div className="max-width container-padding w-full">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="heading-1 mb-6">
-              Solutions <span className="gradient-text">Overview</span>
-            </h1>
-            <p className="body-large mb-8 max-w-2xl mx-auto">
-              Tailored workflows for every team: marketing, design, software, and government. Explore how Cospace unifies chat, files, docs, and data.
-            </p>
-          </div>
-        </div>
+      <PageMain
+        title={<>Solutions <span className="gradient-text">Overview</span></>}
+        subtitle={<>Tailored workflows for every team: marketing, design, software, and government. Explore how Cospace unifies chat, files, docs, and data.</>}
+      >
         <ScrollHint />
-      </section>
+      </PageMain>
 
       {/* Marketing - image left */}
       <section className="min-h-[80vh] flex items-stretch">

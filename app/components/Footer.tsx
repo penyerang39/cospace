@@ -10,7 +10,7 @@ export default function Footer() {
   const groupsWithoutChildren = navigation.filter(group => !group.items || group.items.length === 0);
 
   return (
-    <footer className="bg-accent text-white">
+    <footer className="bg-accent text-white relative">
       <div className="max-width container-padding py-8">
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6">
           {/* Links organized by sections - dynamic flex layout that compresses */}
@@ -72,6 +72,12 @@ export default function Footer() {
               © {currentYear} Neo14 Technologies, Inc. All rights reserved.
             </p>
           </div>
+        </div>
+      </div>
+      {/* Large watermark text */}
+      <div className=" w-full overflow-hidden pointer-events-none">
+        <div className="text-[20vw] font-black text-white/5 leading-none select-none transform translate-y-1/2">
+        COSPACE
         </div>
       </div>
     </footer>

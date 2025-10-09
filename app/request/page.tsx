@@ -149,7 +149,7 @@ export default function RequestPricingPage() {
   return (
     <div className="mx-auto max-w-3xl h-flex px-6 py-10">
       <h1 className="heading-1 gradient-text h-flex pb-2">Request Pricing</h1>
-      <p className="mt-2 text-muted-foreground">Share your requirements and we'll send an indicative proposal.</p>
+      <p className="mt-2 text-muted-foreground normal-text">Share your requirements and we'll send an indicative proposal.</p>
 
       <form onSubmit={onSubmit} onChange={(e) => computeProgress(e.currentTarget as HTMLFormElement)} className="mt-8 space-y-6">
         {process.env.NODE_ENV !== 'production' && (
@@ -191,38 +191,38 @@ export default function RequestPricingPage() {
         )}
 
         <section className="space-y-4">
-          <h2 className="text-xl font-medium">Contact Info</h2>
+          <h2 className="text-xl font-medium normal-text">Contact Info</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span>Full Name</span>
-              <input name="fullName" className="border rounded px-3 py-2" required />
+              <span className="normal-text">Full Name</span>
+              <input name="fullName" className="rounded px-3 py-2" required />
             </label>
             <label className="flex flex-col gap-1">
-              <span>Work Email</span>
-              <input type="email" name="workEmail" className="border rounded px-3 py-2" required />
+              <span className="normal-text">Work Email</span>
+              <input type="email" name="workEmail" className="rounded px-3 py-2" required />
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
-              <span>Phone (optional)</span>
-              <input name="phone" className="border rounded px-3 py-2" />
+              <span className="normal-text">Phone (optional)</span>
+              <input name="phone" className="rounded px-3 py-2" />
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
-              <span>Company Name</span>
-              <input name="companyName" className="border rounded px-3 py-2" required />
+              <span className="normal-text">Company Name</span>
+              <input name="companyName" className="rounded px-3 py-2" required />
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
-              <span>Company Profile</span>
-              <input name="companyProfile" className="border rounded px-3 py-2" placeholder="Briefly describe your company" required />
+              <span className="normal-text">Company Profile</span>
+              <input name="companyProfile" className="rounded px-3 py-2 normal-text" placeholder="Briefly describe your company" required />
             </label>
           </div>
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-medium">Company</h2>
+          <h2 className="text-xl font-medium normal-text">Company</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span>Industry / Sector</span>
+              <span className="normal-text">Industry / Sector</span>
               <div className="relative">
-                <select name="industry" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="industry" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {industries.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -232,9 +232,9 @@ export default function RequestPricingPage() {
               </div>
             </label>
             <label className="flex flex-col gap-1">
-              <span>Company Size (Employees)</span>
+              <span className="normal-text">Company Size (Employees)</span>
               <div className="relative">
-                <select name="companySize" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="companySize" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {companySizes.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -244,19 +244,19 @@ export default function RequestPricingPage() {
               </div>
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
-              <span>Location (Country/Region)</span>
-              <input name="location" className="border rounded px-3 py-2" required />
+              <span className="normal-text">Location (Country/Region)</span>
+              <input name="location" className="rounded px-3 py-2" required />
             </label>
           </div>
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-medium">Usage Needs</h2>
+          <h2 className="text-xl font-medium normal-text">Usage Needs</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span>Estimated Number of Users</span>
+              <span className="normal-text">Estimated Number of Users</span>
               <div className="relative">
-                <select name="estimatedUsers" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="estimatedUsers" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {estimatedUsers.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -266,20 +266,20 @@ export default function RequestPricingPage() {
               </div>
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
-              <span>Expected Use Cases</span>
+              <span className="normal-text">Expected Use Cases</span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {expectedUseCases.map((v) => (
                   <label key={v} className="flex items-center gap-2 border rounded px-3 py-2 min-h-[44px]">
                     <input type="checkbox" name="expectedUseCases" value={v} className="h-5 w-5 shrink-0" />
-                    <span>{v}</span>
+                    <span className="normal-text">{v}</span>
                   </label>
                 ))}
               </div>
             </label>
             <label className="flex flex-col gap-1">
-              <span>Preferred Deployment</span>
+              <span className="normal-text">Preferred Deployment</span>
               <div className="relative">
-                <select name="preferredDeployment" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="preferredDeployment" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {deployment.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -292,12 +292,12 @@ export default function RequestPricingPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-medium">Timeline & Budget</h2>
+          <h2 className="text-xl font-medium normal-text">Timeline & Budget</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span>When are you planning to implement?</span>
+              <span className="normal-text">When are you planning to implement?</span>
               <div className="relative">
-                <select name="implementationTimeline" className="border rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="implementationTimeline" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
                   <option value="">Select…</option>
                   {timelines.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -307,26 +307,26 @@ export default function RequestPricingPage() {
               </div>
             </label>
             <label className="flex flex-col gap-1">
-              <span>What is your budget range (per month/year)?</span>
-              <input name="budgetRange" className="border rounded px-3 py-2" placeholder="$X – $Y / month or year" required />
+              <span className="normal-text">What is your budget range (per month/year)?</span>
+              <input name="budgetRange" className="rounded px-3 py-2 normal-text" placeholder="$X – $Y / month or year" required />
             </label>
           </div>
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-medium">Follow-Up Options</h2>
+          <h2 className="text-xl font-medium normal-text">Follow-Up Options</h2>
           <label className="flex items-start gap-3 py-2 min-h-[44px]">
             <input type="checkbox" name="wantsProposal" className="mt-0.5 h-5 w-5 shrink-0" />
-            <span>Please send me an indicative pricing proposal</span>
+            <span className="normal-text">Please send me an indicative pricing proposal</span>
           </label>
           <label className="flex items-start gap-3 py-2 min-h-[44px]">
             <input type="checkbox" name="wantsCall" className="mt-0.5 h-5 w-5 shrink-0" />
-            <span>I would like to schedule a call to discuss pricing in detail</span>
+            <span className="normal-text">I would like to schedule a call to discuss pricing in detail</span>
           </label>
         </section>
 
-        {error && <div className="text-red-600">{error}</div>}
-        {success && <div className="text-green-700">Thanks! We'll send pricing details soon.</div>}
+        {error && <div className="text-red-600 normal-text">{error}</div>}
+        {success && <div className="text-green-700 normal-text">Thanks! We'll send pricing details soon.</div>}
 
         <button type="submit" disabled={submitting} className="inline-flex items-center justify-center rounded bg-black px-4 py-2 text-white disabled:opacity-60">
           {submitting ? 'Submitting…' : 'Request Pricing'}
