@@ -7,7 +7,6 @@ export default function DocsPage() {
   return (
     <main className="min-h-screen">
       <PageMain
-        fullHeight={false}
         title={<><span className="gradient-text">Documentation</span></>}
         subtitle={<>Guides to get productive fast. Everything you need to master Cospace and build better workflows for your team.</>}
       />

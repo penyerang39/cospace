@@ -539,7 +539,7 @@ export default function Home() {
                 <ul className="space-y-3" role="list">
                   <li className="flex items-center gap-3">
                     <ShieldCheck className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">FedRAMP authorized with ATO ready</span>
+                    <span className="body-text">FedRAMP ready with AOT</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <Lock className="w-5 h-5 text-accent" aria-hidden="true" />
