@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 
+
 const industries = [
   'Telecom',
   'Legal',
@@ -217,15 +218,15 @@ export default function DemoPage() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
               <span className="normal-text">Full Name</span>
-              <input name="fullName" className="rounded px-3 py-2" required />
+              <input name="fullName" className="form-input" required />
             </label>
             <label className="flex flex-col gap-1">
               <span className="normal-text">Work Email</span>
-              <input type="email" name="workEmail" className="rounded px-3 py-2" required />
+              <input type="email" name="workEmail" className="form-input" required />
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
               <span className="normal-text">Phone (optional)</span>
-              <input name="phone" className="rounded px-3 py-2" />
+              <input name="phone" className="form-input" />
             </label>
           </div>
         </section>
@@ -235,12 +236,12 @@ export default function DemoPage() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
               <span className="normal-text">Company Name</span>
-              <input name="companyName" className="rounded px-3 py-2" required />
+              <input name="companyName" className="form-input" required />
             </label>
             <label className="flex flex-col gap-1">
               <span className="normal-text">Industry / Sector</span>
               <div className="relative">
-                <select name="industry" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="industry" className="form-select" required>
                   <option value="">Select…</option>
                   {industries.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -252,7 +253,7 @@ export default function DemoPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">Company Size</span>
               <div className="relative">
-                <select name="companySize" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="companySize" className="form-select" required>
                   <option value="">Select…</option>
                   {companySizes.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -263,7 +264,7 @@ export default function DemoPage() {
             </label>
             <label className="flex flex-col gap-1">
               <span className="normal-text">Location (Country/Region)</span>
-              <input name="location" className="rounded px-3 py-2" required />
+              <input name="location" className="form-input" required />
             </label>
           </div>
         </section>
@@ -274,7 +275,7 @@ export default function DemoPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">Projected Number of Users</span>
               <div className="relative">
-                <select name="projectedUsers" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="projectedUsers" className="form-select" required>
                   <option value="">Select…</option>
                   {projectedUsers.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -286,7 +287,7 @@ export default function DemoPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">Deployment Preference</span>
               <div className="relative">
-                <select name="deploymentPreference" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="deploymentPreference" className="form-select" required>
                   <option value="">Select…</option>
                   {deployment.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -299,7 +300,7 @@ export default function DemoPage() {
               <span className="block mb-2 normal-text">Primary Interest in Cospace</span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {interests.map((v) => (
-                  <label key={v} className="flex items-center gap-2 rounded px-3 py-2 min-h-[44px] border">
+                  <label key={v} className="form-checkbox">
                     <input type="checkbox" name="primaryInterest" value={v} className="h-5 w-5 shrink-0" />
                     <span className="normal-text">{v}</span>
                   </label>
@@ -308,7 +309,7 @@ export default function DemoPage() {
             </div>
             <label className="flex flex-col gap-1 sm:col-span-2">
               <span className="normal-text">Your Biggest Current Challenge</span>
-              <input name="biggestChallenge" className="rounded px-3 py-2 normal-text" placeholder="e.g., data silos, security, cost of multiple tools" required />
+              <input name="biggestChallenge" className="form-input" placeholder="e.g., data silos, security, cost of multiple tools" required />
             </label>
           </div>
         </section>
@@ -319,7 +320,7 @@ export default function DemoPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">Are you evaluating for</span>
               <div className="relative">
-                <select name="evaluatingFor" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="evaluatingFor" className="form-select" required>
                   <option value="">Select…</option>
                   {evaluatingFor.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -331,7 +332,7 @@ export default function DemoPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">When do you plan to implement?</span>
               <div className="relative">
-                <select name="implementationTimeline" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="implementationTimeline" className="form-select" required>
                   <option value="">Select…</option>
                   {timelines.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -343,7 +344,7 @@ export default function DemoPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">Would you like a live demo?</span>
               <div className="relative">
-                <select name="wantsLiveDemo" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent">
+                <select name="wantsLiveDemo" className="form-select">
                   <option>No</option>
                   <option>Yes</option>
                 </select>

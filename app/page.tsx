@@ -1,16 +1,39 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { LayoutDashboard, Zap, ShieldCheck, Sparkles, Users, Activity, Globe, MessageSquare, FileText, Blocks, BarChart3, Hash, Mic, Video, Search, Clock, UserPlus, History, Share2, Lock, MessageCircle, GitBranch, Download, Database, Bell, Brain, TrendingUp, RefreshCw, AlertTriangle, Workflow, Settings, Play, Code, Bug, Rocket, CheckCircle, Target, Calendar, Megaphone, Palette, Layers, Eye, ChevronDown } from "lucide-react";
 import CTAButton from "./components/CTAButton";
 import CTALink from "./components/CTALink";
 
+export const metadata: Metadata = {
+  title: "Cospace by NEO14 — Your private digital office",
+  description: "Chat, files, tasks, meetings, and live dashboards in one secure workspace. Replace app‑sprawl with clarity. Free plan available.",
+  openGraph: {
+    title: "Cospace by NEO14 — Your private digital office",
+    description: "Chat, files, tasks, meetings, and live dashboards in one secure workspace. Replace app‑sprawl with clarity. Free plan available.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace by NEO14",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cospace by NEO14 — Your private digital office",
+    description: "Chat, files, tasks, meetings, and live dashboards in one secure workspace. Replace app‑sprawl with clarity. Free plan available.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
+
 export default function Home() {
   return (
-    <main className="md:min-h-screen">
+    <main className="min-h-screen">
       {/* Hero Section */}
       <section className="section-padding md:min-h-screen flex items-center relative overflow-hidden">
         {/* Animated Background - extends beyond section */}
         <div className="absolute -top-32 -bottom-32 -left-1/4 -right-1/4 w-[150%] h-[150%]">
-          <div className="animated-gradient-bg"></div>
           <div className="noise-overlay"></div>
         </div>
         
@@ -200,368 +223,388 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== PRODUCT FEATURES SECTION ===== */}
-      <section className="section-padding bg-foreground/2" aria-labelledby="product-features-heading">
+      {/* ===== PRODUCT FEATURES HEADER ===== */}
+      <section className="section-padding" aria-labelledby="product-features-heading">
         <div className="max-width container-padding">
-          <header className="text-center mb-16">
+          <header className="text-center">
             <h2 id="product-features-heading" className="heading-2 mb-4">Product Features</h2>
             <p className="body-large max-w-2xl mx-auto">
               Everything you need to collaborate, create, and manage your work.
             </p>
           </header>
-
-          {/* Chat & Meetings */}
-          <article className="mb-20">
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-              <div>
-                <h3 className="heading-3 mb-4">Chat & Meetings</h3>
-                <p className="body-text mb-6">
-                  Conversations that stay connected to the work. Channels for teams, threads for focus, and instant video calls when you need them.
-                </p>
-                <ul className="space-y-3" role="list">
-                  <li className="flex items-center gap-3">
-                    <Hash className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Organized channels with searchable history</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <MessageSquare className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Threads that keep discussions tidy</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Mic className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Voice clips for async updates</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Video className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">1-click huddles with screen sharing</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="gradient-border rounded-lg">
-                <div className="image-frame-inner rounded-inherit">
-                  <Image
-                    src="/product/updated_chat.png"
-                    alt="Chat & Meetings interface"
-                    width={1600}
-                    height={1200}
-                    className="w-full h-auto rounded-inherit"
-                  />
-                </div>
-              </div>
-            </div>
-          </article>
-
-          {/* Files & Docs */}
-          <article className="mb-20">
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-              <div className="order-2 md:order-1">
-                <div className="gradient-border rounded-lg">
-                  <div className="image-frame-inner rounded-inherit">
-                    <Image
-                      src="/product/files_main_screen.png"
-                      alt="Files & Docs interface"
-                      width={1600}
-                      height={1200}
-                      className="w-full h-auto rounded-inherit"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="order-1 md:order-2">
-                <h3 className="heading-3 mb-4">Files & Docs</h3>
-                <p className="body-text mb-6">
-                  Create, share, and ship together. Real-time collaboration with version control that actually works.
-                </p>
-                <ul className="space-y-3" role="list">
-                  <li className="flex items-center gap-3">
-                    <FileText className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Real-time co-editing without conflicts</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <MessageCircle className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Comments & suggestions in context</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <History className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Full version history with diff view</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Lock className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Granular permissions & secure sharing</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
-
-          {/* AppBuilder */}
-          <article className="mb-20">
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-              <div>
-                <h3 className="heading-3 mb-4">AppBuilder</h3>
-                <p className="body-text mb-6">
-                  Internal tools without ticketing the dev team. Build forms, dashboards, and workflows visually in minutes.
-                </p>
-                <ul className="space-y-3" role="list">
-                  <li className="flex items-center gap-3">
-                    <Blocks className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Point-and-click visual builder</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Database className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Connect Google Sheets, Postgres, APIs</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Workflow className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Automate approvals & notifications</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <ShieldCheck className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Granular permissions per app</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="gradient-border rounded-lg">
-                <div className="image-frame-inner rounded-inherit">
-                  <Image
-                    src="/product/datamodel.png"
-                    alt="AppBuilder interface"
-                    width={1600}
-                    height={1200}
-                    className="w-full h-auto rounded-inherit"
-                  />
-                </div>
-              </div>
-            </div>
-          </article>
-
-          {/* Data & Dashboards */}
-          <article className="mb-20">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="order-2 md:order-1">
-                <div className="gradient-border rounded-lg">
-                  <div className="image-frame-inner rounded-inherit">
-                    <Image
-                      src="/product/dashboards.png"
-                      alt="Data & Dashboards interface"
-                      width={1600}
-                      height={1200}
-                      className="w-full h-auto rounded-inherit"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="order-1 md:order-2">
-                <h3 className="heading-3 mb-4">Data & Dashboards</h3>
-                <p className="body-text mb-6">
-                  All your key metrics—live and trustworthy. Connect data sources, build charts, and get AI insights without the complexity.
-                </p>
-                <ul className="space-y-3" role="list">
-                  <li className="flex items-center gap-3">
-                    <Database className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">No-code connections to any data source</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <BarChart3 className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Live charts & tables with smart formatting</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Brain className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">AI insights & trend analysis</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Bell className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Smart alerting when metrics change</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
         </div>
       </section>
 
-      {/* ===== SOLUTIONS SECTION ===== */}
-      <section className="section-padding" aria-labelledby="solutions-heading">
+      {/* Chat & Meetings */}
+      <section className="section-padding">
         <div className="max-width container-padding">
-          <header className="text-center mb-16">
-            <h2 id="solutions-heading" className="heading-2 mb-4">Solutions by Industry</h2>
-            <p className="body-large max-w-2xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="heading-3 mb-4">Chat & Meetings</h3>
+              <p className="body-text mb-6">
+                Conversations that stay connected to the work. Channels for teams, threads for focus, and instant video calls when you need them.
+              </p>
+              <ul className="space-y-3" role="list">
+                <li className="flex items-center gap-3">
+                  <Hash className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Organized channels with searchable history</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <MessageSquare className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Threads that keep discussions tidy</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Mic className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Voice clips for async updates</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Video className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">1-click huddles with screen sharing</span>
+                </li>
+              </ul>
+            </div>
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image
+                  src="/product/updated_chat.png"
+                  alt="Chat & Meetings interface"
+                  width={1600}
+                  height={1200}
+                  className="w-full h-auto rounded-inherit"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Files & Docs */}
+      <section className="section-padding">
+        <div className="max-width container-padding">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image
+                    src="/product/files_main_screen.png"
+                    alt="Files & Docs interface"
+                    width={1600}
+                    height={1200}
+                    className="w-full h-auto rounded-inherit"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <h3 className="heading-3 mb-4">Files & Docs</h3>
+              <p className="body-text mb-6">
+                Create, share, and ship together. Real-time collaboration with version control that actually works.
+              </p>
+              <ul className="space-y-3" role="list">
+                <li className="flex items-center gap-3">
+                  <FileText className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Real-time co-editing without conflicts</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <MessageCircle className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Comments & suggestions in context</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <History className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Full version history with diff view</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Lock className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Granular permissions & secure sharing</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AppBuilder */}
+      <section className="section-padding">
+        <div className="max-width container-padding">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="heading-3 mb-4">AppBuilder</h3>
+              <p className="body-text mb-6">
+                Internal tools without ticketing the dev team. Build forms, dashboards, and workflows visually in minutes.
+              </p>
+              <ul className="space-y-3" role="list">
+                <li className="flex items-center gap-3">
+                  <Blocks className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Point-and-click visual builder</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Database className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Connect Google Sheets, Postgres, APIs</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Workflow className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Automate approvals & notifications</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <ShieldCheck className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Granular permissions per app</span>
+                </li>
+              </ul>
+            </div>
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image
+                  src="/product/datamodel.png"
+                  alt="AppBuilder interface"
+                  width={1600}
+                  height={1200}
+                  className="w-full h-auto rounded-inherit"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Data & Dashboards */}
+      <section className="section-padding">
+        <div className="max-width container-padding">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image
+                    src="/product/dashboards.png"
+                    alt="Data & Dashboards interface"
+                    width={1600}
+                    height={1200}
+                    className="w-full h-auto rounded-inherit"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <h3 className="heading-3 mb-4">Data & Dashboards</h3>
+              <p className="body-text mb-6">
+                All your key metrics—live and trustworthy. Connect data sources, build charts, and get AI insights without the complexity.
+              </p>
+              <ul className="space-y-3" role="list">
+                <li className="flex items-center gap-3">
+                  <Database className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">No-code connections to any data source</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <BarChart3 className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Live charts & tables with smart formatting</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Brain className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">AI insights & trend analysis</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Bell className="w-5 h-5 text-accent" aria-hidden="true" />
+                  <span className="body-text">Smart alerting when metrics change</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SOLUTIONS AREA - Black Background Container ===== */}
+      <div className="bg-black">
+      {/* ===== SOLUTIONS HEADER ===== */}
+        <section className="section-padding text-white" aria-labelledby="solutions-heading">
+        <div className="max-width container-padding">
+          <header className="text-center">
+            <h2 id="solutions-heading" className="heading-2 mb-4 !text-white">Solutions by Industry</h2>
+            <p className="body-large max-w-2xl mx-auto !text-white">
               Tailored workflows for every team: marketing, design, software, and government.
             </p>
           </header>
-
-          {/* Software Solutions */}
-          <article className="mb-20">
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-              <div>
-                <h3 className="heading-3 mb-4">Software Development</h3>
-                <p className="body-text mb-6">
-                  Roadmaps, sprints, release notes, and on-call runbooks. Link issues, PRDs, and docs to the code or service.
-                </p>
-                <ul className="space-y-3" role="list">
-                  <li className="flex items-center gap-3">
-                    <GitBranch className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Connected roadmaps to actual commits</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Sprint planning with velocity tracking</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Bug className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Issue tracking with context</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Rocket className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Automated release notes & deployment tracking</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="gradient-border rounded-lg">
-                <div className="image-frame-inner rounded-inherit">
-                  <Image
-                    src="/product/Picture5.png"
-                    alt="Software development workflow"
-                    width={1600}
-                    height={1200}
-                    className="w-full h-auto rounded-inherit"
-                  />
-                </div>
-              </div>
-            </div>
-          </article>
-
-          {/* Marketing Solutions */}
-          <article className="mb-20">
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-              <div className="order-2 md:order-1">
-                <div className="gradient-border rounded-lg">
-                  <div className="image-frame-inner rounded-inherit">
-                    <Image
-                      src="/product/files_main_screen.png"
-                      alt="Marketing campaign planning"
-                      width={1600}
-                      height={1200}
-                      className="w-full h-auto rounded-inherit"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="order-1 md:order-2">
-                <h3 className="heading-3 mb-4">Marketing</h3>
-                <p className="body-text mb-6">
-                  Plan campaigns, track assets, centralize briefs, and review creatives all in one place. Connect ad spend data and build ROAS dashboards.
-                </p>
-                <ul className="space-y-3" role="list">
-                  <li className="flex items-center gap-3">
-                    <Target className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Campaign planning with templates</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Share2 className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Asset management with version control</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <BarChart3 className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Multi-channel ROAS dashboards</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Users className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Team collaboration on creatives</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
-
-          {/* Design Solutions */}
-          <article className="mb-20">
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-              <div>
-                <h3 className="heading-3 mb-4">Design</h3>
-                <p className="body-text mb-6">
-                  Manage versions, share mocks, collect feedback, and ship on time. Link design tasks and specs to the latest files.
-                </p>
-                <ul className="space-y-3" role="list">
-                  <li className="flex items-center gap-3">
-                    <Layers className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Version control with visual diffs</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <MessageCircle className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Contextual feedback on designs</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Share2 className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Secure sharing with stakeholders</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <GitBranch className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Design handoff to development</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="gradient-border rounded-lg">
-                <div className="image-frame-inner rounded-inherit">
-                  <Image
-                    src="/product/Picture2.png"
-                    alt="Design workflow interface"
-                    width={1600}
-                    height={1200}
-                    className="w-full h-auto rounded-inherit"
-                  />
-                </div>
-              </div>
-            </div>
-          </article>
-
-          {/* Government Solutions */}
-          <article className="mb-20">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="order-2 md:order-1">
-                <div className="gradient-border rounded-lg">
-                  <div className="image-frame-inner rounded-inherit">
-                    <Image
-                      src="/product/Picture8.png"
-                      alt="Government security dashboard"
-                      width={1600}
-                      height={1200}
-                      className="w-full h-auto rounded-inherit"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="order-1 md:order-2">
-                <h3 className="heading-3 mb-4">Government</h3>
-                <p className="body-text mb-6">
-                  Secure document exchange, private file storage, and safe communication. Fine-grained access controls, audit logs, and data residency options.
-                </p>
-                <ul className="space-y-3" role="list">
-                  <li className="flex items-center gap-3">
-                    <ShieldCheck className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">FedRAMP ready with AOT</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Lock className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">AES-256 encryption with BYOK options</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Eye className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">Comprehensive audit logging</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Globe className="w-5 h-5 text-accent" aria-hidden="true" />
-                    <span className="body-text">US-only data residency options</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
         </div>
       </section>
 
+      {/* Software Solutions */}
+        <section className="section-padding text-white">
+        <div className="max-width container-padding">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="heading-3 mb-4 !text-white">Software Development</h3>
+              <p className="body-text mb-6 !text-white">
+                Roadmaps, sprints, release notes, and on-call runbooks. Link issues, PRDs, and docs to the code or service.
+              </p>
+              <ul className="space-y-3" role="list">
+                <li className="flex items-center gap-3">
+                  <GitBranch className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Connected roadmaps to actual commits</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Sprint planning with velocity tracking</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Bug className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Issue tracking with context</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Rocket className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Automated release notes & deployment tracking</span>
+                </li>
+              </ul>
+            </div>
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image
+                  src="/product/Picture5.png"
+                  alt="Software development workflow"
+                  width={1600}
+                  height={1200}
+                  className="w-full h-auto rounded-inherit"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Marketing Solutions */}
+        <section className="section-padding text-white">
+        <div className="max-width container-padding">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image
+                    src="/product/files_main_screen.png"
+                    alt="Marketing campaign planning"
+                    width={1600}
+                    height={1200}
+                    className="w-full h-auto rounded-inherit"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <h3 className="heading-3 mb-4 !text-white">Marketing</h3>
+              <p className="body-text mb-6 !text-white">
+                Plan campaigns, track assets, centralize briefs, and review creatives all in one place. Connect ad spend data and build ROAS dashboards.
+              </p>
+              <ul className="space-y-3" role="list">
+                <li className="flex items-center gap-3">
+                  <Target className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Campaign planning with templates</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Share2 className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Asset management with version control</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <BarChart3 className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Multi-channel ROAS dashboards</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Users className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Team collaboration on creatives</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Design Solutions */}
+        <section className="section-padding text-white">
+        <div className="max-width container-padding">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="heading-3 mb-4 !text-white">Design</h3>
+              <p className="body-text mb-6 !text-white">
+                Manage versions, share mocks, collect feedback, and ship on time. Link design tasks and specs to the latest files.
+              </p>
+              <ul className="space-y-3" role="list">
+                <li className="flex items-center gap-3">
+                  <Layers className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Version control with visual diffs</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <MessageCircle className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Contextual feedback on designs</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Share2 className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Secure sharing with stakeholders</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <GitBranch className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Design handoff to development</span>
+                </li>
+              </ul>
+            </div>
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image
+                  src="/product/Picture2.png"
+                  alt="Design workflow interface"
+                  width={1600}
+                  height={1200}
+                  className="w-full h-auto rounded-inherit"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Government Solutions */}
+        <section className="section-padding text-white">
+        <div className="max-width container-padding">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image
+                    src="/product/Picture8.png"
+                    alt="Government security dashboard"
+                    width={1600}
+                    height={1200}
+                    className="w-full h-auto rounded-inherit"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <h3 className="heading-3 mb-4 !text-white">Government</h3>
+              <p className="body-text mb-6 !text-white">
+                Secure document exchange, private file storage, and safe communication. Fine-grained access controls, audit logs, and data residency options.
+              </p>
+              <ul className="space-y-3" role="list">
+                <li className="flex items-center gap-3">
+                  <ShieldCheck className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">FedRAMP ready with AOT</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Lock className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">AES-256 encryption with BYOK options</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Eye className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">Comprehensive audit logging</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Globe className="w-5 h-5 text-purple-500" aria-hidden="true" />
+                  <span className="body-text !text-white">US-only data residency options</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
+      {/* End Solutions Area */}
+
       {/* ===== COMMUNITY SECTION ===== */}
-      <section className="section-padding bg-foreground/2" aria-labelledby="community-heading">
+      <section className="section-padding" aria-labelledby="community-heading">
         <div className="max-width container-padding">
           <header className="text-center mb-16">
             <h2 id="community-heading" className="heading-2 mb-4">Community</h2>

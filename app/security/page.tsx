@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Shield, Lock, Eye, Globe, FileCheck, Users, Key, AlertTriangle } from "lucide-react";
 import CTAButton from "../components/CTAButton";
 import CTALink from "../components/CTALink";
 import PageMain from "../components/PageMain";
+
+export const metadata: Metadata = {
+  title: "Cospace Security — Encryption, SSO, Audit Logs, BYOK",
+  description: "Enterprise‑grade security and compliance, with EU/US data residency.",
+  openGraph: {
+    title: "Cospace Security — Encryption, SSO, Audit Logs, BYOK",
+    description: "Enterprise‑grade security and compliance, with EU/US data residency.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Security",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cospace Security — Encryption, SSO, Audit Logs, BYOK",
+    description: "Enterprise‑grade security and compliance, with EU/US data residency.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function SecurityPage() {
   return (

@@ -1,16 +1,9 @@
-'use client';
-
-import * as React from 'react';
 import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from "lucide-react";
 import CTAButton from "../components/CTAButton";
 import PageMain from "../components/PageMain";
 
-export default function PricingPage() {
-  const [openFAQ, setOpenFAQ] = React.useState<number | null>(null);
 
-  const toggleFAQ = (index: number) => {
-    setOpenFAQ(openFAQ === index ? null : index);
-  };
+export default function PricingPage() {
 
   const faqs = [
     {
@@ -299,24 +292,17 @@ export default function PricingPage() {
           
           <div className="max-w-3xl mx-auto space-y-4">
             {faqs.map((faq, index) => (
-              <div key={index} className="card">
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full flex items-center justify-between text-left"
-                >
+              <details key={index} className="card group">
+                <summary className="w-full flex items-center justify-between text-left cursor-pointer list-none">
                   <h4 className="heading-4">{faq.question}</h4>
-                  <ChevronDown 
-                    className={`w-5 h-5 transition-transform duration-200 ${
-                      openFAQ === index ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-                {openFAQ === index && (
-                  <div className="mt-4 pt-4 border-t border-border">
+                  <ChevronDown className="w-5 h-5 transition-transform duration-200 group-open:rotate-180" />
+                </summary>
+                <div className="faq-content">
+                  <div className="pt-4 border-t border-border">
                     <p className="body-text">{faq.answer}</p>
                   </div>
-                )}
-              </div>
+                </div>
+              </details>
             ))}
           </div>
         </div>

@@ -14,25 +14,28 @@ export default function AutoReveal() {
     // Always animate, regardless of prefers-reduced-motion
 
     const itemSelectors = [
-      'section',
-      'article',
-      '.card',
-      '.card-feature',
-      'li',
-      '[role="listitem"]',
-      '[data-reveal]'
+      'section:not([data-no-reveal]):not([data-no-reveal] *)',
+      'article:not([data-no-reveal]):not([data-no-reveal] *)',
+      '.card:not([data-no-reveal] *)',
+      '.card-feature:not([data-no-reveal] *)',
+      'li:not([data-no-reveal] *)',
+      '[role="listitem"]:not([data-no-reveal] *)',
+      '[data-reveal]:not([data-no-reveal] *)'
     ].join(',');
 
     const itemNodeList = Array.from(document.querySelectorAll<HTMLElement>(itemSelectors));
 
     // For sections, collect common child items to stagger within the section
     const collectSectionChildren = (section: HTMLElement): HTMLElement[] => {
+      // Don't collect children if section is in a no-reveal zone
+      if (section.closest('[data-no-reveal]')) return [];
+      
       const childSelectors = [
-        '.card, .card-feature',
-        'li, [role="listitem"]',
-        '[data-reveal]',
-        '[class*="grid"] > *',
-        '[class*="flex"] > *'
+        '.card:not([data-no-reveal] *), .card-feature:not([data-no-reveal] *)',
+        'li:not([data-no-reveal] *), [role="listitem"]:not([data-no-reveal] *)',
+        '[data-reveal]:not([data-no-reveal] *)',
+        '[class*="grid"] > *:not([data-no-reveal] *)',
+        '[class*="flex"] > *:not([data-no-reveal] *)'
       ].join(',');
       return Array.from(section.querySelectorAll<HTMLElement>(childSelectors));
     };
@@ -49,50 +52,18 @@ export default function AutoReveal() {
       el.classList.add('reveal-visible');
     };
     
-    // Helper to check if element or its ancestors have data-no-reveal
-    const shouldSkipReveal = (el: HTMLElement): boolean => {
-      let current: HTMLElement | null = el;
-      while (current) {
-        if (current.hasAttribute('data-no-reveal')) {
-          return true;
-        }
-        current = current.parentElement;
-      }
-      return false;
-    };
-    
     for (const el of itemNodeList) {
-      // Skip elements with data-no-reveal or inside data-no-reveal containers
-      if (shouldSkipReveal(el)) {
-        continue;
-      }
-      
       // Add the element itself
       if (!el.classList.contains('reveal-visible')) {
         el.classList.add('reveal-init');
-        // If element appears visually on the left side of viewport, mark it for side-enter
-        const rect = el.getBoundingClientRect();
-        const viewportW = window.innerWidth || document.documentElement.clientWidth;
-        if (rect.left < viewportW * 0.33) {
-          el.setAttribute('data-reveal-side', 'left');
-        }
         allTargets.push(el);
       }
       // If it's a section, prepare its children for staggered reveal
       if (el.tagName.toLowerCase() === 'section') {
         const children = collectSectionChildren(el);
         children.forEach((child) => {
-          // Skip children inside data-no-reveal containers
-          if (shouldSkipReveal(child)) return;
-          
           if (!child.classList.contains('reveal-visible')) {
             child.classList.add('reveal-init');
-            // Side detection for images/elements on the left half of section
-            const childRect = child.getBoundingClientRect();
-            const sectionRect = el.getBoundingClientRect();
-            if (childRect.left - sectionRect.left < sectionRect.width * 0.33) {
-              child.setAttribute('data-reveal-side', 'left');
-            }
             allTargets.push(child);
           }
         });
@@ -144,12 +115,12 @@ export default function AutoReveal() {
         mutation.addedNodes.forEach((node) => {
           if (!(node instanceof HTMLElement)) return;
           
-          // Skip if node or its ancestors have data-no-reveal
-          if (shouldSkipReveal(node)) return;
+          // Skip if inside a no-reveal zone
+          if (node.closest('[data-no-reveal]')) return;
           
           if (
             node.matches(itemSelectors) ||
-            (node.parentElement && node.parentElement.matches('section'))
+            (node.parentElement && node.parentElement.matches('section:not([data-no-reveal]):not([data-no-reveal] *)'))
           ) {
             if (!node.classList.contains('reveal-visible')) {
               node.classList.add('reveal-init');
@@ -159,9 +130,6 @@ export default function AutoReveal() {
           // Also scan children of added subtree
           const subtree = node.querySelectorAll<HTMLElement>(itemSelectors);
           subtree.forEach((el) => {
-            // Skip if element or its ancestors have data-no-reveal
-            if (shouldSkipReveal(el)) return;
-            
             if (!el.classList.contains('reveal-visible')) {
               el.classList.add('reveal-init');
               observer.observe(el);

@@ -8,21 +8,21 @@ export default function ContactPage() {
     {
       icon: Briefcase,
       title: "Sales",
-      email: "sales@neo14.ai",
+      email: "sales@neo14.com",
       description: "Questions about pricing, features, or enterprise needs? Our sales team is here to help.",
       responseTime: "Response within 4 hours"
     },
     {
       icon: HelpCircle,
       title: "Support",
-      email: "support@neo14.ai", 
+      email: "info@neo14.com", 
       description: "Technical issues, account questions, or need help getting started? We've got you covered.",
       responseTime: "Response within 2 hours"
     },
     {
       icon: Newspaper,
       title: "Press",
-      email: "press@neo14.ai",
+      email: "ec@neo14.com",
       description: "Media inquiries, press kit requests, or interview opportunities with our team.",
       responseTime: "Response within 24 hours"
     }
@@ -70,7 +70,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="heading-4 mb-3">{method.title}</h3>
                   <p className="body-text mb-4">{method.description}</p>
-                  <div className="mb-4">
+                  <div className="mb-4">l
                     <a 
                       href={`mailto:${method.email}`}
                       className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium"
@@ -107,10 +107,9 @@ export default function ContactPage() {
                   <MapPin className="w-6 h-6 text-accent" />
                 </div>
                 <div>
-                  <h3 className="heading-4 mb-2">NEO14 Technologies</h3>
+                  <h3 className="heading-4 mb-2">Neo14 Technologies, Inc.</h3>
                   <div className="body-text space-y-1">
-                    <p>651 N Broad St, Suite 201</p>
-                    <p>Middletown, DE 19709</p>
+                    <p>244 Fifth Avenue, Suite 2112, New York, NY 10001</p>
                     <p className="text-muted text-sm mt-2">
                       * This is our registered business address. For all inquiries, please use the email contacts above.
                     </p>
@@ -143,8 +142,6 @@ export default function ContactPage() {
                   <CTALink href="/pricing" text="View pricing plans" />
                   <br />
                   <CTALink href="/security" text="Security overview" />
-                  <br />
-                  <CTALink href="/docs" text="Product documentation" />
                 </div>
               </div>
             </div>

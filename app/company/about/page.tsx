@@ -131,7 +131,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-8">
             <div className="card">
               <div className="accent-border pl-4 mb-4">
-                <h4 className="heading-4 mb-2">Founded 2023</h4>
+                <h4 className="heading-4 mb-2">Established 2016</h4>
                 <p className="body-text">
                   Started with a simple mission: eliminate app‑sprawl and create better ways for teams to collaborate.
                 </p>

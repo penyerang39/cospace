@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import CTAButton from "../components/CTAButton";
 import ScrollHint from "../components/ScrollHint";
 import PageMain from "../components/PageMain";
+
+export const metadata: Metadata = {
+  title: "Cospace Product Overview — Chat, Files, AppBuilder, Data",
+  description: "See how Cospace unifies messaging, docs, internal tools, and dashboards. Move faster with fewer apps.",
+  openGraph: {
+    title: "Cospace Product Overview — Chat, Files, AppBuilder, Data",
+    description: "See how Cospace unifies messaging, docs, internal tools, and dashboards. Move faster with fewer apps.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Product Overview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cospace Product Overview — Chat, Files, AppBuilder, Data",
+    description: "See how Cospace unifies messaging, docs, internal tools, and dashboards. Move faster with fewer apps.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function ProductPage() {
   return (

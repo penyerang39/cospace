@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 
+
 const industries = [
   'Telecom',
   'Legal',
@@ -195,23 +196,23 @@ export default function RequestPricingPage() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
               <span className="normal-text">Full Name</span>
-              <input name="fullName" className="rounded px-3 py-2" required />
+              <input name="fullName" className="form-input" required />
             </label>
             <label className="flex flex-col gap-1">
               <span className="normal-text">Work Email</span>
-              <input type="email" name="workEmail" className="rounded px-3 py-2" required />
+              <input type="email" name="workEmail" className="form-input" required />
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
               <span className="normal-text">Phone (optional)</span>
-              <input name="phone" className="rounded px-3 py-2" />
+              <input name="phone" className="form-input" />
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
               <span className="normal-text">Company Name</span>
-              <input name="companyName" className="rounded px-3 py-2" required />
+              <input name="companyName" className="form-input" required />
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
               <span className="normal-text">Company Profile</span>
-              <input name="companyProfile" className="rounded px-3 py-2 normal-text" placeholder="Briefly describe your company" required />
+              <input name="companyProfile" className="form-input" placeholder="Briefly describe your company" required />
             </label>
           </div>
         </section>
@@ -222,7 +223,7 @@ export default function RequestPricingPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">Industry / Sector</span>
               <div className="relative">
-                <select name="industry" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="industry" className="form-select" required>
                   <option value="">Select…</option>
                   {industries.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -234,7 +235,7 @@ export default function RequestPricingPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">Company Size (Employees)</span>
               <div className="relative">
-                <select name="companySize" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="companySize" className="form-select" required>
                   <option value="">Select…</option>
                   {companySizes.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -245,7 +246,7 @@ export default function RequestPricingPage() {
             </label>
             <label className="flex flex-col gap-1 sm:col-span-2">
               <span className="normal-text">Location (Country/Region)</span>
-              <input name="location" className="rounded px-3 py-2" required />
+              <input name="location" className="form-input" required />
             </label>
           </div>
         </section>
@@ -256,7 +257,7 @@ export default function RequestPricingPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">Estimated Number of Users</span>
               <div className="relative">
-                <select name="estimatedUsers" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="estimatedUsers" className="form-select" required>
                   <option value="">Select…</option>
                   {estimatedUsers.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -269,7 +270,7 @@ export default function RequestPricingPage() {
               <span className="normal-text">Expected Use Cases</span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {expectedUseCases.map((v) => (
-                  <label key={v} className="flex items-center gap-2 border rounded px-3 py-2 min-h-[44px]">
+                  <label key={v} className="form-checkbox">
                     <input type="checkbox" name="expectedUseCases" value={v} className="h-5 w-5 shrink-0" />
                     <span className="normal-text">{v}</span>
                   </label>
@@ -279,7 +280,7 @@ export default function RequestPricingPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">Preferred Deployment</span>
               <div className="relative">
-                <select name="preferredDeployment" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="preferredDeployment" className="form-select" required>
                   <option value="">Select…</option>
                   {deployment.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -297,7 +298,7 @@ export default function RequestPricingPage() {
             <label className="flex flex-col gap-1">
               <span className="normal-text">When are you planning to implement?</span>
               <div className="relative">
-                <select name="implementationTimeline" className="rounded px-3 py-2 pr-10 appearance-none w-full bg-transparent" required>
+                <select name="implementationTimeline" className="form-select" required>
                   <option value="">Select…</option>
                   {timelines.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -308,7 +309,7 @@ export default function RequestPricingPage() {
             </label>
             <label className="flex flex-col gap-1">
               <span className="normal-text">What is your budget range (per month/year)?</span>
-              <input name="budgetRange" className="rounded px-3 py-2 normal-text" placeholder="$X – $Y / month or year" required />
+              <input name="budgetRange" className="form-input" placeholder="$X – $Y / month or year" required />
             </label>
           </div>
         </section>

@@ -76,7 +76,7 @@ export default function Footer() {
       </div>
       {/* Large watermark text */}
       <div className=" w-full overflow-hidden pointer-events-none">
-        <div className="text-[20vw] font-black text-white/5 leading-none select-none transform translate-y-1/2">
+        <div className="text-[20vw] font-black text-white/5 leading-none select-none transform md:translate-y-1/2">
         COSPACE
         </div>
       </div>

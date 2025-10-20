@@ -3,10 +3,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ClientOnlyBlobController from "./components/ClientOnlyBlobController";
 import { getNavigation } from "./lib/navigation";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import AutoReveal from "./components/AutoReveal";
-import SeoInjector from "./components/SeoInjector";
+import FormProgressBar from './components/FormProgressBar';
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const interFont = Inter({
   variable: "--font-inter",
@@ -62,22 +64,16 @@ export default function RootLayout({
       <body
         className={`${interFont.variable} antialiased`}
       >
-        <SeoInjector />
-        <Navbar navigation={navigation} />
-        {/* Global form progress bar just below the navbar */}
-        <div
-          className="fixed left-0 z-40 h-[2px] w-full bg-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
-          style={{ top: '4rem' }}
-        >
-          <div
-            className="h-full bg-accent shadow-[0_1px_2px_rgba(0,0,0,0.25)] transition-[width] duration-300"
-            style={{ width: 'var(--demo-progress, 0%)' }}
-          />
-        </div>
-        {children}
-        <AutoReveal />
-        <Footer />
-        <SpeedInsights />
+        <ThemeProvider>
+          <Navbar navigation={navigation} />
+          <FormProgressBar />
+          {/* Global leaf DOM blob controller (client-only), layered behind content */}
+          <ClientOnlyBlobController />
+          {children}
+          <AutoReveal />
+          <Footer />
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   );

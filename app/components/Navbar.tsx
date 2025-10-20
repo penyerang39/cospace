@@ -6,6 +6,8 @@ import { getNavigation, type MenuGroup } from "../lib/navigation";
 import Image from "next/image";
 import { ArrowRight, ArrowLeft, Menu, X } from "lucide-react";
 import previews from "../lib/nav-previews";
+import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "./ThemeProvider";
 
 const productImages = [
   "/product/Picture1.png",
@@ -99,7 +101,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
       <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} />
       <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} style={{ transform: 'translateY(2px)' }} />
       <div
-        className={`fixed left-0 right-0 top-full z-50 border border-black/10 bg-background/95 backdrop-blur-sm shadow-xl transition-[opacity,transform] duration-300 ease-out ${
+        className={`fixed left-0 right-0 top-full z-50 bg-background/95 backdrop-blur-sm transition-[opacity,transform] duration-300 ease-out ${
           open ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-2"
         }`}
         role="menu"
@@ -177,19 +179,22 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
   const navGroups = navigation && navigation.length > 0 ? navigation : getNavigation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeParentLabel, setActiveParentLabel] = useState<string | null>(null);
+  const { actualTheme } = useTheme();
   const activeParent: MenuGroup | undefined = useMemo(() => {
     if (!activeParentLabel) return undefined;
     return navGroups.find(g => g.label === activeParentLabel);
   }, [activeParentLabel, navGroups]);
 
+  const logoSrc = actualTheme === 'dark' ? "/branding/neo14White.svg" : "/branding/neo14Logo.svg";
+
   return (
     <>
-    <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 border-b border-black/10 shadow-sm">
+    <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 border-b border-black/10 navbar-dark-theme">
       <nav className="relative max-width container-padding">
         <div className="flex items-center justify-between h-16">
           <Link href="/" aria-label="Cospace home" className="flex items-center group">
             <Image 
-              src="/branding/neo14Logo.svg" 
+              src={logoSrc}
               alt="Cospace by NEO14" 
               width={120} 
               height={32} 
@@ -204,20 +209,25 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
             ))}
           </ul>
 
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            className="sm:hidden inline-flex items-center justify-center rounded-md p-2 pr-0 text-foreground hover:text-foreground/80 transition-colors"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileOpen}
-            onClick={() => {
-              // Close any active sub-view when toggling
-              setMobileOpen(v => !v);
-              if (mobileOpen) setActiveParentLabel(null);
-            }}
-          >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          {/* Theme toggle and mobile hamburger */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+
+            {/* Mobile hamburger */}
+            <button
+              type="button"
+              className="sm:hidden inline-flex items-center justify-center rounded-md p-2 pr-0 text-foreground hover:text-foreground/80 transition-colors"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              onClick={() => {
+                // Close any active sub-view when toggling
+                setMobileOpen(v => !v);
+                if (mobileOpen) setActiveParentLabel(null);
+              }}
+            >
+              {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
       </nav>
     </header>
@@ -234,24 +244,27 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
           <div className="relative max-width container-padding h-full flex items-center justify-between">
             <Link href="/" aria-label="Cospace home" className="flex items-center group">
               <Image 
-                src="/branding/neo14Logo.svg" 
+                src={logoSrc}
                 alt="Cospace by NEO14" 
                 width={120} 
                 height={32} 
                 className="transition-transform duration-200"
               />
             </Link>
-            <button
-              type="button"
-              className="inline-flex items-center justify-center rounded-md p-2 pr-0 text-foreground hover:text-foreground/80  transition-colors"
-              aria-label="Close menu"
-              onClick={() => {
-                setMobileOpen(false);
-                setActiveParentLabel(null);
-              }}
-            >
-              <X className="h-6 w-6" />
-            </button>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-md p-2 pr-0 text-foreground hover:text-foreground/80  transition-colors"
+                aria-label="Close menu"
+                onClick={() => {
+                  setMobileOpen(false);
+                  setActiveParentLabel(null);
+                }}
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
           </div>
         </div>
 

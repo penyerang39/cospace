@@ -1,9 +1,33 @@
+import type { Metadata } from 'next';
 import React from 'react';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import CTAButton from '../components/CTAButton';
 import ScrollHint from '../components/ScrollHint';
 import PageMain from '../components/PageMain';
+
+export const metadata: Metadata = {
+  title: "Solutions for Marketing, Design, Software & Government",
+  description: "Workflows that fit your team—with security and speed built in.",
+  openGraph: {
+    title: "Solutions for Marketing, Design, Software & Government",
+    description: "Workflows that fit your team—with security and speed built in.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Solutions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Solutions for Marketing, Design, Software & Government",
+    description: "Workflows that fit your team—with security and speed built in.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function SolutionsPage() {
   return (

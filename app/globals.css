@@ -7,12 +7,31 @@
   --muted: #7D8DAA;
 }
 
+[data-theme="dark"] {
+  --background: #000000;
+  --foreground: #ffffff;
+  --accent: #a855f7;
+  --muted: #d1d5db;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
   --color-muted: var(--muted);
   --font-sans: var(--font-inter);
+}
+
+/* Dark theme specific styles */
+[data-theme="dark"] {
+  /* Make navbar fully opaque in dark theme */
+  --navbar-opacity: 1;
+}
+
+[data-theme="dark"] .navbar-dark-theme {
+  background: var(--background) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 body {
@@ -41,7 +60,7 @@ html {
 /* Global reveal animations */
 .reveal-init {
   opacity: 0.001;
-  transform: translateY(12px);
+  transform: translate(-16px, 12px);
   transition-property: opacity, transform;
   transition-duration: 500ms;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
@@ -62,9 +81,16 @@ html {
   transition-delay: var(--reveal-delay, 0ms);
 }
 
-/* Side-enter variants */
-.reveal-init[data-reveal-side='left'] {
-  transform: translate(-16px, 12px);
+/* Disable all reveal animations inside data-no-reveal containers */
+[data-no-reveal] .reveal-init,
+[data-no-reveal] .reveal-visible,
+[data-no-reveal].reveal-init,
+[data-no-reveal].reveal-visible,
+[data-no-reveal] * {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  will-change: auto !important;
 }
 
 /* Typography System */
@@ -173,28 +199,63 @@ html {
 /* Card Components */
 .card {
   background: var(--background);
-  border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
   border-radius: 0.75rem;
   padding: 1.5rem;
-  transition: border-color 200ms ease;
+  position: relative;
+  z-index: 1;
 }
 
-.card:hover {
-  border-color: color-mix(in srgb, var(--foreground) 20%, transparent);
+/* Universal card gradient border wrapper */
+.card-gradient-wrapper {
+  position: relative;
+  z-index: 10;
 }
+
+.card-gradient-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: linear-gradient(135deg, var(--accent), #cc67ff);
+  border-radius: 0.75rem;
+  opacity: 0;
+  transition: opacity 300ms;
+  filter: blur(10px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.card-gradient-wrapper:hover::before {
+  opacity: 1;
+}
+
 
 .card-feature {
   background: var(--background);
   border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
   border-radius: 0.75rem;
   padding: 1.5rem;
+  position: relative;
+  z-index: 10;
   transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
-.card-feature:hover {
-  border-color: color-mix(in srgb, var(--foreground) 20%, transparent);
-  box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--accent) 5%, transparent);
+.card-feature::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: linear-gradient(135deg, var(--accent), #cc67ff);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 300ms;
+  filter: blur(10px);
+  z-index: -1;
+  pointer-events: none;
 }
+
+.card-feature:hover::before {
+  opacity: 1;
+}
+
 
 /* Layout Utilities */
 .section-padding {
@@ -305,9 +366,27 @@ html {
 /* Reusable gradient border wrapper */
 .gradient-border {
   /* Apply this to a rounded container. Keep child unrounded. */
-  padding: 10px; /* visual border width */
-  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, #cc67ff 25%, transparent));
+  position: relative;
+  padding: 5px; /* visual border width */
+  z-index: 10;
 }
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: linear-gradient(135deg, var(--accent), #cc67ff);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 300ms;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
 
 /* Inner frame to ensure consistent spacing around media */
 .image-frame-inner {
@@ -384,6 +463,38 @@ html {
     left: 20%;
     right: 20%;
     bottom: 45%;
+  }
+}
+
+/* Dynamic Gradient Blob - High Quality Interactive Version */
+.dynamic-gradient-blob {
+  position: absolute;
+  width: clamp(300px, 60vw, 900px);
+  height: clamp(300px, 60vh, 900px);
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    color-mix(in srgb, var(--accent) 35%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 25%, transparent) 20%,
+    color-mix(in srgb, var(--accent) 15%, transparent) 40%,
+    color-mix(in srgb, var(--accent) 8%, transparent) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: -2;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 768px) {
+  .dynamic-gradient-blob {
+    width: clamp(500px, 70vw, 1200px);
+    height: clamp(500px, 70vh, 1200px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dynamic-gradient-blob {
+    width: clamp(600px, 80vw, 1400px);
+    height: clamp(600px, 80vh, 1400px);
   }
 }
 
@@ -472,4 +583,117 @@ input[type="checkbox"]:focus-visible,
 input[type="radio"]:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* FAQ Dropdown Animations */
+@keyframes faqSlideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 200px;
+    padding-top: 1rem;
+    padding-bottom: 0;
+    margin-top: 0;
+  }
+}
+
+@keyframes faqSlideUp {
+  from {
+    opacity: 1;
+    max-height: 200px;
+    padding-top: 1rem;
+    padding-bottom: 0;
+    margin-top: 0;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+  }
+}
+
+/* FAQ Details Animation */
+details[open] .faq-content {
+  animation: faqSlideDown 300ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+details:not([open]) .faq-content {
+  animation: faqSlideUp 200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* FAQ Content Container */
+.faq-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 300ms cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 300ms cubic-bezier(0.22, 1, 0.36, 1),
+              padding 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+details[open] .faq-content {
+  max-height: 200px;
+  opacity: 1;
+  padding-top: 1rem;
+}
+
+/* FAQ Summary Hover Effects */
+details summary {
+  transition: color 200ms ease;
+}
+
+details summary:hover {
+  color: var(--accent);
+}
+
+/* Custom Form Classes - Override global form styles for consistency */
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent) !important;
+  background: var(--background) !important;
+  color: var(--foreground);
+  font-size: 1rem;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent) !important;
+}
+
+.form-select {
+  appearance: none;
+  background-image: none;
+  padding-right: 2.5rem;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+  background: var(--background);
+  min-height: 44px;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+  cursor: pointer;
+}
+
+.form-checkbox:hover {
+  border-color: color-mix(in srgb, var(--foreground) 30%, transparent);
 }

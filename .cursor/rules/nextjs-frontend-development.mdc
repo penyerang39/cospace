@@ -17,6 +17,7 @@ alwaysApply: true
 5. Use consistent styling, ' over " unless necessary, camelCase for components, kebab-case for images, etc. 
 6. Never use emojis for any reason unless explicitly requested to.
 7. Heavily focus on DRY "Do not repeat yourself" principles for all elements, create reusable components for anything you use more than ones, create classes any time you reuse several variables across elements.
+8. Never write documentation, markdown document summaries or explanations, your code must be legible entirely based on your chat output and in code comments. 
 
 ## Component Architecture:
 1. Create reusable components in `/components` directory with proper TypeScript interfaces
@@ -25,6 +26,7 @@ alwaysApply: true
 4. Follow the single responsibility principle - each component should have one clear purpose
 5. Use React.memo() for expensive components that don't need frequent re-renders
 6. Implement proper error boundaries for component isolation
+7. Webpages rich in content, those which realistically need to have SEO NEED to be rendered server-side, do not use client on pages which contain valuable content, isolate the client side behavior in a different document.
 
 ## State Management:
 1. Use React's built-in state management (useState, useReducer) for component-level state
