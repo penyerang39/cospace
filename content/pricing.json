@@ -1,0 +1,622 @@
+{
+  "categories": [
+    {
+      "name": "Collaboration",
+      "slug": "collaborate",
+      "description": "File sharing and team collaboration features"
+    },
+    {
+      "name": "Chat & Communication",
+      "slug": "chat",
+      "description": "Messaging and communication tools"
+    },
+    {
+      "name": "Data Management",
+      "slug": "data",
+      "description": "Data storage, integration, and analytics"
+    },
+    {
+      "name": "AppBuilder",
+      "slug": "appbuilder",
+      "description": "Application building and customization tools"
+    },
+    {
+      "name": "Security & Compliance",
+      "slug": "security",
+      "description": "Security, authentication, and compliance features"
+    },
+    {
+      "name": "Support",
+      "slug": "support",
+      "description": "Customer support and service options"
+    }
+  ],
+  "tiers": [
+    {
+      "name": "Open Core",
+      "slug": "open-core",
+      "pricing": "$0",
+      "pricePerUser": 0,
+      "userLimit": "",
+      "description": "Perfect for small teams getting started",
+      "isPopular": false,
+      "order": 1
+    },
+    {
+      "name": "Start",
+      "slug": "start",
+      "pricing": "$8/user/month",
+      "pricePerUser": 8,
+      "userLimit": "",
+      "description": "For growing teams that need more features",
+      "isPopular": true,
+      "order": 2
+    },
+    {
+      "name": "Grow",
+      "slug": "grow",
+      "pricing": "$18/user/month",
+      "pricePerUser": 18,
+      "userLimit": "",
+      "description": "For teams that need advanced capabilities",
+      "isPopular": false,
+      "order": 3
+    },
+    {
+      "name": "Business",
+      "slug": "business",
+      "pricing": "$48/user/month",
+      "pricePerUser": 48,
+      "userLimit": "Up to 1000 users",
+      "description": "For teams that need enterprise-grade features",
+      "isPopular": false,
+      "order": 4
+    },
+    {
+      "name": "Enterprise",
+      "slug": "enterprise",
+      "pricing": "Contact Sales",
+      "pricePerUser": -1,
+      "userLimit": "",
+      "description": "For organizations with complex requirements",
+      "isPopular": false,
+      "order": 5
+    }
+  ],
+  "features": [
+    {
+      "name": "File upload/download",
+      "description": "",
+      "category": "collaborate",
+      "order": 1,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Folder upload/download",
+      "description": "",
+      "category": "collaborate",
+      "order": 2,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Public share by link",
+      "description": "",
+      "category": "collaborate",
+      "order": 3,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Public share link Settings (password, expiry, reshare etc.)",
+      "description": "",
+      "category": "collaborate",
+      "order": 4,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Video, image, pdf preview",
+      "description": "",
+      "category": "collaborate",
+      "order": 5,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "File/Folder create, rename, move, delete, favorites",
+      "description": "",
+      "category": "collaborate",
+      "order": 6,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Online office for file editing and collaboration",
+      "description": "",
+      "category": "collaborate",
+      "order": 7,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Public and Private Chat channels",
+      "description": "",
+      "category": "chat",
+      "order": 8,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Video chat with Screen share",
+      "description": "",
+      "category": "chat",
+      "order": 9,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Text chat with File attachments, Reply, Forward",
+      "description": "",
+      "category": "chat",
+      "order": 10,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Add several File storage backends (Local, S3 etc.)",
+      "description": "",
+      "category": "data",
+      "order": 11,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Add and Manage Custom Metadata to Files",
+      "description": "",
+      "category": "data",
+      "order": 12,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Create Custom User Roles",
+      "description": "",
+      "category": "security",
+      "order": 13,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Create and Edit Data Models",
+      "description": "",
+      "category": "data",
+      "order": 14,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Default Files and Chat Dashboard",
+      "description": "",
+      "category": "appbuilder",
+      "order": 15,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Custom Charts and Dashboards",
+      "description": "",
+      "category": "appbuilder",
+      "order": 16,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Default Workspace for AppBuilder",
+      "description": "",
+      "category": "appbuilder",
+      "order": 17,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Default Workspace for Collimato",
+      "description": "",
+      "category": "data",
+      "order": 18,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Standard Fields in AppBuilder",
+      "description": "",
+      "category": "appbuilder",
+      "order": 19,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Custom Fields in AppBuilder",
+      "description": "",
+      "category": "appbuilder",
+      "order": 20,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Add External DBs to Collimato",
+      "description": "",
+      "category": "data",
+      "order": 21,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "OAuth2, SSO",
+      "description": "",
+      "category": "security",
+      "order": 22,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "LDAP",
+      "description": "",
+      "category": "security",
+      "order": 23,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Jupyter Notebooks with Data Workflows",
+      "description": "",
+      "category": "data",
+      "order": 24,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Large Scale Analytics DB",
+      "description": "",
+      "category": "data",
+      "order": 25,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Enterprise Content Management (Sensitive, Personal, Confidential, Restricted)",
+      "description": "",
+      "category": "security",
+      "order": 26,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "AI Chat with All Cospace info (Files, Apps, Data)",
+      "description": "",
+      "category": "chat",
+      "order": 27,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Data Application Builder",
+      "description": "",
+      "category": "appbuilder",
+      "order": 28,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Data Catalog and Lineage",
+      "description": "",
+      "category": "data",
+      "order": 29,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Unlimited Workspaces for Collimato and AppBuilder",
+      "description": "",
+      "category": "appbuilder",
+      "order": 30,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Grid and KanBan view in AppBuilder",
+      "description": "",
+      "category": "appbuilder",
+      "order": 31,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Custom views in AppBuilder",
+      "description": "",
+      "category": "appbuilder",
+      "order": 32,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Premier Support (24 x 7, response in 4hours with Screen Share and Senior Support Member)",
+      "description": "",
+      "category": "support",
+      "order": 33,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": -1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "End-to-End Encryption",
+      "description": "",
+      "category": "security",
+      "order": 34,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": -1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Disappearing Chat Messages",
+      "description": "",
+      "category": "chat",
+      "order": 35,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": -1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Federated Servers",
+      "description": "",
+      "category": "security",
+      "order": 36,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": -1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Supported Kubernetes Deployment",
+      "description": "",
+      "category": "security",
+      "order": 37,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Community Support",
+      "description": "",
+      "category": "support",
+      "order": 38,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": 1 },
+        { "tierSlug": "start", "status": 1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Professional Support (5 x 8 CET time, response by chat next working day)",
+      "description": "",
+      "category": "support",
+      "order": 39,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": 1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Login with Biometrics",
+      "description": "",
+      "category": "security",
+      "order": 40,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": -1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    },
+    {
+      "name": "Data Retention Policy (30, 60, 90 after \"soft delete\" per Channel, Files, Folders)",
+      "description": "",
+      "category": "security",
+      "order": 41,
+      "tierStatus": [
+        { "tierSlug": "open-core", "status": -1 },
+        { "tierSlug": "start", "status": -1 },
+        { "tierSlug": "grow", "status": -1 },
+        { "tierSlug": "business", "status": 1 },
+        { "tierSlug": "enterprise", "status": 1 }
+      ]
+    }
+  ]
+}
+

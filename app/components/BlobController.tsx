@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import DynamicGradientBlob from './DynamicGradientBlob';
-import BlobDebugPanel from './BlobDebugPanel';
 
 /**
  * Global controller that mounts once and manages a single dynamic gradient blob.
@@ -10,7 +9,6 @@ import BlobDebugPanel from './BlobDebugPanel';
  */
 export default function BlobController() {
   const [mainEl, setMainEl] = useState<HTMLElement | null>(null);
-  const [debugInfo, setDebugInfo] = useState<any>(null);
 
   useEffect(() => {
     // Wait for DOM to be fully ready and painted
@@ -44,13 +42,11 @@ export default function BlobController() {
           containerRef={containerRef as unknown as React.RefObject<HTMLElement>}
           // Track only meaningful leaf elements; ignore generic divs in component logic
           targetSelector={'img, button, h1, h2, h3, h4, h5, h6, [data-blob-image]'}
-          blurAmount={100}
+          blurAmount={200}
           smoothness={1200}
           intersectionWeight={0.9}
-          onDebugInfo={setDebugInfo}
         />
       </div>
-      {debugInfo && <BlobDebugPanel debugInfo={debugInfo} />}
     </>
   );
 }

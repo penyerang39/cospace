@@ -7,13 +7,17 @@ const branch =
   process.env.HEAD ||
   "main";
 
+const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
+
 export default defineConfig({
   branch,
 
-  // Get this from tina.io
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
-  // Get this from tina.io
-  token: process.env.TINA_TOKEN,
+  // Self-hosted mode - no TinaCloud required
+  clientId: null,
+  token: null,
+  
+  // Use local backend in development, authenticated backend in production
+  contentApiUrlOverride: isLocal ? undefined : "/api/tina/gql",
 
   build: {
     outputFolder: "admin",
@@ -51,6 +55,151 @@ export default defineConfig({
           // This is an DEMO router. You can remove this to fit your site
           router: ({ document }) => `/demo/blog/${document._sys.filename}`,
         },
+      },
+      {
+        name: "pricing",
+        label: "Pricing",
+        path: "content",
+        format: "json",
+        ui: {
+          allowedActions: {
+            create: false,
+            delete: false,
+          },
+          router: () => "/pricing",
+        },
+        fields: [
+          {
+            type: "object",
+            name: "categories",
+            label: "Feature Categories",
+            list: true,
+            fields: [
+              {
+                type: "string",
+                name: "name",
+                label: "Category Name",
+                required: true,
+              },
+              {
+                type: "string",
+                name: "slug",
+                label: "Slug",
+                required: true,
+              },
+              {
+                type: "string",
+                name: "description",
+                label: "Description",
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "tiers",
+            label: "Pricing Tiers",
+            list: true,
+            fields: [
+              {
+                type: "string",
+                name: "name",
+                label: "Tier Name",
+                required: true,
+              },
+              {
+                type: "string",
+                name: "slug",
+                label: "Slug",
+                required: true,
+              },
+              {
+                type: "string",
+                name: "pricing",
+                label: "Pricing Display",
+                description: "e.g., '$8/user/month' or 'Contact Sales'",
+                required: true,
+              },
+              {
+                type: "number",
+                name: "pricePerUser",
+                label: "Price Per User (number only)",
+                description: "For sorting and display. Use 0 for free, -1 for custom/contact sales",
+              },
+              {
+                type: "string",
+                name: "userLimit",
+                label: "User Limit",
+                description: "e.g., 'Up to 5 users' or 'Unlimited'",
+              },
+              {
+                type: "string",
+                name: "description",
+                label: "Description",
+              },
+              {
+                type: "boolean",
+                name: "isPopular",
+                label: "Mark as Popular",
+              },
+              {
+                type: "number",
+                name: "order",
+                label: "Display Order",
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "features",
+            label: "Features",
+            list: true,
+            fields: [
+              {
+                type: "string",
+                name: "name",
+                label: "Feature Name",
+                required: true,
+              },
+              {
+                type: "string",
+                name: "description",
+                label: "Description",
+              },
+              {
+                type: "string",
+                name: "category",
+                label: "Category Slug",
+                description: "Reference to category slug",
+              },
+              {
+                type: "number",
+                name: "order",
+                label: "Display Order",
+              },
+              {
+                type: "object",
+                name: "tierStatus",
+                label: "Tier Availability",
+                list: true,
+                fields: [
+                  {
+                    type: "string",
+                    name: "tierSlug",
+                    label: "Tier Slug",
+                    required: true,
+                  },
+                  {
+                    type: "number",
+                    name: "status",
+                    label: "Status",
+                    description: "1 = enabled, -1 = disabled",
+                    required: true,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
     ],
   },

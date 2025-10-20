@@ -1,9 +1,66 @@
-import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from "lucide-react";
-import CTAButton from "../components/CTAButton";
-import PageMain from "../components/PageMain";
+/**
+ * Pricing Page - CMS Managed
+ * 
+ * This page dynamically renders pricing tiers, features, and categories from content/pricing.json
+ * which is managed through TinaCMS at /admin when running the dev server.
+ * 
+ * To edit pricing data:
+ * 1. Run: pnpm dev
+ * 2. Navigate to: /admin
+ * 3. Edit the "Pricing" collection
+ * 
+ * Data structure:
+ * - Categories: Feature groupings (appbuilder, chat, data, collaborate, security, support)
+ * - Tiers: Pricing plans with name, price, description, and order
+ * - Features: Individual features with tier availability (1 = enabled, -1 = disabled)
+ */
 
+import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from 'lucide-react';
+import CTAButton from '../components/CTAButton';
+import PageMain from '../components/PageMain';
+import fs from 'fs';
+import path from 'path';
 
-export default function PricingPage() {
+interface TierStatus {
+  tierSlug: string;
+  status: number;
+}
+
+interface Feature {
+  name: string;
+  description?: string;
+  category: string;
+  order: number;
+  tierStatus: TierStatus[];
+}
+
+interface Tier {
+  name: string;
+  slug: string;
+  pricing: string;
+  pricePerUser: number;
+  userLimit?: string;
+  description?: string;
+  isPopular: boolean;
+  order: number;
+}
+
+interface Category {
+  name: string;
+  slug: string;
+  description?: string;
+}
+
+interface PricingData {
+  categories: Category[];
+  tiers: Tier[];
+  features: Feature[];
+}
+
+export default async function PricingPage() {
+  const pricingPath = path.join(process.cwd(), 'content', 'pricing.json');
+  const pricingContent = fs.readFileSync(pricingPath, 'utf-8');
+  const pricing: PricingData = JSON.parse(pricingContent);
 
   const faqs = [
     {
@@ -38,193 +95,57 @@ export default function PricingPage() {
       {/* Pricing Plans */}
       <section className="section-padding">
         <div className="max-width container-padding">
-          <div className="grid md:grid-cols-4 gap-8">
-            {/* Free Plan */}
-            <div className="card flex flex-col justify-between">
-              <div>
-              <div className="mb-6">
-                <h3 className="heading-4 mb-2">Free</h3>
-                <div className="mb-4 justify-between">
-                  <span className="text-3xl font-bold">$0</span>
-                  <span className="text-muted"> forever</span>
-                </div>
-                <p className="body-small text-muted">Perfect for small teams getting started</p>
-              </div>
+          <div className="grid md:grid-cols-5 gap-8">
+            {pricing.tiers.sort((a, b) => a.order - b.order).map((tier) => {
+              const tierFeatures = pricing.features.filter(feature => 
+                feature.tierStatus.some(ts => ts.tierSlug === tier.slug && ts.status === 1)
+              ).slice(0, 7);
               
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Up to 5 users</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">5 GB storage</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Core chat & docs</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Basic dashboards</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <X className="w-5 h-5 text-muted flex-shrink-0" />
-                  <span className="body-text text-muted">Video meetings</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <X className="w-5 h-5 text-muted flex-shrink-0" />
-                  <span className="body-text text-muted">AppBuilder</span>
-                  </div>
-                </div>
-              </div>
-              
-              <CTAButton variant="secondary" text="get started" className="w-full" />
-            </div>
-
-            {/* Pro Plan */}
-            <div className="card border-accent/20 relative flex flex-col justify-between">
+              return (
+                <div 
+                  key={tier.slug} 
+                  className={`card flex flex-col justify-between ${tier.isPopular ? 'border-accent/20 relative' : ''}`}
+                >
+                  {tier.isPopular && (
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                 <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">Most popular</span>
               </div>
+                  )}
               
               <div>
               <div className="mb-6">
-                <h3 className="heading-4 mb-2">Pro</h3>
+                      <h3 className="heading-4 mb-2">{tier.name}</h3>
                 <div className="mb-4">
-                  <span className="text-3xl font-bold">$9</span>
-                  <span className="text-muted">/user/month</span>
+                        <span className="text-3xl font-bold">
+                          {tier.pricePerUser === 0 ? '$0' : 
+                           tier.pricePerUser === -1 ? 'Custom' : 
+                           `$${tier.pricePerUser}`}
+                        </span>
+                        {tier.pricePerUser > 0 && <span className="text-muted">/user/month</span>}
+                        {tier.pricePerUser === 0 && <span className="text-muted"> forever</span>}
                 </div>
-                <p className="body-small text-muted">For growing teams that need more features</p>
+                      {tier.description && <p className="body-small text-muted">{tier.description}</p>}
+                      {tier.userLimit && <p className="body-small text-muted mt-2">{tier.userLimit}</p>}
               </div>
               
               <div className="space-y-3 mb-8">
-                <div className="flex items-center gap-3">
+                      {tierFeatures.map((feature) => (
+                        <div key={feature.name} className="flex items-center gap-3">
                   <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Unlimited users</span>
+                          <span className="body-text">{feature.name}</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">100 GB storage</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Meetings & Huddles</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">AppBuilder (standard)</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Data refresh hourly</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Guest access</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Basic SSO</span>
-                  </div>
+                      ))}
                 </div>
               </div>
               
-              <CTAButton variant="primary" text="get started" className="w-full" />
-            </div>
-
-            {/* Business Plan */}
-            <div className="card flex flex-col justify-between">
-              <div>
-              <div className="mb-6">
-                <h3 className="heading-4 mb-2">Business</h3>
-                <div className="mb-4">
-                  <span className="text-3xl font-bold">$18</span>
-                  <span className="text-muted">/user/month</span>
+                  <CTAButton 
+                    variant={tier.isPopular ? 'primary' : 'secondary'} 
+                    text="get started" 
+                    className="w-full" 
+                  />
                 </div>
-                <p className="body-small text-muted">For teams that need advanced security & controls</p>
-              </div>
-              
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">1 TB storage</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Advanced AppBuilder</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Database connectors</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">Data refresh 5-min</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">SSO/SAML</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">SCIM & Audit logs</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="body-text">DLP & BYOK (add-on)</span>
-                  </div>
-                </div>
-              </div>
-              
-              <CTAButton variant="primary" text="get started" className="w-full" />
-            </div>
-
-            {/* Enterprise Plan */}
-            <div className="card flex flex-col justify-between">
-              <div>
-                <div className="mb-6">
-                  <h3 className="heading-4 mb-2">Enterprise</h3>
-                  <div className="mb-4">
-                    <span className="text-3xl font-bold">Custom</span>
-                  </div>
-                  <p className="body-small text-muted">For organizations with complex requirements</p>
-                </div>
-                
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Enterprise security</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">BYOK encryption</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Private cloud/VPC</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">EU/US data residency</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Uptime SLA</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Dedicated support</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Custom onboarding</span>
-                  </div>
-                </div>
-              </div>
-              
-              <CTAButton variant="primary" text="request pricing" className="w-full" />
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -239,46 +160,43 @@ export default function PricingPage() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="card">
-              <div className="accent-border pl-4 mb-4">
-                <h4 className="heading-4 mb-2">Core Features</h4>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <Users className="w-4 h-4 text-accent" />
-                    <span className="body-text">Team collaboration & chat</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <HardDrive className="w-4 h-4 text-accent" />
-                    <span className="body-text">File storage & sharing</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Video className="w-4 h-4 text-accent" />
-                    <span className="body-text">Video meetings (Pro+)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="card">
-              <div className="accent-border pl-4 mb-4">
-                <h4 className="heading-4 mb-2">Advanced Features</h4>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <Database className="w-4 h-4 text-accent" />
-                    <span className="body-text">Database connections (Business+)</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Shield className="w-4 h-4 text-accent" />
-                    <span className="body-text">SSO/SAML (Pro+)</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Zap className="w-4 h-4 text-accent" />
-                    <span className="body-text">Real-time data refresh</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left py-4 px-4 body-text font-semibold">Feature</th>
+                  <th className="text-left py-4 px-4 body-text font-semibold">Category</th>
+                  {pricing.tiers.sort((a, b) => a.order - b.order).map(tier => (
+                    <th key={tier.slug} className="text-center py-4 px-4 body-text font-semibold">{tier.name}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {pricing.categories.map(category => {
+                  const categoryFeatures = pricing.features.filter(f => f.category === category.slug).sort((a, b) => a.order - b.order);
+                  if (categoryFeatures.length === 0) return null;
+                  
+                  return categoryFeatures.map((feature, idx) => (
+                    <tr key={feature.name} className="border-b border-border/50 hover:bg-foreground/5">
+                      <td className="py-3 px-4 body-text">{feature.name}</td>
+                      <td className="py-3 px-4 body-small text-muted">{idx === 0 ? category.name : ''}</td>
+                      {pricing.tiers.sort((a, b) => a.order - b.order).map(tier => {
+                        const status = feature.tierStatus.find(ts => ts.tierSlug === tier.slug)?.status || -1;
+                        return (
+                          <td key={tier.slug} className="py-3 px-4 text-center">
+                            {status === 1 ? (
+                              <Check className="w-5 h-5 text-accent mx-auto" />
+                            ) : (
+                              <X className="w-5 h-5 text-muted mx-auto" />
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ));
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>

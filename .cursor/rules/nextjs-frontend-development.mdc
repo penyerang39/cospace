@@ -53,6 +53,7 @@ alwaysApply: true
 4. If the user's request is minimal - implement minimal changes. If the user's request is large in scope, use a todo list and complete each part of the user's request thoroughly
 5. Test responsive behavior at common breakpoints (mobile: 375px, tablet: 768px, desktop: 1024px+)
 6. Ensure touch targets are at least 44px for mobile accessibility
+7. This site uses both dark and light theme, if you aren't using a component or class that supports it, you must add support for it.
 
 ## Performance Optimization:
 1. Implement proper image optimization using Next.js Image component
