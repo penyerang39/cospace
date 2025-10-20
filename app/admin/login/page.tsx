@@ -13,7 +13,7 @@ export default function AdminLoginPage() {
     setError('');
     
     if (!email.endsWith('@neo14.com')) {
-      setError('Only @neo14.com email addresses are allowed');
+      setError('Failed to send email. Please try again.');
       return;
     }
 
@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
       });
       window.location.href = '/admin/verify';
     } catch (err) {
-      setError('Failed to send sign-in email. Please try again.');
+      setError('Failed to send email. Please try again.');
       setIsLoading(false);
     }
   };
@@ -47,14 +47,14 @@ export default function AdminLoginPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Neo14 Email Address
+                  Email Address
                 </label>
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@neo14.com"
+                  placeholder="you@email.com"
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#667eea] focus:border-transparent transition-all"
                   disabled={isLoading}
@@ -77,14 +77,10 @@ export default function AdminLoginPage() {
             </form>
 
             <p className="text-center text-sm text-gray-500 mt-6">
-              A secure sign-in link will be sent to your email
+              A sign-in link will be sent to your email
             </p>
           </div>
         </div>
-
-        <p className="text-center text-white/80 text-sm mt-6">
-          Only @neo14.com team members can access the CMS
-        </p>
       </div>
     </div>
   );

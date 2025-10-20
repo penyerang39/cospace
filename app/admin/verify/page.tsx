@@ -15,7 +15,7 @@ export default function VerifyRequestPage() {
             </h1>
             
             <p className="text-gray-600 mb-6">
-              A sign-in link has been sent to your Neo14 email address.
+              A sign-in link has been sent to your email.
             </p>
             
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left text-sm text-gray-700 mb-6">
@@ -28,7 +28,7 @@ export default function VerifyRequestPage() {
             </div>
             
             <p className="text-sm text-gray-500">
-              The link will expire in 24 hours for security.
+              The link will expire in 24 hours.
             </p>
           </div>
         </div>
