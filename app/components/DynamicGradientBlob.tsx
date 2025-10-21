@@ -44,7 +44,7 @@ interface DynamicGradientBlobProps {
   /**
    * Callback to receive debug information
    */
-  onDebugInfo?: (info: any) => void;
+  onDebugInfo?: (info: { x: number; y: number; scale: number; rotation: number }) => void;
 }
 
 export default function DynamicGradientBlob({

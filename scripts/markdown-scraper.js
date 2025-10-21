@@ -1,5 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+
+
 
 /**
  * Markdown scraper that converts markdown files to React components
@@ -312,7 +314,7 @@ export default function Page() {
   /**
    * Generate React component from markdown content
    */
-  generateReactComponent(content, title) {
+  generateReactComponent(content) {
     const jsx = this.parseMarkdown(content);
     
     return `import React from 'react';
@@ -482,9 +484,9 @@ export default function Page() {
 }
 
 // Run if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   const scraper = new MarkdownScraper();
   scraper.run();
 }
 
-module.exports = MarkdownScraper;
+export default MarkdownScraper;

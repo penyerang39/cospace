@@ -1,5 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+
+
 
 /**
  * Navigation Generation Script
@@ -307,8 +309,8 @@ function generateNavigation() {
 }
 
 // Run if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   generateNavigation();
 }
 
-module.exports = { generateNavigation };
+export { generateNavigation };

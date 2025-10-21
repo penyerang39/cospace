@@ -8,6 +8,17 @@ const nextConfig: NextConfig = {
     qualities: [25, 50, 90],
     formats: ["image/avif", "image/webp"],
   },
+  // TinaCMS configuration
+  serverExternalPackages: ['@tinacms/datalayer'],
+  // Ensure TinaCMS admin files are served correctly
+  async rewrites() {
+    return [
+      {
+        source: '/admin',
+        destination: '/admin/index.html',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

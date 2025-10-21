@@ -1,4 +1,4 @@
-import { defineConfig } from "tinacms";
+import { defineConfig, LocalAuthProvider } from "tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -11,28 +11,22 @@ const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
 
 export default defineConfig({
   branch,
-
-  // Self-hosted mode - no TinaCloud required
-  clientId: null,
-  token: null,
-  
-  // Use local backend in development, authenticated backend in production
-  contentApiUrlOverride: isLocal ? undefined : "/api/tina/gql",
-
+  authProvider: new LocalAuthProvider(),
+  contentApiUrlOverride: "/api/tina/gql",
   build: {
-    outputFolder: "admin",
     publicFolder: "public",
+    outputFolder: "admin",
   },
   media: {
     tina: {
       mediaRoot: "",
       publicFolder: "public",
+      static: true,
     },
   },
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/r/content-modelling-collections/
   schema: {
-    collections: [
-      {
+    collections: [{
         name: "post",
         label: "Posts",
         path: "content/posts",
