@@ -113,10 +113,10 @@ export default function DynamicGradientBlob({
           maxIntersection: 0,
         });
         onDebugInfo?.({
-          trackedElements: [],
-          blobPosition: { x: 50, y: defaultY, scale: 0.7, intensity: 0.5 },
-          totalWeight: 0,
-          maxIntersection: 0,
+          x: 50,
+          y: defaultY,
+          scale: 0.7,
+          rotation: 0,
         });
         // Retry after a delay
         setTimeout(initializeTracking, 500);
@@ -293,7 +293,12 @@ export default function DynamicGradientBlob({
       };
       
       setDebugInfo(newDebugInfo);
-        onDebugInfo?.(newDebugInfo);
+        onDebugInfo?.({
+          x: blobPosition.x,
+          y: blobPosition.y,
+          scale: blobPosition.scale,
+          rotation: 0,
+        });
       };
 
       // Animation loop

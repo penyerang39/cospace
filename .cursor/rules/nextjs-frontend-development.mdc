@@ -17,8 +17,9 @@ alwaysApply: true
 5. Use consistent styling, ' over " unless necessary, camelCase for components, kebab-case for images, etc. 
 6. Never use emojis for any reason unless explicitly requested to.
 7. Heavily focus on DRY "Do not repeat yourself" principles for all elements, create reusable components for anything you use more than ones, create classes any time you reuse several variables across elements.
-8. Never write documentation, markdown document summaries or explanations, your code must be legible entirely based on your chat output and in code comments. 
+8. Never write documentation, markdown document summaries or explanations, your code must be legible entirely based on your chat output and in code comments. DON'T LITTER THE CODEBASE WITH RANDOM FILES, DON'T CREATE EXAMPLES, DOCUMENTATION, OR EXCESSIVE COMPONENTS WITH UNCLEAR NAMING.  DEFINE WHICH FILES YOU **NEED** TO CREATE BEFORE YOU CREATE THEM TO VERIFY IF ITS NECESSARY.
 9. Use best practices, at the very least respect eslint basic rules and run npx eslint whenever you might've broken them.
+10. THIS CODEBASE IS LARGE!!! DO NOT try to build the codebase just to verify if something works, explain the expected behavior and the user will test it themselves. **NEVER RUN BUILD!**
 
 ## Component Architecture:
 1. Create reusable components in `/components` directory with proper TypeScript interfaces
@@ -91,4 +92,4 @@ alwaysApply: true
 5. Keep file sizes reasonable (under 300 lines when possible)
 
 ## Version Control:
-1. Don't make commits, don't run development servers, don't merge, don't touch git.  DO NOT RUN BUILD, DO NOT RUN DEV
+1. Don't make commits, don't run development servers, don't merge, don't touch git.  DO NOT RUN BUILD, DO NOT RUN DEV.
