@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
           <div className="px-8 py-12">
             <div className="text-center mb-8">
               <h1 className="heading-2 mb-4">
-                Cospace <span className="gradient-text">CMS</span>
+                Cospace <span className="heading-1">CMS</span>
               </h1>
               <p className="body-text">Sign in to manage content</p>
             </div>

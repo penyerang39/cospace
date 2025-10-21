@@ -16,6 +16,7 @@ export const authOptions: NextAuthOptions = {
         },
       },
       from: process.env.EMAIL_FROM || 'admin@neo14.com',
+      maxAge: 24 * 60 * 60, // 24 hours
       async sendVerificationRequest({ identifier: email, url }) {
         // Restrict to @neo14.com domains only
         if (!email.endsWith('@neo14.com')) {
@@ -64,6 +65,9 @@ export const authOptions: NextAuthOptions = {
     verifyRequest: '/admin/verify',
     error: '/admin/error',
   },
+  session: {
+    strategy: 'jwt',
+  },
   callbacks: {
     async signIn({ user }) {
       // Additional check: only allow @neo14.com domains
@@ -72,8 +76,14 @@ export const authOptions: NextAuthOptions = {
       }
       return false;
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.email = user.email;
+      }
+      return token;
+    },
     async session({ session, token }) {
-      if (session.user) {
+      if (session.user && token.email) {
         session.user.email = token.email;
       }
       return session;

@@ -20,11 +20,17 @@ if (!branch) {
   );
 }
 
-// For build time or when Redis is not available, always use local database
-const isBuildTime = process.env.NODE_ENV === 'production' && !process.env.VERCEL;
+// Check if we have Redis configuration
 const hasRedisConfig = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN;
 
-export default isLocal || isBuildTime || !hasRedisConfig
+// Use local database only for local development, otherwise use Redis
+if (!isLocal && !hasRedisConfig) {
+  throw new Error(
+    "Upstash Redis configuration is required for production. Please set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN environment variables."
+  );
+}
+
+export default isLocal
   ? createLocalDatabase()
   : createDatabase({
       gitProvider: new GitHubProvider({

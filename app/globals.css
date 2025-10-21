@@ -243,15 +243,25 @@ html {
   transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
-/* Card feature gradient effect - separate wrapper needed */
+/* Card feature gradient effect - wrapper sizes to card content */
 .card-feature-with-gradient {
   position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.card-feature-with-gradient .card-feature {
+  position: relative;
+  z-index: 1;
 }
 
 .card-feature-with-gradient::before {
   content: '';
   position: absolute;
-  inset: -8px;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
   background: linear-gradient(135deg, var(--accent), #cc67ff);
   border-radius: 0.75rem;
   opacity: 0;
@@ -372,24 +382,34 @@ html {
   border-left: 4px solid var(--accent);
 }
 
-/* Reusable gradient border wrapper */
+/* Reusable gradient border wrapper - sizes to content */
 .gradient-border {
   /* Apply this to a rounded container. Keep child unrounded. */
   position: relative;
-  padding: 5px; /* visual border width */
+  display: inline-block;
+  width: 100%;
   z-index: 0;
+}
+
+.gradient-border > * {
+  position: relative;
+  z-index: 1;
 }
 
 .gradient-border::before {
   content: '';
   position: absolute;
-  inset: -8px;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
   background: linear-gradient(135deg, var(--accent), #cc67ff);
-  border-radius: inherit;
+  border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
   filter: blur(10px);
-  z-index: -2;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .gradient-border:hover::before {
