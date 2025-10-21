@@ -157,11 +157,7 @@ export default function AutoReveal() {
     });
 
     // Gradient Border Effect Observer - Middle 40% viewport detection
-    const gradientSelectors = [
-      '.card-gradient-wrapper:not([data-no-gradient])',
-      '.card-feature-with-gradient:not([data-no-gradient])',
-      '.gradient-border:not([data-no-gradient])'
-    ].join(',');
+    const gradientSelectors = '.gradient-border:not([data-no-gradient])';
 
     const gradientElements = Array.from(document.querySelectorAll<HTMLElement>(gradientSelectors));
 

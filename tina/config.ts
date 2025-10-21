@@ -1,4 +1,5 @@
-import { defineConfig, LocalAuthProvider } from "tinacms";
+import { defineConfig } from "tinacms";
+import { UsernamePasswordAuthJSProvider } from "tinacms-authjs/dist/tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -11,7 +12,7 @@ const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
 
 export default defineConfig({
   branch,
-  authProvider: new LocalAuthProvider(),
+  authProvider: isLocal ? undefined : new UsernamePasswordAuthJSProvider(),
   contentApiUrlOverride: "/api/tina/gql",
   build: {
     publicFolder: "public",

@@ -203,6 +203,9 @@ html {
   padding: 1.5rem;
   position: relative;
   z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .card > * {
@@ -214,6 +217,7 @@ html {
 .card-gradient-wrapper {
   position: relative;
   z-index: 0;
+  height: 100%;
 }
 
 .card-gradient-wrapper::before {
@@ -230,18 +234,8 @@ html {
   animation: gradientRotate 6s ease-in-out infinite;
 }
 
-.card-gradient-wrapper.gradient-active::before {
+.card-gradient-wrapper:hover::before {
   opacity: 1;
-}
-
-.card-gradient-wrapper.gradient-active {
-  transition: transform 300ms ease;
-}
-
-@media (min-width: 768px) {
-  .card-gradient-wrapper.gradient-active {
-    transform: scale(1.1);
-  }
 }
 
 
@@ -252,12 +246,15 @@ html {
   padding: 1.5rem;
   position: relative;
   transition: border-color 200ms ease, box-shadow 200ms ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Card feature gradient effect - wrapper sizes to card content */
 .card-feature-with-gradient {
   position: relative;
-  width: fit-content;
+  height: 100%;
 }
 
 .card-feature-with-gradient .card-feature {
@@ -282,18 +279,8 @@ html {
   animation: gradientRotate 6s ease-in-out infinite;
 }
 
-.card-feature-with-gradient.gradient-active::before {
+.card-feature-with-gradient:hover::before {
   opacity: 1;
-}
-
-.card-feature-with-gradient.gradient-active {
-  transition: transform 300ms ease;
-}
-
-@media (min-width: 768px) {
-  .card-feature-with-gradient.gradient-active {
-    transform: scale(1.1);
-  }
 }
 
 
@@ -347,6 +334,12 @@ html {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
+  align-items: stretch;
+}
+
+.grid-features > li {
+  display: flex;
+  height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -365,6 +358,12 @@ html {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
+  align-items: stretch;
+}
+
+.grid-capabilities > li {
+  display: flex;
+  height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -377,6 +376,12 @@ html {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
+  align-items: stretch;
+}
+
+.grid-use-cases > li {
+  display: flex;
+  height: 100%;
 }
 
 @media (min-width: 768px) {
