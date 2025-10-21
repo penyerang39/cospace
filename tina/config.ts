@@ -1,4 +1,4 @@
-import { defineConfig } from "tinacms";
+import { defineConfig, LocalAuthProvider } from "tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -9,6 +9,7 @@ const branch =
 
 export default defineConfig({
   branch,
+  authProvider: new LocalAuthProvider(),
   contentApiUrlOverride: "/api/tina/gql",
   build: {
     publicFolder: "public",
@@ -23,7 +24,7 @@ export default defineConfig({
   },
   search: {
     tina: {
-      indexerToken: "dummy-search-token",
+      indexerToken: "local-search-token",
       stopwordLanguages: ["en"],
     },
   },

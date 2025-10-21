@@ -2,8 +2,8 @@ import { createDatabase, createLocalDatabase } from "@tinacms/datalayer";
 import { RedisLevel } from "upstash-redis-level";
 import { GitHubProvider } from "tinacms-gitprovider-github";
 
-// Manage this flag in your CI/CD pipeline and make sure it is set to false in production
-const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
+// Force local mode for self-hosted setup
+const isLocal = true;
 
 const token = process.env.GITHUB_PERSONAL_ACCESS_TOKEN as string;
 const owner = (process.env.GITHUB_OWNER ||

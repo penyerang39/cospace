@@ -3,7 +3,7 @@ import type { BackendAuthProvider } from '@tinacms/datalayer';
 import databaseClient from '../../../tina/__generated__/databaseClient';
 import type { IncomingMessage, ServerResponse } from 'http';
 
-const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true';
+const isLocal = true; // Force local mode for self-hosted setup
 
 // Simple token-based auth for production
 const SimpleBackendAuth = (): BackendAuthProvider => {
