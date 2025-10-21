@@ -1,20 +1,14 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
-import EmailProvider from 'next-auth/providers/email';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    EmailProvider({
-      server: {
-        host: 'smtp.resend.com',
-        port: 465,
-        auth: {
-          user: 'resend',
-          pass: process.env.RESEND_API_KEY,
-        },
-      },
+    {
+      id: 'email',
+      name: 'Email',
+      type: 'email',
       from: process.env.EMAIL_FROM || 'admin@neo14.com',
       async sendVerificationRequest({ identifier: email, url }) {
         // Restrict to @neo14.com domains only
@@ -57,7 +51,7 @@ export const authOptions: NextAuthOptions = {
           throw error;
         }
       },
-    }),
+    },
   ],
   pages: {
     signIn: '/admin/login',
