@@ -1,10 +1,12 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
 import { Resend } from 'resend';
+import { UpstashRedisAdapter } from '../../../lib/upstash-adapter';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const authOptions: NextAuthOptions = {
+  adapter: UpstashRedisAdapter(),
   providers: [
     EmailProvider({
       server: {
@@ -65,9 +67,6 @@ export const authOptions: NextAuthOptions = {
     verifyRequest: '/admin/verify',
     error: '/admin/error',
   },
-  session: {
-    strategy: 'jwt',
-  },
   callbacks: {
     async signIn({ user }) {
       // Additional check: only allow @neo14.com domains
@@ -76,15 +75,9 @@ export const authOptions: NextAuthOptions = {
       }
       return false;
     },
-    async jwt({ token, user }) {
-      if (user) {
-        token.email = user.email;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user && token.email) {
-        session.user.email = token.email;
+    async session({ session, user }) {
+      if (session.user && user) {
+        session.user.email = user.email;
       }
       return session;
     }

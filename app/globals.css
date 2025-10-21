@@ -246,8 +246,7 @@ html {
 /* Card feature gradient effect - wrapper sizes to card content */
 .card-feature-with-gradient {
   position: relative;
-  display: inline-block;
-  width: 100%;
+  width: fit-content;
 }
 
 .card-feature-with-gradient .card-feature {
@@ -386,8 +385,7 @@ html {
 .gradient-border {
   /* Apply this to a rounded container. Keep child unrounded. */
   position: relative;
-  display: inline-block;
-  width: 100%;
+  width: fit-content;
   z-index: 0;
 }
 

@@ -6,12 +6,8 @@ export default function VerifyRequestPage() {
       <div className="max-w-md w-full">
         <div className="card">
           <div className="px-8 py-12 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-accent/10 rounded-full mb-6">
-              <CheckCircle className="w-8 h-8 text-accent" />
-            </div>
-            
             <h1 className="heading-2 mb-4">
-              Check your <span className="gradient-text">email</span>
+              Check your <span className="">email</span>
             </h1>
             
             <p className="body-text mb-6">
