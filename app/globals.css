@@ -220,13 +220,14 @@ html {
   content: '';
   position: absolute;
   inset: -8px;
-  background: linear-gradient(135deg, var(--accent), #cc67ff);
+  background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
   border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
   filter: blur(10px);
   z-index: -2;
   pointer-events: none;
+  animation: gradientRotate 6s ease-in-out infinite;
 }
 
 .card-gradient-wrapper:hover::before {
@@ -261,13 +262,14 @@ html {
   left: -8px;
   right: -8px;
   bottom: -8px;
-  background: linear-gradient(135deg, var(--accent), #cc67ff);
+  background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
   border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
   filter: blur(10px);
   z-index: -1;
   pointer-events: none;
+  animation: gradientRotate 6s ease-in-out infinite;
 }
 
 .card-feature-with-gradient:hover::before {
@@ -401,13 +403,14 @@ html {
   left: -8px;
   right: -8px;
   bottom: -8px;
-  background: linear-gradient(135deg, var(--accent), #cc67ff);
+  background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
   border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
   filter: blur(10px);
   z-index: -1;
   pointer-events: none;
+  animation: gradientRotate 6s ease-in-out infinite;
 }
 
 .gradient-border:hover::before {
@@ -432,6 +435,35 @@ html {
 }
 
 /* Keep default image rendering to avoid over-sharpening photos */
+
+/* Gradient Border Animation */
+@keyframes gradientRotate {
+  0% {
+    background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
+  }
+  25% {
+    background: linear-gradient(calc(var(--gradient-start, 135deg) + 15deg), var(--accent), #cc67ff);
+  }
+  50% {
+    background: linear-gradient(calc(var(--gradient-start, 135deg) + 30deg), var(--accent), #cc67ff);
+  }
+  75% {
+    background: linear-gradient(calc(var(--gradient-start, 135deg) + 15deg), var(--accent), #cc67ff);
+  }
+  100% {
+    background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
+  }
+}
+
+/* Gradient direction variants for randomization */
+.gradient-dir-1 { --gradient-start: 45deg; }
+.gradient-dir-2 { --gradient-start: 90deg; }
+.gradient-dir-3 { --gradient-start: 135deg; }
+.gradient-dir-4 { --gradient-start: 180deg; }
+.gradient-dir-5 { --gradient-start: 225deg; }
+.gradient-dir-6 { --gradient-start: 270deg; }
+.gradient-dir-7 { --gradient-start: 315deg; }
+.gradient-dir-8 { --gradient-start: 0deg; }
 
 /* Infinite Scroll Animation */
 @keyframes scroll {
