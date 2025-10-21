@@ -30,7 +30,7 @@ export default defineConfig({
       {
         name: "pricing",
         label: "Pricing",
-        path: "content",
+        path: "content/pricing.json",
         format: "json",
         ui: {
           allowedActions: {

@@ -42,8 +42,8 @@ export default function BlobController() {
           containerRef={containerRef as unknown as React.RefObject<HTMLElement>}
           // Track only meaningful leaf elements; ignore generic divs in component logic
           targetSelector={'img, button, h1, h2, h3, h4, h5, h6, [data-blob-image]'}
-          blurAmount={200}
-          smoothness={1200}
+          blurAmount={60}
+          smoothness={800}
           intersectionWeight={0.9}
         />
       </div>
