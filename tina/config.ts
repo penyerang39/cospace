@@ -1,4 +1,5 @@
-import { defineConfig } from "tinacms";
+import { defineConfig, LocalAuthProvider } from "tinacms";
+import { TinaUserCollection, UsernamePasswordAuthJSProvider } from "tinacms-authjs/dist/tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -11,7 +12,9 @@ const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
 
 export default defineConfig({
   branch,
-  // Auth is handled via NextAuth in the API routes
+  authProvider: isLocal
+    ? new LocalAuthProvider()
+    : new UsernamePasswordAuthJSProvider(),
   contentApiUrlOverride: "/api/tina/gql",
   build: {
     publicFolder: "public",
@@ -27,6 +30,7 @@ export default defineConfig({
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/r/content-modelling-collections/
   schema: {
     collections: [
+      TinaUserCollection,
       {
         name: "pricing",
         label: "Pricing",

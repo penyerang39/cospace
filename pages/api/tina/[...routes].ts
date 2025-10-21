@@ -1,36 +1,22 @@
-import { TinaNodeBackend } from '@tinacms/datalayer';
+import { TinaNodeBackend, LocalBackendAuthProvider } from '@tinacms/datalayer';
+import { TinaAuthJSOptions, AuthJsBackendAuthProvider } from 'tinacms-authjs';
 import databaseClient from '../../../tina/__generated__/databaseClient';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../auth/[...nextauth]';
-import type { NextApiRequest, NextApiResponse } from 'next';
 
 const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true';
 
 const handler = TinaNodeBackend({
-  authProvider: isLocal ? undefined : {
-    isAuthorized: async (req: NextApiRequest, res: NextApiResponse) => {
-      const session = await getServerSession(req, res, authOptions);
-      
-      if (!session || !session.user?.email) {
-        return {
-          isAuthorized: false,
-        };
-      }
-
-      // Only allow @neo14.com emails
-      if (!session.user.email.endsWith('@neo14.com')) {
-        return {
-          isAuthorized: false,
-        };
-      }
-
-      return {
-        isAuthorized: true,
-      };
-    },
-  },
+  authProvider: isLocal
+    ? LocalBackendAuthProvider()
+    : AuthJsBackendAuthProvider({
+        authOptions: TinaAuthJSOptions({
+          databaseClient: databaseClient,
+          secret: process.env.NEXTAUTH_SECRET,
+        }),
+      }),
   databaseClient,
 });
 
-export default handler;
+export default (req: any, res: any) => {
+  return handler(req, res);
+};
 

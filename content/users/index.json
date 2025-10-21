@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "name": "Admin User",
+      "email": "admin@neo14.com",
+      "username": "admin",
+      "password": "changeme123"
+    }
+  ]
+}
+
