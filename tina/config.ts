@@ -1,4 +1,5 @@
 import { defineConfig } from "tinacms";
+import { SimpleAuthProvider } from "../lib/tina-simple-auth";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -11,7 +12,7 @@ const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
 
 export default defineConfig({
   branch,
-  // No auth provider - auth is handled by backend
+  authProvider: isLocal ? undefined : new SimpleAuthProvider(),
   contentApiUrlOverride: "/api/tina/gql",
   build: {
     publicFolder: "public",
