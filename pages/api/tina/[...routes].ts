@@ -1,11 +1,9 @@
 import { TinaNodeBackend, LocalBackendAuthProvider } from '@tinacms/datalayer';
-import databaseClient from '../../../tina/__generated__/client';
-import database from '../../../tina/database';
+import databaseClient from '../../../tina/__generated__/databaseClient';
 
 const handler = TinaNodeBackend({
-  authentication: LocalBackendAuthProvider(),
+  authProvider: LocalBackendAuthProvider(),
   databaseClient,
-  database,
 });
 
 const tinaHandler = (req: Request, res: Response) => {
