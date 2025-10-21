@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
+import { Mail, AlertTriangle } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
@@ -13,19 +14,26 @@ export default function AdminLoginPage() {
     setError('');
     
     if (!email.endsWith('@neo14.com')) {
-      setError('Failed to send email. Please try again.');
+      setError('Only @neo14.com email addresses are allowed.');
       return;
     }
 
     setIsLoading(true);
     
     try {
-      await signIn('email', { 
+      const result = await signIn('email', { 
         email, 
         callbackUrl: '/admin',
         redirect: false 
       });
-      window.location.href = '/admin/verify';
+      
+      if (result?.error) {
+        setError('Failed to send email. Please try again.');
+        setIsLoading(false);
+      } else {
+        // Only redirect on successful sign-in
+        window.location.href = '/admin/verify';
+      }
     } catch (err) {
       setError('Failed to send email. Please try again.');
       setIsLoading(false);
@@ -33,20 +41,20 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#667eea] to-[#764ba2] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div className="card">
           <div className="px-8 py-12">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-[#667eea] to-[#764ba2] bg-clip-text text-transparent">
-                Cospace CMS
+              <h1 className="heading-2 mb-4">
+                Cospace <span className="gradient-text">CMS</span>
               </h1>
-              <p className="text-gray-600">Sign in to manage content</p>
+              <p className="body-text">Sign in to manage content</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="email" className="block body-text font-medium mb-2">
                   Email Address
                 </label>
                 <input
@@ -54,29 +62,40 @@ export default function AdminLoginPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@email.com"
+                  placeholder="you@neo14.com"
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#667eea] focus:border-transparent transition-all"
+                  className="form-input"
                   disabled={isLoading}
                 />
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-                  {error}
+                <div className="flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg body-small">
+                  <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+                  <span>{error}</span>
                 </div>
               )}
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white font-semibold py-3 rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-primary w-full"
               >
-                {isLoading ? 'Sending magic link...' : 'Send magic link'}
+                {isLoading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Sending magic link...
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4" />
+                    Send magic link
+                  </div>
+                )}
               </button>
             </form>
 
-            <p className="text-center text-sm text-gray-500 mt-6">
+            <p className="text-center body-small text-muted mt-6">
               A sign-in link will be sent to your email
             </p>
           </div>

@@ -1,8 +1,9 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { XCircle } from 'lucide-react';
+import { XCircle, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { Suspense } from 'react';
+import CTAButton from '../../components/CTAButton';
 
 function AdminErrorContent() {
   const searchParams = useSearchParams();
@@ -21,33 +22,47 @@ function AdminErrorContent() {
     }
   };
 
+  const getErrorIcon = () => {
+    switch (error) {
+      case 'Configuration':
+        return <AlertTriangle className="w-8 h-8 text-red-500" />;
+      case 'AccessDenied':
+        return <XCircle className="w-8 h-8 text-red-500" />;
+      case 'Verification':
+        return <XCircle className="w-8 h-8 text-orange-500" />;
+      default:
+        return <XCircle className="w-8 h-8 text-red-500" />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#667eea] to-[#764ba2] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div className="card">
           <div className="px-8 py-12 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-6">
-              <XCircle className="w-8 h-8 text-red-600" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-50 rounded-full mb-6">
+              {getErrorIcon()}
             </div>
             
-            <h1 className="text-3xl font-bold mb-4 text-gray-900">
-              Authentication Error
+            <h1 className="heading-2 mb-4">
+              Authentication <span className="text-red-500">Error</span>
             </h1>
             
-            <p className="text-gray-600 mb-8">
+            <p className="body-text mb-8">
               {getErrorMessage()}
             </p>
             
             <a
               href="/admin/login"
-              className="inline-block w-full bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white font-semibold py-3 rounded-lg hover:shadow-lg transition-all"
+              className="btn-primary w-full flex items-center justify-center gap-2"
             >
+              <ArrowLeft className="w-4 h-4" />
               Try again
             </a>
           </div>
         </div>
 
-        <p className="text-center text-white/80 text-sm mt-6">
+        <p className="text-center body-small text-muted mt-6">
           Need help? Contact your administrator.
         </p>
       </div>
@@ -58,8 +73,8 @@ function AdminErrorContent() {
 export default function AdminErrorPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#667eea] to-[#764ba2] px-4">
-        <div className="text-white">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <div className="text-foreground">Loading...</div>
       </div>
     }>
       <AdminErrorContent />

@@ -12,8 +12,8 @@ export default function AdminPage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#667eea] to-[#764ba2] px-4">
-      <div className="text-white">Redirecting to login...</div>
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+      <div className="text-foreground">Redirecting to login...</div>
     </div>
   );
 }
