@@ -42,9 +42,11 @@ GITHUB_REPO=your_repository_name
 GITHUB_BRANCH=main
 NEXTAUTH_SECRET=your_nextauth_secret_here
 NEXTAUTH_URL=https://your-domain.vercel.app
-KV_REST_API_URL=your_vercel_kv_url_here
-KV_REST_API_TOKEN=your_vercel_kv_token_here
+UPSTASH_REDIS_REST_URL=your_upstash_redis_url_here
+UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token_here
 ```
+
+**Important**: The build will work even without these environment variables initially. TinaCMS will use a local database during build time and switch to the production database once the environment variables are configured.
 
 ## GitHub Setup
 
@@ -53,12 +55,12 @@ KV_REST_API_TOKEN=your_vercel_kv_token_here
    - Generate a new token with `repo` scope
    - Copy the token and add it to your environment variables
 
-## Vercel KV Setup
+## Upstash Redis Setup
 
-1. In your Vercel dashboard, go to your project
-2. Navigate to the Storage tab
-3. Create a new KV Database
-4. Copy the `KV_REST_API_URL` and `KV_REST_API_TOKEN` to your environment variables
+1. Go to [Upstash Console](https://console.upstash.com/)
+2. Create a new Redis database
+3. Copy the `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` to your environment variables
+4. Add these to your Vercel project settings
 
 ## Development
 
@@ -85,10 +87,12 @@ pnpm dev
 ## Build Process
 
 The build process has been configured to:
-1. Run TinaCMS build with partial reindexing
-2. Generate navigation files
-3. Scrape legal content
+1. Generate navigation files
+2. Scrape legal content  
+3. Build TinaCMS (with graceful fallback if Redis is not configured)
 4. Build the Next.js application
+
+The build script (`scripts/build-with-tina.js`) handles TinaCMS build failures gracefully, allowing the deployment to succeed even before Redis/Vercel KV is configured.
 
 ## Troubleshooting
 

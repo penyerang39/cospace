@@ -20,10 +20,11 @@ if (!branch) {
   );
 }
 
-// For build time, always use local database to avoid connection issues
+// For build time or when Redis is not available, always use local database
 const isBuildTime = process.env.NODE_ENV === 'production' && !process.env.VERCEL;
+const hasRedisConfig = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN;
 
-export default isLocal || isBuildTime
+export default isLocal || isBuildTime || !hasRedisConfig
   ? createLocalDatabase()
   : createDatabase({
       gitProvider: new GitHubProvider({
@@ -35,8 +36,8 @@ export default isLocal || isBuildTime
       databaseAdapter: new RedisLevel<string, Record<string, unknown>>({
         redis: {
           url:
-            (process.env.KV_REST_API_URL as string) || "http://localhost:8079",
-          token: (process.env.KV_REST_API_TOKEN as string) || "example_token",
+            (process.env.UPSTASH_REDIS_REST_URL as string) || "http://localhost:8079",
+          token: (process.env.UPSTASH_REDIS_REST_TOKEN as string) || "example_token",
         },
         debug: process.env.DEBUG === "true" || false,
       }),

@@ -5,7 +5,7 @@ import { XCircle } from 'lucide-react';
 
 export default function AdminErrorPage() {
   const searchParams = useSearchParams();
-  const error = searchParams.get('error');
+  const error = searchParams?.get('error') || null;
 
   const getErrorMessage = () => {
     switch (error) {
