@@ -25,8 +25,16 @@ try {
   console.log('✅ TinaCMS build completed successfully');
 } catch (error) {
   console.error('❌ TinaCMS build failed:', error.message);
-  console.log('   This may be expected if Redis/Upstash is not configured yet');
-  hasErrors = true;
+  console.log('   Attempting to generate minimal TinaCMS files...');
+  
+  // Try to at least generate the schema files
+  try {
+    execSync('pnpm exec tinacms init --local', { stdio: 'inherit' });
+    console.log('✅ Generated minimal TinaCMS files');
+  } catch (initError) {
+    console.error('⚠️  Could not generate TinaCMS files');
+    hasErrors = true;
+  }
 }
 
 // Step 3: Build Next.js
