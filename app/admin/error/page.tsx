@@ -2,8 +2,9 @@
 
 import { useSearchParams } from 'next/navigation';
 import { XCircle } from 'lucide-react';
+import { Suspense } from 'react';
 
-export default function AdminErrorPage() {
+function AdminErrorContent() {
   const searchParams = useSearchParams();
   const error = searchParams?.get('error') || null;
 
@@ -51,6 +52,18 @@ export default function AdminErrorPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function AdminErrorPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#667eea] to-[#764ba2] px-4">
+        <div className="text-white">Loading...</div>
+      </div>
+    }>
+      <AdminErrorContent />
+    </Suspense>
   );
 }
 
