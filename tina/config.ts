@@ -1,5 +1,4 @@
 import { defineConfig } from "tinacms";
-import { SimpleAuthProvider } from "../lib/tina-simple-auth";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -8,11 +7,8 @@ const branch =
   process.env.HEAD ||
   "main";
 
-const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
-
 export default defineConfig({
   branch,
-  authProvider: isLocal ? undefined : new SimpleAuthProvider(),
   contentApiUrlOverride: "/api/tina/gql",
   build: {
     publicFolder: "public",
@@ -23,6 +19,12 @@ export default defineConfig({
       mediaRoot: "",
       publicFolder: "public",
       static: true,
+    },
+  },
+  search: {
+    tina: {
+      indexerToken: "dummy-search-token",
+      stopwordLanguages: ["en"],
     },
   },
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/r/content-modelling-collections/
