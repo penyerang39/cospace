@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 /**
  * AutoReveal
  * Globally observes common sections and items and applies gentle fade-up animations
- * when they become visible. Respects prefers-reduced-motion.
+ * when they become visible. Also handles gradient border effects for middle viewport.
  */
 export default function AutoReveal() {
   useEffect(() => {
@@ -155,6 +155,64 @@ export default function AutoReveal() {
         }
       });
     });
+
+    // Gradient Border Effect Observer - Middle 40% viewport detection
+    const gradientSelectors = [
+      '.card-gradient-wrapper:not([data-no-gradient])',
+      '.card-feature-with-gradient:not([data-no-gradient])',
+      '.gradient-border:not([data-no-gradient])'
+    ].join(',');
+
+    const gradientElements = Array.from(document.querySelectorAll<HTMLElement>(gradientSelectors));
+
+    if (gradientElements.length > 0) {
+      // Middle 40% viewport: 30% from top to 70% from top
+      const gradientRootMargin = '-30% 0px -30% 0px';
+      
+      const gradientObserver = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          const target = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            // Element is in the middle 40% of viewport
+            target.classList.add('gradient-active');
+          } else {
+            // Element has left the middle 40% of viewport
+            target.classList.remove('gradient-active');
+          }
+        }
+      }, { 
+        root: null, 
+        threshold: 0.1, 
+        rootMargin: gradientRootMargin 
+      });
+
+      gradientElements.forEach((el) => gradientObserver.observe(el));
+
+      // Handle dynamically added gradient elements
+      const gradientMutationObserver = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          mutation.addedNodes.forEach((node) => {
+            if (!(node instanceof HTMLElement)) return;
+            
+            if (node.matches(gradientSelectors)) {
+              gradientObserver.observe(node);
+            }
+            
+            const subtree = node.querySelectorAll<HTMLElement>(gradientSelectors);
+            subtree.forEach((el) => gradientObserver.observe(el));
+          });
+        }
+      });
+
+      gradientMutationObserver.observe(document.body, { childList: true, subtree: true });
+
+      return () => {
+        observer.disconnect();
+        mutationObserver.disconnect();
+        gradientObserver.disconnect();
+        gradientMutationObserver.disconnect();
+      };
+    }
 
     return () => {
       observer.disconnect();

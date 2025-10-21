@@ -230,8 +230,18 @@ html {
   animation: gradientRotate 6s ease-in-out infinite;
 }
 
-.card-gradient-wrapper:hover::before {
+.card-gradient-wrapper.gradient-active::before {
   opacity: 1;
+}
+
+.card-gradient-wrapper.gradient-active {
+  transition: transform 300ms ease;
+}
+
+@media (min-width: 768px) {
+  .card-gradient-wrapper.gradient-active {
+    transform: scale(1.1);
+  }
 }
 
 
@@ -272,8 +282,18 @@ html {
   animation: gradientRotate 6s ease-in-out infinite;
 }
 
-.card-feature-with-gradient:hover::before {
+.card-feature-with-gradient.gradient-active::before {
   opacity: 1;
+}
+
+.card-feature-with-gradient.gradient-active {
+  transition: transform 300ms ease;
+}
+
+@media (min-width: 768px) {
+  .card-feature-with-gradient.gradient-active {
+    transform: scale(1.1);
+  }
 }
 
 
@@ -413,8 +433,18 @@ html {
   animation: gradientRotate 6s ease-in-out infinite;
 }
 
-.gradient-border:hover::before {
+.gradient-border.gradient-active::before {
   opacity: 1;
+}
+
+.gradient-border.gradient-active {
+  transition: transform 300ms ease;
+}
+
+@media (min-width: 768px) {
+  .gradient-border.gradient-active {
+    transform: scale(1.1);
+  }
 }
 
 
@@ -441,17 +471,8 @@ html {
   0% {
     background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
   }
-  25% {
-    background: linear-gradient(calc(var(--gradient-start, 135deg) + 15deg), var(--accent), #cc67ff);
-  }
-  50% {
-    background: linear-gradient(calc(var(--gradient-start, 135deg) + 30deg), var(--accent), #cc67ff);
-  }
-  75% {
-    background: linear-gradient(calc(var(--gradient-start, 135deg) + 15deg), var(--accent), #cc67ff);
-  }
   100% {
-    background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
+    background: linear-gradient(calc(var(--gradient-start, 135deg) + 360deg), var(--accent), #cc67ff);
   }
 }
 
