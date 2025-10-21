@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface BlobPosition {
   x: number;
@@ -85,17 +85,8 @@ export default function DynamicGradientBlob({
     totalWeight: 0,
     maxIntersection: 0,
   });
-  
-  // Performance optimization refs
   const animationFrameRef = useRef<number | undefined>(undefined);
   const mousePositionRef = useRef({ x: 0.5, y: 0.5 });
-  const lastCalculationTime = useRef(0);
-  const lastPosition = useRef<BlobPosition>({ x: 50, y: 40, scale: 1, intensity: 1 });
-  const isAnimating = useRef(false);
-  
-  // Throttle calculations to max 30fps instead of 60fps
-  const CALCULATION_THROTTLE = 1000 / 30; // 33ms = ~30fps
-  const POSITION_THRESHOLD = 0.5; // Only update if position changes by more than 0.5%
 
   useEffect(() => {
     setIsClient(true);
@@ -111,7 +102,6 @@ export default function DynamicGradientBlob({
       const targets = container.querySelectorAll<HTMLElement>(targetSelector);
       
       if (targets.length === 0 && !followMouse) {
-        console.warn(`DynamicGradientBlob: No targets found for selector "${targetSelector}", retrying...`);
         // Update debug info to show no targets found
         // Calculate default position accounting for navbar height
         const defaultY = container ? 40 + (container.getBoundingClientRect().top / window.innerHeight) * 100 : 40;
@@ -131,8 +121,6 @@ export default function DynamicGradientBlob({
         setTimeout(initializeTracking, 500);
         return;
       }
-      
-      console.log(`DynamicGradientBlob: Found ${targets.length} targets, initializing...`);
       startTracking(targets);
     };
 
@@ -173,203 +161,155 @@ export default function DynamicGradientBlob({
         window.addEventListener('mousemove', handleMouseMove, { passive: true });
       }
 
-      // Optimized calculation function with throttling
-      const calculateBlobPosition = useCallback(() => {
-        const now = performance.now();
-        
-        // Throttle calculations to prevent excessive DOM queries
-        if (now - lastCalculationTime.current < CALCULATION_THROTTLE) {
-          return;
-        }
-        lastCalculationTime.current = now;
-        
-        if (followMouse) {
-          const mouse = mousePositionRef.current;
-          const newPosition = {
-            x: mouse.x * 100,
-            y: mouse.y * 100,
-            scale: 1.2,
-            intensity: 1.3,
-          };
-          
-          // Only update if position changed significantly
-          if (Math.abs(newPosition.x - lastPosition.current.x) > POSITION_THRESHOLD ||
-              Math.abs(newPosition.y - lastPosition.current.y) > POSITION_THRESHOLD) {
-            lastPosition.current = newPosition;
-            setPosition(newPosition);
-          }
-          return;
-        }
-
-        let totalWeight = 0;
-        let weightedX = 0;
-        let weightedY = 0;
-        let maxIntersection = 0;
-
-        const containerRect = container.getBoundingClientRect();
-
-        // Only create debug array if debug info is needed
-        const trackedElements: Array<{
-          tagName: string;
-          className: string;
-          id: string;
-          weight: number;
-          intersectionRatio: number;
-          area: number;
-          centerX: number;
-          centerY: number;
-          isVisible: boolean;
-        }> = [];
-
-        targets.forEach((target) => {
-          const rect = target.getBoundingClientRect();
-          const intersectionRatio = observerMap.get(target) || 0;
-          
-          // Skip generic divs - only track actual HTML elements
-          const tagName = target.tagName.toLowerCase();
-          const isGenericDiv = tagName === 'div' && !target.hasAttribute('data-blob-weight');
-          
-          // Skip elements that are inside the navbar/header
-          const isInNavbar = target.closest('header') || target.closest('nav') || target.closest('[role="menu"]') || target.closest('[role="dialog"]');
-          
-          if (isGenericDiv || isInNavbar) {
-            return; // Skip this element
-          }
-          
-          // Calculate element area as a weight factor
-          const area = rect.width * rect.height;
-          const areaWeight = Math.min(area / (containerRect.width * containerRect.height), 1);
-          
-          // Get custom weight from data attribute
-          const customWeight = parseFloat(target.getAttribute('data-blob-weight') || '1');
-          
-          // Calculate element center relative to container
-          const centerX = (rect.left + rect.width / 2 - containerRect.left) / containerRect.width;
-          
-          // For Y coordinate, we need to account for the fact that the blob is rendered
-          // in a fixed overlay that starts from the top of the viewport, while coordinates
-          // are calculated relative to the main container which starts below the navbar
-          const elementCenterY = rect.top + rect.height / 2;
-          const containerTop = containerRect.top;
-          const containerHeight = containerRect.height;
-          
-          // Calculate relative position within the main container
-          const relativeY = (elementCenterY - containerTop) / containerHeight;
-          
-          // Convert to viewport coordinates by adding the navbar offset
-          const navbarHeight = containerTop; // This is the distance from viewport top to main container top
-          const viewportHeight = window.innerHeight;
-          const centerY = (elementCenterY) / viewportHeight;
-          
-          // Combined weight: intersection × area × custom weight
-          const weight = Math.pow(intersectionRatio, intersectionWeight) * areaWeight * customWeight;
-          
-          // Only add to debug info if onDebugInfo callback exists
-          if (onDebugInfo) {
-            trackedElements.push({
-              tagName: target.tagName,
-              className: target.className || '',
-              id: target.id || '',
-              weight,
-              intersectionRatio,
-              area: Math.round(area),
-              centerX: Math.round(centerX * 100) / 100,
-              centerY: Math.round(centerY * 100) / 100,
-              isVisible: intersectionRatio > 0.1,
-            });
-          }
-          
-          weightedX += centerX * weight;
-          weightedY += centerY * weight;
-          totalWeight += weight;
-          maxIntersection = Math.max(maxIntersection, intersectionRatio);
+      // Calculate weighted center of gravity
+      const calculateBlobPosition = () => {
+      if (followMouse) {
+        const mouse = mousePositionRef.current;
+        setPosition({
+          x: mouse.x * 100,
+          y: mouse.y * 100,
+          scale: 1.2,
+          intensity: 1.3,
         });
+        return;
+      }
 
-        // Default position should account for navbar height
-        // Since the blob is in a fixed overlay, we need viewport-relative coordinates
-        const defaultY = 40 + (containerRect.top / window.innerHeight) * 100;
-        let blobPosition = { x: 50, y: defaultY, scale: 0.7, intensity: 0.5 };
+      let totalWeight = 0;
+      let weightedX = 0;
+      let weightedY = 0;
+      let maxIntersection = 0;
+
+      const containerRect = container.getBoundingClientRect();
+
+      const trackedElements: Array<{
+        tagName: string;
+        className: string;
+        id: string;
+        weight: number;
+        intersectionRatio: number;
+        area: number;
+        centerX: number;
+        centerY: number;
+        isVisible: boolean;
+      }> = [];
+
+      targets.forEach((target) => {
+        const rect = target.getBoundingClientRect();
+        const intersectionRatio = observerMap.get(target) || 0;
         
-        if (totalWeight > 0) {
-          const targetX = (weightedX / totalWeight) * 100;
-          const targetY = (weightedY / totalWeight) * 100;
-          
-          // Scale and intensity based on total weight
-          const scale = 0.8 + (Math.min(totalWeight, 1) * 0.6);
-          const intensity = 0.7 + (maxIntersection * 0.8);
-          
-          blobPosition = {
-            x: targetX,
-            y: targetY,
-            scale,
-            intensity,
-          };
+        // Skip generic divs - only track actual HTML elements
+        const tagName = target.tagName.toLowerCase();
+        const isGenericDiv = tagName === 'div' && !target.hasAttribute('data-blob-weight');
+        
+        // Skip elements that are inside the navbar/header
+        const isInNavbar = target.closest('header') || target.closest('nav') || target.closest('[role="menu"]') || target.closest('[role="dialog"]');
+        
+        if (isGenericDiv || isInNavbar) {
+          return; // Skip this element
         }
+        
+        // Calculate element area as a weight factor
+        const area = rect.width * rect.height;
+        const areaWeight = Math.min(area / (containerRect.width * containerRect.height), 1);
+        
+        // Get custom weight from data attribute
+        const customWeight = parseFloat(target.getAttribute('data-blob-weight') || '1');
+        
+        // Calculate element center relative to container
+        const centerX = (rect.left + rect.width / 2 - containerRect.left) / containerRect.width;
+        
+        // For Y coordinate, we need to account for the fact that the blob is rendered
+        // in a fixed overlay that starts from the top of the viewport, while coordinates
+        // are calculated relative to the main container which starts below the navbar
+        const elementCenterY = rect.top + rect.height / 2;
+        const containerTop = containerRect.top;
+        const containerHeight = containerRect.height;
+        
+        // Calculate relative position within the main container
+        const relativeY = (elementCenterY - containerTop) / containerHeight;
+        
+        // Convert to viewport coordinates by adding the navbar offset
+        const navbarHeight = containerTop; // This is the distance from viewport top to main container top
+        const viewportHeight = window.innerHeight;
+        const centerY = (elementCenterY) / viewportHeight;
+        
+        // Combined weight: intersection × area × custom weight
+        const weight = Math.pow(intersectionRatio, intersectionWeight) * areaWeight * customWeight;
+        
+        // Add to debug info
+        trackedElements.push({
+          tagName: target.tagName,
+          className: target.className || '',
+          id: target.id || '',
+          weight,
+          intersectionRatio,
+          area: Math.round(area),
+          centerX: Math.round(centerX * 100) / 100,
+          centerY: Math.round(centerY * 100) / 100,
+          isVisible: intersectionRatio > 0.1,
+        });
+        
+        weightedX += centerX * weight;
+        weightedY += centerY * weight;
+        totalWeight += weight;
+        maxIntersection = Math.max(maxIntersection, intersectionRatio);
+      });
 
-        // Only update position if it changed significantly
-        const positionChanged = Math.abs(blobPosition.x - lastPosition.current.x) > POSITION_THRESHOLD ||
-                               Math.abs(blobPosition.y - lastPosition.current.y) > POSITION_THRESHOLD ||
-                               Math.abs(blobPosition.scale - lastPosition.current.scale) > 0.05 ||
-                               Math.abs(blobPosition.intensity - lastPosition.current.intensity) > 0.05;
+      // Default position should account for navbar height
+      // Since the blob is in a fixed overlay, we need viewport-relative coordinates
+      const defaultY = 40 + (containerRect.top / window.innerHeight) * 100;
+      let blobPosition = { x: 50, y: defaultY, scale: 0.7, intensity: 0.5 };
+      
+      if (totalWeight > 0) {
+        const targetX = (weightedX / totalWeight) * 100;
+        const targetY = (weightedY / totalWeight) * 100;
+        
+        // Scale and intensity based on total weight
+        const scale = 0.8 + (Math.min(totalWeight, 1) * 0.6);
+        const intensity = 0.7 + (maxIntersection * 0.8);
+        
+        blobPosition = {
+          x: targetX,
+          y: targetY,
+          scale,
+          intensity,
+        };
+        
+        setPosition(blobPosition);
+      } else {
+        // Default position when no targets are in view
+        setPosition(blobPosition);
+      }
 
-        if (positionChanged) {
-          lastPosition.current = blobPosition;
-          setPosition(blobPosition);
-        }
+      // Update debug info
+      const newDebugInfo = {
+        trackedElements: trackedElements.sort((a, b) => b.weight - a.weight), // Sort by weight descending
+        blobPosition,
+        totalWeight: Math.round(totalWeight * 100) / 100,
+        maxIntersection: Math.round(maxIntersection * 100) / 100,
+      };
+      
+      setDebugInfo(newDebugInfo);
+        onDebugInfo?.({
+          x: blobPosition.x,
+          y: blobPosition.y,
+          scale: blobPosition.scale,
+          rotation: 0,
+        });
+      };
 
-        // Only update debug info if callback exists and data changed
-        if (onDebugInfo) {
-          const newDebugInfo = {
-            trackedElements: trackedElements.sort((a, b) => b.weight - a.weight), // Sort by weight descending
-            blobPosition,
-            totalWeight: Math.round(totalWeight * 100) / 100,
-            maxIntersection: Math.round(maxIntersection * 100) / 100,
-          };
-          
-          setDebugInfo(newDebugInfo);
-          onDebugInfo({
-            x: blobPosition.x,
-            y: blobPosition.y,
-            scale: blobPosition.scale,
-            rotation: 0,
-          });
-        }
-      }, [followMouse, intersectionWeight, onDebugInfo, CALCULATION_THROTTLE, POSITION_THRESHOLD]);
-
-      // Optimized animation loop - only run when needed
+      // Animation loop
       const animate = () => {
-        if (!isAnimating.current) return;
-        
         calculateBlobPosition();
         animationFrameRef.current = requestAnimationFrame(animate);
       };
 
-      // Start animation only when there are targets or mouse tracking is enabled
-      const startAnimation = () => {
-        if (!isAnimating.current) {
-          isAnimating.current = true;
-          animate();
-        }
-      };
-
-      // Stop animation when no targets are visible
-      const stopAnimation = () => {
-        isAnimating.current = false;
-        if (animationFrameRef.current) {
-          cancelAnimationFrame(animationFrameRef.current);
-          animationFrameRef.current = undefined;
-        }
-      };
-
-      // Start animation if we have targets or mouse tracking
-      if (targets.length > 0 || followMouse) {
-        startAnimation();
-      } else {
-        stopAnimation();
-      }
+      animate();
 
       return () => {
-        stopAnimation();
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
         intersectionObserver.disconnect();
         if (followMouse) {
           window.removeEventListener('mousemove', handleMouseMove);
@@ -394,7 +334,7 @@ export default function DynamicGradientBlob({
         left: `${position.x}%`,
         top: `${position.y}%`,
         transform: `translate(-50%, -50%) scale(${position.scale})`,
-        opacity: position.intensity * 0.8,
+        opacity: debugInfo.trackedElements.length > 0 ? position.intensity * 0.8 : 0,
         filter: `blur(${blurAmount}px)`,
         transition: `all ${smoothness}ms cubic-bezier(0.4, 0, 0.2, 1)`,
       }}
