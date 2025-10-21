@@ -6,7 +6,7 @@ const handler = TinaNodeBackend({
   databaseClient,
 });
 
-const tinaHandler = (req: Request, res: Response) => {
+const tinaHandler = (req: any, res: any) => {
   // Modify request
   return handler(req, res);
 };
