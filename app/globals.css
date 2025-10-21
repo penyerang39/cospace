@@ -240,24 +240,28 @@ html {
   border-radius: 0.75rem;
   padding: 1.5rem;
   position: relative;
-  z-index: 1;
   transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
-.card-feature::before {
+/* Card feature gradient effect - separate wrapper needed */
+.card-feature-with-gradient {
+  position: relative;
+}
+
+.card-feature-with-gradient::before {
   content: '';
   position: absolute;
   inset: -8px;
   background: linear-gradient(135deg, var(--accent), #cc67ff);
-  border-radius: inherit;
+  border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
   filter: blur(10px);
-  z-index: -2;
+  z-index: -1;
   pointer-events: none;
 }
 
-.card-feature:hover::before {
+.card-feature-with-gradient:hover::before {
   opacity: 1;
 }
 

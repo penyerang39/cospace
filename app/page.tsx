@@ -183,41 +183,49 @@ export default function Home() {
             </p>
           </header>
           <ul className="grid-features" role="list">
-            <li className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <LayoutDashboard className="w-6 h-6 text-accent" aria-hidden="true" />
+            <li className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <LayoutDashboard className="w-6 h-6 text-accent" aria-hidden="true" />
+                </div>
+                <h3 className="heading-4 mb-3">One workspace, zero chaos</h3>
+                <p className="body-text">
+                  Messages, docs, tasks, and dashboards stay linked to the work.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">One workspace, zero chaos</h3>
-              <p className="body-text">
-                Messages, docs, tasks, and dashboards stay linked to the work.
-              </p>
             </li>
-            <li className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-accent" aria-hidden="true" />
+            <li className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Zap className="w-6 h-6 text-accent" aria-hidden="true" />
+                </div>
+                <h3 className="heading-4 mb-3">Fast by default</h3>
+                <p className="body-text">
+                  Real‑time sync, lightning search, and clean UI keep teams moving.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Fast by default</h3>
-              <p className="body-text">
-                Real‑time sync, lightning search, and clean UI keep teams moving.
-              </p>
             </li>
-            <li className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <ShieldCheck className="w-6 h-6 text-accent" aria-hidden="true" />
+            <li className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <ShieldCheck className="w-6 h-6 text-accent" aria-hidden="true" />
+                </div>
+                <h3 className="heading-4 mb-3">Secure for serious teams</h3>
+                <p className="body-text">
+                  End‑to‑end encryption at rest and in transit, SSO/SAML, roles, and audit trails.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Secure for serious teams</h3>
-              <p className="body-text">
-                End‑to‑end encryption at rest and in transit, SSO/SAML, roles, and audit trails.
-              </p>
             </li>
-            <li className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Sparkles className="w-6 h-6 text-accent" aria-hidden="true" />
+            <li className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Sparkles className="w-6 h-6 text-accent" aria-hidden="true" />
+                </div>
+                <h3 className="heading-4 mb-3">AI‑assisted where it matters</h3>
+                <p className="body-text">
+                  Draft docs, summarize threads, and surface trends in your data.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">AI‑assisted where it matters</h3>
-              <p className="body-text">
-                Draft docs, summarize threads, and surface trends in your data.
-              </p>
             </li>
           </ul>
         </div>
@@ -613,41 +621,49 @@ export default function Home() {
             </p>
           </header>
           <ul className="grid-features" role="list">
-            <li className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <MessageCircle className="w-6 h-6 text-accent" aria-hidden="true" />
+            <li className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <MessageCircle className="w-6 h-6 text-accent" aria-hidden="true" />
+                </div>
+                <h3 className="heading-4 mb-3">Discussion forum</h3>
+                <p className="body-text">
+                  Ask questions, share tips, and connect with other Cospace users worldwide.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Discussion forum</h3>
-              <p className="body-text">
-                Ask questions, share tips, and connect with other Cospace users worldwide.
-              </p>
             </li>
-            <li className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <FileText className="w-6 h-6 text-accent" aria-hidden="true" />
+            <li className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <FileText className="w-6 h-6 text-accent" aria-hidden="true" />
+                </div>
+                <h3 className="heading-4 mb-3">Templates gallery</h3>
+                <p className="body-text">
+                  Browse and share workflow templates for every team and use case.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Templates gallery</h3>
-              <p className="body-text">
-                Browse and share workflow templates for every team and use case.
-              </p>
             </li>
-            <li className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Sparkles className="w-6 h-6 text-accent" aria-hidden="true" />
+            <li className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Sparkles className="w-6 h-6 text-accent" aria-hidden="true" />
+                </div>
+                <h3 className="heading-4 mb-3">Release notes & roadmap</h3>
+                <p className="body-text">
+                  Stay updated on new features and influence our product direction.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Release notes & roadmap</h3>
-              <p className="body-text">
-                Stay updated on new features and influence our product direction.
-              </p>
             </li>
-            <li className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Calendar className="w-6 h-6 text-accent" aria-hidden="true" />
+            <li className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Calendar className="w-6 h-6 text-accent" aria-hidden="true" />
+                </div>
+                <h3 className="heading-4 mb-3">Events & webinars</h3>
+                <p className="body-text">
+                  Join live sessions, workshops, and networking events with fellow users.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Events & webinars</h3>
-              <p className="body-text">
-                Join live sessions, workshops, and networking events with fellow users.
-              </p>
             </li>
           </ul>
         </div>
