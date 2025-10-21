@@ -1,5 +1,4 @@
 import { CheckCircle, Mail, ArrowLeft } from 'lucide-react';
-import CTALink from '../../components/CTALink';
 
 export default function VerifyRequestPage() {
   return (
@@ -38,12 +37,13 @@ export default function VerifyRequestPage() {
         </div>
 
         <div className="text-center mt-6">
-          <CTALink 
-            href="/admin/login" 
-            variant="ghost"
-            text="Back to sign in"
-            icon={<ArrowLeft className="w-4 h-4" />}
-          />
+          <a
+            href="/admin/login"
+            className="btn-ghost flex items-center justify-center gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to sign in
+          </a>
         </div>
       </div>
     </div>

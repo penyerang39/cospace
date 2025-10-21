@@ -3,7 +3,6 @@
 import { useSearchParams } from 'next/navigation';
 import { XCircle, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { Suspense } from 'react';
-import CTAButton from '../../components/CTAButton';
 
 function AdminErrorContent() {
   const searchParams = useSearchParams();

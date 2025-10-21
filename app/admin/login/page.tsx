@@ -14,7 +14,7 @@ export default function AdminLoginPage() {
     setError('');
     
     if (!email.endsWith('@neo14.com')) {
-      setError('Only @neo14.com email addresses are allowed.');
+      setError('Failed to send email. Please try again.');
       return;
     }
 
@@ -62,7 +62,7 @@ export default function AdminLoginPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@neo14.com"
+                  placeholder="your@email.com"
                   required
                   className="form-input"
                   disabled={isLoading}
