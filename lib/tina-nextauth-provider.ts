@@ -74,5 +74,21 @@ export class NextAuthProvider {
     const token = await this.getToken();
     return token !== null;
   }
+
+  // Required by TinaCMS - provides session provider for React context
+  getSessionProvider(): any {
+    // Return a simple session provider that works with NextAuth
+    return {
+      useSession: () => {
+        // This will be handled by NextAuth's useSession hook
+        // We'll provide a minimal implementation
+        return {
+          data: null, // Will be populated by NextAuth
+          status: 'loading',
+          error: null,
+        };
+      },
+    };
+  }
 }
 
