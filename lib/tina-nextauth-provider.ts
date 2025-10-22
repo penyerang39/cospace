@@ -1,10 +1,11 @@
-import type { AuthProvider } from 'tinacms';
-
 /**
  * Custom TinaCMS Auth Provider that integrates with NextAuth v5
  * Handles authentication via NextAuth session for TinaCMS admin interface
+ * 
+ * Implements the TinaCMS AuthProvider interface without importing the type
+ * (TinaCMS doesn't export AuthProvider as a type in current version)
  */
-export class NextAuthProvider implements AuthProvider {
+export class NextAuthProvider {
   async authenticate(): Promise<void> {
     // Redirect to NextAuth login page
     window.location.href = '/admin/login';
