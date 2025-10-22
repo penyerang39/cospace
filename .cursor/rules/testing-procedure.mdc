@@ -1,0 +1,10 @@
+---
+alwaysApply: false
+---
+When you completed a significant change in response to a certain build error, you should verify your success and see the build logs on the server by running AFTER creating and pushing a commit. DO NOT TRY TO PNPM BUILD YOURSELF, USE THIS INSTEAD.
+
+ALWAYS wait 3 minutes for the build to start before monitoring:
+```
+timeout /t 180 /nobreak; powershell -ExecutionPolicy Bypass -File "C:\Users\Agnija\Downloads\vercel_monitor_working.ps1"
+```
+------
