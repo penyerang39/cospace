@@ -1,9 +1,10 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function AdminErrorPage() {
+function ErrorContent() {
   const searchParams = useSearchParams();
   const error = searchParams?.get('error') ?? null;
 
@@ -42,6 +43,18 @@ export default function AdminErrorPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AdminErrorPage() {
+  return (
+    <Suspense fallback={
+      <div className='min-h-screen flex items-center justify-center bg-background px-4'>
+        <div className='inline-block w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin'></div>
+      </div>
+    }>
+      <ErrorContent />
+    </Suspense>
   );
 }
 
