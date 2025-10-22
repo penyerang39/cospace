@@ -2,42 +2,50 @@ import { TinaNodeBackend, LocalBackendAuthProvider } from '@tinacms/datalayer';
 import type { BackendAuthProvider } from '@tinacms/datalayer';
 import databaseClient from '../../../tina/__generated__/databaseClient';
 import type { IncomingMessage, ServerResponse } from 'http';
+import { auth } from '../../../auth';
 
-const isLocal = true; // Force local mode for self-hosted setup
+// Local mode controlled by TINA_PUBLIC_IS_LOCAL environment variable
+const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true';
 
-// Simple token-based auth for production
-const SimpleBackendAuth = (): BackendAuthProvider => {
+/**
+ * Custom NextAuth Backend Auth Provider for TinaCMS
+ * Validates NextAuth sessions and restricts access to @neo14.com domain
+ */
+const NextAuthBackendAuthProvider = (): BackendAuthProvider => {
   return {
     isAuthorized: async (req: IncomingMessage, res: ServerResponse) => {
-      const authHeader = req.headers.authorization;
-      const token = authHeader?.replace('Bearer ', '');
-      
-      const validToken = process.env.TINA_TOKEN;
-      
-      if (!validToken) {
-        console.error('TINA_TOKEN environment variable not set!');
+      try {
+        // Get NextAuth session
+        const session = await auth();
+        
+        // Check if session exists and email is from @neo14.com domain
+        if (session?.user?.email?.endsWith('@neo14.com')) {
+          return {
+            isAuthorized: true,
+          };
+        }
+        
         return {
           isAuthorized: false,
-          errorMessage: 'Server configuration error',
+          errorMessage: 'Unauthorized: Access restricted to @neo14.com domain',
+          errorCode: 401,
+        };
+      } catch (error) {
+        console.error('NextAuth authorization error:', error);
+        return {
+          isAuthorized: false,
+          errorMessage: 'Authentication error',
           errorCode: 500,
         };
       }
-      
-      if (token === validToken) {
-        return { isAuthorized: true };
-      }
-      
-      return {
-        isAuthorized: false,
-        errorMessage: 'Invalid token',
-        errorCode: 401,
-      };
     },
   };
 };
 
 const handler = TinaNodeBackend({
-  authProvider: isLocal ? LocalBackendAuthProvider() : SimpleBackendAuth(),
+  authProvider: isLocal
+    ? LocalBackendAuthProvider()
+    : NextAuthBackendAuthProvider(),
   databaseClient,
 });
 

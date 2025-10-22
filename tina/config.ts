@@ -1,15 +1,16 @@
 import { defineConfig, LocalAuthProvider } from "tinacms";
+import { NextAuthProvider } from "../lib/tina-nextauth-provider";
 
-// Your hosting provider likely exposes this as an environment variable
-const branch =
-  process.env.GITHUB_BRANCH ||
-  process.env.VERCEL_GIT_COMMIT_REF ||
-  process.env.HEAD ||
-  "main";
+// Self-hosted mode is determined by contentApiUrlOverride presence
+// Local vs production mode controlled by TINA_PUBLIC_IS_LOCAL env var
+const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
 
 export default defineConfig({
-  branch,
-  authProvider: new LocalAuthProvider(),
+  // Use LocalAuthProvider for local dev, custom NextAuthProvider for production
+  authProvider: isLocal
+    ? new LocalAuthProvider()
+    : (new NextAuthProvider() as any), // Type assertion needed due to TinaCMS interface limitations
+  // This tells TinaCMS we're self-hosted (not using TinaCloud)
   contentApiUrlOverride: "/api/tina/gql",
   build: {
     publicFolder: "public",
@@ -20,12 +21,6 @@ export default defineConfig({
       mediaRoot: "",
       publicFolder: "public",
       static: true,
-    },
-  },
-  search: {
-    tina: {
-      indexerToken: "local-search-token",
-      stopwordLanguages: ["en"],
     },
   },
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/r/content-modelling-collections/

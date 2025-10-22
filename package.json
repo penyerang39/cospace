@@ -15,10 +15,12 @@
     "scrape-legal": "node scripts/markdown-scraper.js"
   },
   "dependencies": {
+    "@auth/core": "^0.41.0",
     "@tinacms/datalayer": "^1.4.1",
     "@vercel/speed-insights": "^1.2.0",
     "lucide-react": "^0.544.0",
     "next": "15.5.4",
+    "next-auth": "5.0.0-beta.29",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "resend": "^6.1.0",

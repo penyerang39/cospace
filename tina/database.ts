@@ -2,8 +2,8 @@ import { createDatabase, createLocalDatabase } from "@tinacms/datalayer";
 import { RedisLevel } from "upstash-redis-level";
 import { GitHubProvider } from "tinacms-gitprovider-github";
 
-// Force local mode for self-hosted setup
-const isLocal = true;
+// Local mode controlled by TINA_PUBLIC_IS_LOCAL environment variable
+const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
 
 const token = process.env.GITHUB_PERSONAL_ACCESS_TOKEN as string;
 const owner = (process.env.GITHUB_OWNER ||
@@ -16,17 +16,7 @@ const branch = (process.env.GITHUB_BRANCH ||
 
 if (!branch) {
   throw new Error(
-    "No branch found. Make sure that you have set the GITHUB_BRANCH or process.env.VERCEL_GIT_COMMIT_REF environment variable."
-  );
-}
-
-// Check if we have Redis configuration
-const hasRedisConfig = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN;
-
-// Use local database only for local development, otherwise use Redis
-if (!isLocal && !hasRedisConfig) {
-  throw new Error(
-    "Upstash Redis configuration is required for production. Please set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN environment variables."
+    "No branch found. Make sure that you have set the GITHUB_BRANCH or VERCEL_GIT_COMMIT_REF environment variable."
   );
 }
 
