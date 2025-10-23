@@ -64,3 +64,46 @@ export function validatePhone(phone: string): ValidationResult {
 export function hasMinimumSelections(selections: string[], minimum: number = 1): boolean {
   return selections.length >= minimum
 }
+
+/**
+ * Sanitizes input by trimming whitespace and handling null/undefined values
+ */
+export function sanitizeInput(value: string | undefined | null): string {
+  if (value === null || value === undefined) return ''
+  return String(value).trim()
+}
+
+/**
+ * Sanitizes email header content to prevent injection attacks
+ */
+export function sanitizeEmailHeader(value: string): string {
+  return String(value)
+    .trim()
+    .replace(/[\r\n]/g, ' ')
+    .replace(/[<>]/g, '')
+    .substring(0, 100) // Limit length for headers
+}
+
+/**
+ * Sanitizes email content to prevent injection attacks
+ */
+export function sanitizeEmailContent(value: string): string {
+  return String(value)
+    .trim()
+    .replace(/[\r\n]/g, ' ')
+    .replace(/[<>]/g, '')
+}
+
+/**
+ * Sanitizes email address for CC field, validates format
+ */
+export function sanitizeEmailForCC(email: string): string | null {
+  const sanitized = String(email).trim().toLowerCase()
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  
+  if (emailRegex.test(sanitized)) {
+    return sanitized
+  }
+  
+  return null
+}
