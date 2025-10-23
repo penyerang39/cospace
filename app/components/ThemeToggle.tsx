@@ -4,10 +4,12 @@ import { useTheme } from './ThemeProvider';
 import { Sun, Moon } from 'lucide-react';
 
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, isTransitioning } = useTheme();
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    if (!isTransitioning) {
+      setTheme(theme === 'light' ? 'dark' : 'light');
+    }
   };
 
   const getIcon = () => {
@@ -15,13 +17,21 @@ export default function ThemeToggle() {
   };
 
   const getLabel = () => {
+    if (isTransitioning) {
+      return 'Switching theme...';
+    }
     return theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme';
   };
 
   return (
     <button
       onClick={toggleTheme}
-      className="inline-flex items-center justify-center rounded-md p-2 text-foreground hover:text-foreground/80 transition-colors duration-200"
+      disabled={isTransitioning}
+      className={`inline-flex items-center justify-center rounded-md p-2 text-foreground transition-colors duration-200 ${
+        isTransitioning 
+          ? 'opacity-50 cursor-not-allowed' 
+          : 'hover:text-foreground/80'
+      }`}
       aria-label={getLabel()}
       title={getLabel()}
     >

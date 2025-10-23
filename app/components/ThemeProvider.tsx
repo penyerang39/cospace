@@ -8,6 +8,7 @@ interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   actualTheme: 'light' | 'dark';
+  isTransitioning: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -23,6 +24,7 @@ export function useTheme() {
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
   const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('light');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     // Get saved theme from localStorage or default to system preference
@@ -36,19 +38,49 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const handleThemeChange = (newTheme: Theme) => {
+    if (newTheme === theme) return;
+
+    // Start transition
+    setIsTransitioning(true);
+    document.body.classList.add('theme-transitioning');
+
+    // Show overlay
+    const overlay = document.getElementById('theme-transition-overlay');
+    if (overlay) {
+      overlay.classList.add('active');
+    }
+
+    // Change theme after a brief delay to ensure overlay is visible
+    setTimeout(() => {
+      setTheme(newTheme);
+      setActualTheme(newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+
+      // Hide overlay and end transition after theme change
+      setTimeout(() => {
+        if (overlay) {
+          overlay.classList.remove('active');
+        }
+        
+        // Remove transition class and reset state
+        setTimeout(() => {
+          document.body.classList.remove('theme-transitioning');
+          setIsTransitioning(false);
+        }, 50);
+      }, 300); // Match CSS transition duration
+    }, 50);
+  };
+
   useEffect(() => {
-    // Save theme to localStorage
-    localStorage.setItem('theme', theme);
-
-    // Set actual theme (same as theme since we don't have system state)
-    setActualTheme(theme);
-
-    // Apply theme to document
+    // Apply initial theme without transition
     document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+    setActualTheme(theme);
+  }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, actualTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme: handleThemeChange, actualTheme, isTransitioning }}>
       {children}
     </ThemeContext.Provider>
   );

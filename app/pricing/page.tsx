@@ -15,9 +15,10 @@
  * - Features: Individual features with tier availability (1 = enabled, -1 = disabled)
  */
 
-import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from 'lucide-react';
+ import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from 'lucide-react';
 import CTAButton from '../components/CTAButton';
 import PageMain from '../components/PageMain';
+import PricingCards from '../components/PricingCards';
 import fs from 'fs';
 import path from 'path';
 
@@ -94,60 +95,7 @@ export default async function PricingPage() {
 
       {/* Pricing Plans */}
       <section className="section-padding">
-        <div className="max-width container-padding">
-          <div className="grid md:grid-cols-5 gap-8">
-            {pricing.tiers.sort((a, b) => a.order - b.order).map((tier) => {
-              const tierFeatures = pricing.features.filter(feature => 
-                feature.tierStatus.some(ts => ts.tierSlug === tier.slug && ts.status === 1)
-              ).slice(0, 7);
-              
-              return (
-                <div 
-                  key={tier.slug} 
-                  className={`card flex flex-col justify-between ${tier.isPopular ? 'border-accent/20 relative' : ''}`}
-                >
-                  {tier.isPopular && (
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">Most popular</span>
-              </div>
-                  )}
-              
-              <div>
-              <div className="mb-6">
-                      <h3 className="heading-4 mb-2">{tier.name}</h3>
-                <div className="mb-4">
-                        <span className="text-3xl font-bold">
-                          {tier.pricePerUser === 0 ? '$0' : 
-                           tier.pricePerUser === -1 ? 'Custom' : 
-                           `$${tier.pricePerUser}`}
-                        </span>
-                        {tier.pricePerUser > 0 && <span className="text-muted">/user/month</span>}
-                        {tier.pricePerUser === 0 && <span className="text-muted"> forever</span>}
-                </div>
-                      {tier.description && <p className="body-small text-muted">{tier.description}</p>}
-                      {tier.userLimit && <p className="body-small text-muted mt-2">{tier.userLimit}</p>}
-              </div>
-              
-              <div className="space-y-3 mb-8">
-                      {tierFeatures.map((feature) => (
-                        <div key={feature.name} className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                          <span className="body-text">{feature.name}</span>
-                </div>
-                      ))}
-                </div>
-              </div>
-              
-                  <CTAButton 
-                    variant={tier.isPopular ? 'primary' : 'secondary'} 
-                    text="get started" 
-                    className="w-full" 
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <PricingCards pricing={pricing} />
       </section>
 
       {/* Feature Comparison */}

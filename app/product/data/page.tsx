@@ -32,41 +32,49 @@ export default function DataPage() {
             </p>
           </div>
           <div className="grid-features">
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Database className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Database className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">No-code connections</h3>
+                <p className="body-text">
+                  Bring in CSVs, databases, and third-party metrics without writing queries.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">No-code connections</h3>
-              <p className="body-text">
-                Bring in CSVs, databases, and third-party metrics without writing queries.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <BarChart3 className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <BarChart3 className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Live charts & tables</h3>
+                <p className="body-text">
+                  Build beautiful visualizations in minutes with smart formatting.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Live charts & tables</h3>
-              <p className="body-text">
-                Build beautiful visualizations in minutes with smart formatting.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Brain className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Brain className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">AI insights</h3>
+                <p className="body-text">
+                  Summarize trends, flag anomalies, and get suggested next steps.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">AI insights</h3>
-              <p className="body-text">
-                Summarize trends, flag anomalies, and get suggested next steps.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Bell className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Bell className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Smart alerting</h3>
+                <p className="body-text">
+                  Get notified in channels or via email when metrics hit thresholds.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Smart alerting</h3>
-              <p className="body-text">
-                Get notified in channels or via email when metrics hit thresholds.
-              </p>
             </div>
           </div>
         </div>
@@ -76,7 +84,7 @@ export default function DataPage() {
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-            <div>
+            <div className="pr-8">
               <h3 className="heading-3 mb-4">Connect everything</h3>
               <p className="body-text mb-6">
                 Import data from spreadsheets, databases, APIs, and popular business tools. Schedule automatic refreshes to keep dashboards current.
@@ -123,7 +131,7 @@ export default function DataPage() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 pl-8">
               <h3 className="heading-3 mb-4">AI-powered insights</h3>
               <p className="body-text mb-6">
                 Don't just look at charts—understand what they mean. Get automated summaries of key changes and suggested actions.

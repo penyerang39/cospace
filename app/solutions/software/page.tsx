@@ -32,41 +32,49 @@ export default function SoftwarePage() {
             </p>
           </div>
           <div className="grid-features">
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <GitBranch className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <GitBranch className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Connected roadmaps</h3>
+                <p className="body-text">
+                  Link epics, user stories, and tasks to actual code commits and deployments.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Connected roadmaps</h3>
-              <p className="body-text">
-                Link epics, user stories, and tasks to actual code commits and deployments.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <CheckCircle className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <CheckCircle className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Sprint planning</h3>
+                <p className="body-text">
+                  Plan sprints with story points, track velocity, and adapt based on real data.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Sprint planning</h3>
-              <p className="body-text">
-                Plan sprints with story points, track velocity, and adapt based on real data.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Bug className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Bug className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Issue tracking</h3>
+                <p className="body-text">
+                  Track bugs and feature requests with context from code, logs, and user reports.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Issue tracking</h3>
-              <p className="body-text">
-                Track bugs and feature requests with context from code, logs, and user reports.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Rocket className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Rocket className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Release management</h3>
+                <p className="body-text">
+                  Automated release notes, deployment tracking, and incident runbooks.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Release management</h3>
-              <p className="body-text">
-                Automated release notes, deployment tracking, and incident runbooks.
-              </p>
             </div>
           </div>
         </div>
@@ -76,7 +84,7 @@ export default function SoftwarePage() {
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-            <div>
+            <div className="pr-8">
               <h3 className="heading-3 mb-4">Documentation that stays current</h3>
               <p className="body-text mb-6">
                 Technical docs, API specs, and runbooks that automatically update with your code. No more outdated documentation.
@@ -123,7 +131,7 @@ export default function SoftwarePage() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 pl-8">
               <h3 className="heading-3 mb-4">Release planning made simple</h3>
               <p className="body-text mb-6">
                 Plan releases with automatic dependency mapping, track progress in real-time, and generate release notes from commit messages.

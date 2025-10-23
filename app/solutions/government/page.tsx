@@ -32,41 +32,49 @@ export default function GovernmentPage() {
             </p>
           </div>
           <div className="grid-features">
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Shield className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">ATO ready</h3>
+                <p className="body-text">
+                  FedRAMP authorized with comprehensive security documentation and controls.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">ATO ready</h3>
-              <p className="body-text">
-                FedRAMP authorized with comprehensive security documentation and controls.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Lock className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Lock className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">End-to-end encryption</h3>
+                <p className="body-text">
+                  AES-256 encryption at rest and TLS 1.3 in transit with key management options.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">End-to-end encryption</h3>
-              <p className="body-text">
-                AES-256 encryption at rest and TLS 1.3 in transit with key management options.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Eye className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Eye className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Comprehensive auditing</h3>
+                <p className="body-text">
+                  Detailed audit logs for all user actions, file access, and system changes.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Comprehensive auditing</h3>
-              <p className="body-text">
-                Detailed audit logs for all user actions, file access, and system changes.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Globe className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Globe className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Data sovereignty</h3>
+                <p className="body-text">
+                  Choose US-only data residency with isolated infrastructure and dedicated support.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Data sovereignty</h3>
-              <p className="body-text">
-                Choose US-only data residency with isolated infrastructure and dedicated support.
-              </p>
             </div>
           </div>
         </div>
@@ -76,7 +84,7 @@ export default function GovernmentPage() {
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-            <div>
+            <div className="pr-8">
               <h3 className="heading-3 mb-4">Compliance made simple</h3>
               <p className="body-text mb-6">
                 Meet FISMA, CJIS, ITAR, and other government requirements with built-in controls and automated reporting.
@@ -123,7 +131,7 @@ export default function GovernmentPage() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 pl-8">
               <h3 className="heading-3 mb-4">Granular access control</h3>
               <p className="body-text mb-6">
                 Role-based permissions, need-to-know access, and automatic clearance level enforcement for classified information handling.

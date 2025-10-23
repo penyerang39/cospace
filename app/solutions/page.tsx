@@ -43,9 +43,11 @@ export default function SolutionsPage() {
       <section className="min-h-[80vh] flex items-stretch">
         <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
           <div className="order-1">
-            <div className="gradient-border rounded-lg">
-              <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/updated_data1.png" alt="Marketing preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+            <div className="card-feature-with-gradient">
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image src="/product/updated_data1.png" alt="Marketing preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+                </div>
               </div>
             </div>
           </div>
@@ -68,9 +70,11 @@ export default function SolutionsPage() {
       <section className="min-h-[80vh] flex items-stretch">
         <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
           <div className="order-1 md:order-2">
-            <div className="gradient-border rounded-lg">
-              <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/Picture1.png" alt="Design preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+            <div className="card-feature-with-gradient">
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image src="/product/Picture1.png" alt="Design preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+                </div>
               </div>
             </div>
           </div>
@@ -93,9 +97,11 @@ export default function SolutionsPage() {
       <section className="min-h-[80vh] flex items-stretch">
         <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
           <div className="order-1">
-            <div className="gradient-border rounded-lg">
-              <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/Picture4.png" alt="Software preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+            <div className="card-feature-with-gradient">
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image src="/product/Picture4.png" alt="Software preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+                </div>
               </div>
             </div>
           </div>
@@ -118,9 +124,11 @@ export default function SolutionsPage() {
       <section className="min-h-[80vh] flex items-stretch">
         <div className="max-width container-padding grid md:grid-cols-2 items-center gap-8 w-full">
           <div className="order-1 md:order-2">
-            <div className="gradient-border rounded-lg">
-              <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/Picture7.png" alt="Government preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+            <div className="card-feature-with-gradient">
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image src="/product/Picture7.png" alt="Government preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+                </div>
               </div>
             </div>
           </div>

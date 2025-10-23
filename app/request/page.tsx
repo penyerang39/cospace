@@ -151,7 +151,7 @@ export default function RequestPricingPage() {
         computeProgress(form);
       }} className="mt-8 space-y-6">
         {process.env.NODE_ENV !== 'production' && (
-          <div className="flex items-center gap-3 p-3 rounded border border-dashed border-black/10 dark:border-white/10">
+          <div className="flex items-center gap-3 p-3 rounded form-dev-helper">
             <button
               type="button"
               className="text-sm underline"
@@ -266,17 +266,17 @@ export default function RequestPricingPage() {
                 <ChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/60" aria-hidden="true" />
               </div>
             </label>
-            <label className="flex flex-col gap-1 sm:col-span-2">
+            <div className="flex flex-col gap-1 sm:col-span-2">
               <span className="normal-text">Expected Use Cases</span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {expectedUseCases.map((v) => (
                   <label key={v} className="form-checkbox">
-                    <input type="checkbox" name="expectedUseCases" value={v} className="h-5 w-5 shrink-0" />
+                    <input type="checkbox" name="expectedUseCases" value={v} className="themed-checkbox shrink-0" />
                     <span className="normal-text">{v}</span>
                   </label>
                 ))}
               </div>
-            </label>
+            </div>
             <label className="flex flex-col gap-1">
               <span className="normal-text">Preferred Deployment</span>
               <div className="relative">
@@ -317,11 +317,11 @@ export default function RequestPricingPage() {
         <section className="space-y-4">
           <h2 className="text-xl font-medium normal-text">Follow-Up Options</h2>
           <label className="flex items-start gap-3 py-2 min-h-[44px]">
-            <input type="checkbox" name="wantsProposal" className="mt-0.5 h-5 w-5 shrink-0" />
+            <input type="checkbox" name="wantsProposal" className="mt-0.5 themed-checkbox shrink-0" />
             <span className="normal-text">Please send me an indicative pricing proposal</span>
           </label>
           <label className="flex items-start gap-3 py-2 min-h-[44px]">
-            <input type="checkbox" name="wantsCall" className="mt-0.5 h-5 w-5 shrink-0" />
+            <input type="checkbox" name="wantsCall" className="mt-0.5 themed-checkbox shrink-0" />
             <span className="normal-text">I would like to schedule a call to discuss pricing in detail</span>
           </label>
         </section>
@@ -329,7 +329,7 @@ export default function RequestPricingPage() {
         {error && <div className="text-red-600 normal-text">{error}</div>}
         {success && <div className="text-green-700 normal-text">Thanks! We'll send pricing details soon.</div>}
 
-        <button type="submit" disabled={submitting} className="inline-flex items-center justify-center rounded bg-black px-4 py-2 text-white disabled:opacity-60">
+        <button type="submit" disabled={submitting} className="themed-submit-btn">
           {submitting ? 'Submitting…' : 'Request Pricing'}
         </button>
 

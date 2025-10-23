@@ -32,6 +32,7 @@ export default function FilesPage() {
             </p>
           </div>
           <div className="grid-features">
+            <div className="card-feature-with-gradient">
             <div className="card-feature">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <FileText className="w-6 h-6 text-accent" />
@@ -41,6 +42,8 @@ export default function FilesPage() {
                 See changes as they happen. Work together without conflicts or overwrites.
               </p>
             </div>
+            </div>
+            <div className="card-feature-with-gradient">
             <div className="card-feature">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <MessageCircle className="w-6 h-6 text-accent" />
@@ -50,6 +53,8 @@ export default function FilesPage() {
                 Add feedback directly in context. Resolve suggestions with one click.
               </p>
             </div>
+            </div>
+            <div className="card-feature-with-gradient">
             <div className="card-feature">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <History className="w-6 h-6 text-accent" />
@@ -59,6 +64,8 @@ export default function FilesPage() {
                 Full change history with diff view. Restore any version instantly.
               </p>
             </div>
+            </div>
+            <div className="card-feature-with-gradient">
             <div className="card-feature">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <Lock className="w-6 h-6 text-accent" />
@@ -67,6 +74,7 @@ export default function FilesPage() {
               <p className="body-text">
                 Control access down to the file level. Share securely with guests.
               </p>
+              </div>
             </div>
           </div>
         </div>
@@ -76,7 +84,7 @@ export default function FilesPage() {
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-            <div>
+            <div className="pr-8">
               <h3 className="heading-3 mb-4">Structured templates</h3>
               <p className="body-text mb-6">
                 Start fast with templates for common workflows. PRDs, meeting notes, briefs, and OKRs—all pre-formatted and ready to use.
@@ -123,7 +131,7 @@ export default function FilesPage() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 pl-8">
               <h3 className="heading-3 mb-4">Secure external sharing</h3>
               <p className="body-text mb-6">
                 Share files and request uploads from anyone, even without an account. Set expiry dates and passwords for sensitive content.

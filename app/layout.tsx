@@ -73,6 +73,12 @@ export default function RootLayout({
           <AutoReveal />
           <Footer />
           <SpeedInsights />
+          {/* Theme transition overlay */}
+          <div 
+            id="theme-transition-overlay" 
+            className="theme-transition-overlay"
+            aria-hidden="true"
+          />
         </ThemeProvider>
       </body>
     </html>

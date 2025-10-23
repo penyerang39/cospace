@@ -32,41 +32,49 @@ export default function ChatPage() {
             </p>
           </div>
           <div className="grid-features">
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Hash className="w-6 h-6 text-accent" />
-                </div>
-              <h3 className="heading-4 mb-3">Channels for teams</h3>
-              <p className="body-text">
-                Organized spaces for projects with topic descriptions and searchable history.
-              </p>
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Hash className="w-6 h-6 text-accent" />
+                  </div>
+                <h3 className="heading-4 mb-3">Channels for teams</h3>
+                <p className="body-text">
+                  Organized spaces for projects with topic descriptions and searchable history.
+                </p>
+              </div>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <MessageSquare className="w-6 h-6 text-accent" />
-                </div>
-              <h3 className="heading-4 mb-3">Threads keep it tidy</h3>
-              <p className="body-text">
-                Start threads from any message. Convert discussions to tasks instantly.
-              </p>
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <MessageSquare className="w-6 h-6 text-accent" />
+                  </div>
+                <h3 className="heading-4 mb-3">Threads keep it tidy</h3>
+                <p className="body-text">
+                  Start threads from any message. Convert discussions to tasks instantly.
+                </p>
+              </div>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Mic className="w-6 h-6 text-accent" />
-                </div>
-              <h3 className="heading-4 mb-3">Voice clips</h3>
-              <p className="body-text">
-                Quick audio snippets for async updates when typing isn't enough.
-              </p>
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Mic className="w-6 h-6 text-accent" />
+                  </div>
+                <h3 className="heading-4 mb-3">Voice clips</h3>
+                <p className="body-text">
+                  Quick audio snippets for async updates when typing isn't enough.
+                </p>
+              </div>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Video className="w-6 h-6 text-accent" />
-                </div>
-              <h3 className="heading-4 mb-3">1-click huddles</h3>
-              <p className="body-text">
-                Start voice rooms instantly. Escalate to video with screen sharing.
-              </p>
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Video className="w-6 h-6 text-accent" />
+                  </div>
+                <h3 className="heading-4 mb-3">1-click huddles</h3>
+                <p className="body-text">
+                  Start voice rooms instantly. Escalate to video with screen sharing.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -76,7 +84,7 @@ export default function ChatPage() {
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-            <div>
+            <div className="pr-8">
               <h3 className="heading-3 mb-4">Smart search across everything</h3>
               <p className="body-text mb-6">
                 Find any message, file, or conversation in seconds. Search works across channels, DMs, and shared files with smart filters and instant results.
@@ -123,7 +131,7 @@ export default function ChatPage() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 pl-8">
               <h3 className="heading-3 mb-4">Meetings that work</h3>
               <p className="body-text mb-6">
                 High-quality video calls with screen sharing, recording, and automatic transcripts. No separate app needed.

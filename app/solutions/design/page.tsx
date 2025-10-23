@@ -32,41 +32,49 @@ export default function DesignPage() {
             </p>
           </div>
           <div className="grid-features">
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Layers className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Layers className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Version control</h3>
+                <p className="body-text">
+                  Track design iterations with automatic versioning and visual diffs.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Version control</h3>
-              <p className="body-text">
-                Track design iterations with automatic versioning and visual diffs.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <MessageCircle className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <MessageCircle className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Contextual feedback</h3>
+                <p className="body-text">
+                  Collect comments directly on designs with thread-based discussions.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Contextual feedback</h3>
-              <p className="body-text">
-                Collect comments directly on designs with thread-based discussions.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Share2 className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Share2 className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Smart sharing</h3>
+                <p className="body-text">
+                  Share mockups and prototypes with stakeholders via secure links.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Smart sharing</h3>
-              <p className="body-text">
-                Share mockups and prototypes with stakeholders via secure links.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <GitBranch className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <GitBranch className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Design handoff</h3>
+                <p className="body-text">
+                  Link design specs to tasks and keep developers in sync with latest assets.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Design handoff</h3>
-              <p className="body-text">
-                Link design specs to tasks and keep developers in sync with latest assets.
-              </p>
             </div>
           </div>
         </div>
@@ -76,7 +84,7 @@ export default function DesignPage() {
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-            <div>
+            <div className="pr-8">
               <h3 className="heading-3 mb-4">Feedback that makes sense</h3>
               <p className="body-text mb-6">
                 No more scattered comments in email or Slack. Collect feedback directly on designs with context, resolve discussions, and keep everyone aligned.
@@ -123,7 +131,7 @@ export default function DesignPage() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 pl-8">
               <h3 className="heading-3 mb-4">Design system management</h3>
               <p className="body-text mb-6">
                 Maintain consistency across projects with centralized component libraries, style guides, and asset management.

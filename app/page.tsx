@@ -235,7 +235,7 @@ export default function Home() {
       <section className="section-padding" aria-labelledby="product-features-heading">
         <div className="max-width container-padding">
           <header className="text-center">
-            <h2 id="product-features-heading" className="heading-2 mb-4">Product Features</h2>
+            <h2 id="product-features-heading" className="heading-2 mb-4">What NEO14 Can Do</h2>
             <p className="body-large max-w-2xl mx-auto">
               Everything you need to collaborate, create, and manage your work.
             </p>
@@ -247,7 +247,7 @@ export default function Home() {
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="pr-8">
               <h3 className="heading-3 mb-4">Chat & Meetings</h3>
               <p className="body-text mb-6">
                 Conversations that stay connected to the work. Channels for teams, threads for focus, and instant video calls when you need them.
@@ -303,7 +303,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 pl-8">
               <h3 className="heading-3 mb-4">Files & Docs</h3>
               <p className="body-text mb-6">
                 Create, share, and ship together. Real-time collaboration with version control that actually works.
@@ -335,7 +335,7 @@ export default function Home() {
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="pr-8">
               <h3 className="heading-3 mb-4">AppBuilder</h3>
               <p className="body-text mb-6">
                 Internal tools without ticketing the dev team. Build forms, dashboards, and workflows visually in minutes.
@@ -391,7 +391,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 pl-8">
               <h3 className="heading-3 mb-4">Data & Dashboards</h3>
               <p className="body-text mb-6">
                 All your key metrics—live and trustworthy. Connect data sources, build charts, and get AI insights without the complexity.
@@ -425,7 +425,7 @@ export default function Home() {
         <section className="section-padding text-white" aria-labelledby="solutions-heading">
         <div className="max-width container-padding">
           <header className="text-center">
-            <h2 id="solutions-heading" className="heading-2 mb-4 !text-white">Solutions by Industry</h2>
+            <h2 id="solutions-heading" className="heading-2 mb-4 !text-white">NEO14 for any Workflow</h2>
             <p className="body-large max-w-2xl mx-auto !text-white">
               Tailored workflows for every team: marketing, design, software, and government.
             </p>
@@ -437,8 +437,8 @@ export default function Home() {
         <section className="section-padding text-white">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="heading-3 mb-4 !text-white">Software Development</h3>
+            <div className="pr-8">
+              <h3 className="heading-3 mb-4 !text-white">For Software Developers</h3>
               <p className="body-text mb-6 !text-white">
                 Roadmaps, sprints, release notes, and on-call runbooks. Link issues, PRDs, and docs to the code or service.
               </p>
@@ -493,8 +493,8 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
-              <h3 className="heading-3 mb-4 !text-white">Marketing</h3>
+            <div className="order-1 md:order-2 pl-8">
+              <h3 className="heading-3 mb-4 !text-white">For Marketers</h3>
               <p className="body-text mb-6 !text-white">
                 Plan campaigns, track assets, centralize briefs, and review creatives all in one place. Connect ad spend data and build ROAS dashboards.
               </p>
@@ -525,8 +525,8 @@ export default function Home() {
         <section className="section-padding text-white">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="heading-3 mb-4 !text-white">Design</h3>
+            <div className="pr-8">
+              <h3 className="heading-3 mb-4 !text-white">For Designers</h3>
               <p className="body-text mb-6 !text-white">
                 Manage versions, share mocks, collect feedback, and ship on time. Link design tasks and specs to the latest files.
               </p>
@@ -581,8 +581,8 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
-              <h3 className="heading-3 mb-4 !text-white">Government</h3>
+            <div className="order-1 md:order-2 pl-8">
+              <h3 className="heading-3 mb-4 !text-white">For Governments</h3>
               <p className="body-text mb-6 !text-white">
                 Secure document exchange, private file storage, and safe communication. Fine-grained access controls, audit logs, and data residency options.
               </p>
@@ -609,9 +609,6 @@ export default function Home() {
         </div>
       </section>
       </div>
-      {/* End Solutions Area */}
-
-      {/* ===== COMMUNITY SECTION ===== */}
       <section className="section-padding" aria-labelledby="community-heading">
         <div className="max-width container-padding">
           <header className="text-center mb-16">

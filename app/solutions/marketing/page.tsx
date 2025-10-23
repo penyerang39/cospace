@@ -32,41 +32,49 @@ export default function MarketingPage() {
             </p>
           </div>
           <div className="grid-features">
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Target className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Target className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Campaign planning</h3>
+                <p className="body-text">
+                  Centralize briefs, timelines, and creative assets for every campaign.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Campaign planning</h3>
-              <p className="body-text">
-                Centralize briefs, timelines, and creative assets for every campaign.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Share2 className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Share2 className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Asset management</h3>
+                <p className="body-text">
+                  Store, organize, and share creatives with version control and approval workflows.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Asset management</h3>
-              <p className="body-text">
-                Store, organize, and share creatives with version control and approval workflows.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <BarChart3 className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <BarChart3 className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Performance tracking</h3>
+                <p className="body-text">
+                  Connect ad platforms and build custom ROAS dashboards with real-time data.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Performance tracking</h3>
-              <p className="body-text">
-                Connect ad platforms and build custom ROAS dashboards with real-time data.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Users className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Team collaboration</h3>
+                <p className="body-text">
+                  Review creatives, discuss strategy, and get approvals without email chains.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Team collaboration</h3>
-              <p className="body-text">
-                Review creatives, discuss strategy, and get approvals without email chains.
-              </p>
             </div>
           </div>
         </div>
@@ -76,7 +84,7 @@ export default function MarketingPage() {
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-            <div>
+            <div className="pr-8">
               <h3 className="heading-3 mb-4">Campaign planning made simple</h3>
               <p className="body-text mb-6">
                 Create campaign briefs with built-in templates, assign tasks to team members, and track progress from ideation to launch.
@@ -123,7 +131,7 @@ export default function MarketingPage() {
                 </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 pl-8">
               <h3 className="heading-3 mb-4">Data-driven decisions</h3>
               <p className="body-text mb-6">
                 Connect Google Ads, Facebook, LinkedIn, and other platforms to build comprehensive ROAS dashboards with automated reporting.

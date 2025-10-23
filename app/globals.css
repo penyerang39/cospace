@@ -414,8 +414,6 @@ html {
   position: relative;
   width: fit-content;
   z-index: 0;
-  padding-right: 1rem;
-  padding-left: 1rem;
 }
 
 .gradient-border > * {
@@ -781,8 +779,179 @@ details summary:hover {
   min-height: 44px;
   transition: border-color 200ms ease, box-shadow 200ms ease;
   cursor: pointer;
+  position: relative;
+}
+
+.form-checkbox input[type="checkbox"] {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.form-checkbox span {
+  flex: 1;
+  user-select: none;
 }
 
 .form-checkbox:hover {
   border-color: color-mix(in srgb, var(--foreground) 30%, transparent);
+}
+
+/* Pricing Badge - White text on accent background for contrast */
+.pricing-badge {
+  background: var(--accent);
+  color: white;
+}
+
+/* Form Dev Helper Dark Theme Support */
+.form-dev-helper {
+  border: 1px dashed color-mix(in srgb, var(--foreground) 10%, transparent);
+}
+
+/* Themed Checkbox Styling */
+.themed-checkbox {
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--muted) 60%, transparent);
+  border-radius: 0.25rem;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  transition: all 200ms ease;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.themed-checkbox:hover {
+  border-color: color-mix(in srgb, var(--muted) 80%, transparent);
+}
+
+.themed-checkbox:checked {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.themed-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Themed Submit Button */
+.themed-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  color: white;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.themed-submit-btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 90%, black);
+}
+
+.themed-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Scrollbar hiding utilities */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Pricing badge styling */
+.pricing-badge {
+  background: var(--accent);
+  color: white;
+}
+
+/* Theme Transition System */
+:root {
+  --theme-transition-duration: 300ms;
+  --theme-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global theme transition overlay */
+.theme-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--background);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--theme-transition-duration) var(--theme-transition-timing),
+              visibility var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+.theme-transition-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Smooth theme variable transitions */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --accent: #679bff;
+  --muted: #7D8DAA;
+  transition: --background var(--theme-transition-duration) var(--theme-transition-timing),
+              --foreground var(--theme-transition-duration) var(--theme-transition-timing),
+              --accent var(--theme-transition-duration) var(--theme-transition-timing),
+              --muted var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+[data-theme="dark"] {
+  --background: #000000;
+  --foreground: #ffffff;
+  --accent: #a855f7;
+  --muted: #d1d5db;
+}
+
+/* Ensure smooth transitions for all theme-dependent properties */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Inter;
+  transition: background-color var(--theme-transition-duration) var(--theme-transition-timing),
+              color var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* Smooth transitions for all elements using theme variables */
+* {
+  transition: background-color var(--theme-transition-duration) var(--theme-transition-timing),
+              color var(--theme-transition-duration) var(--theme-transition-timing),
+              border-color var(--theme-transition-duration) var(--theme-transition-timing),
+              box-shadow var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* Disable transitions during theme change to prevent flickering */
+.theme-transitioning * {
+  transition: none !important;
 }

@@ -166,7 +166,7 @@ export default function DemoPage() {
       >
         {/* Dev/test helpers (non-production only) */}
         {process.env.NODE_ENV !== 'production' && (
-          <div className="flex items-center gap-3 p-3 rounded border border-dashed border-black/10 dark:border-white/10">
+          <div className="flex items-center gap-3 p-3 rounded form-dev-helper">
             <button
               type="button"
               className="text-sm underline"
@@ -297,7 +297,7 @@ export default function DemoPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {interests.map((v) => (
                   <label key={v} className="form-checkbox">
-                    <input type="checkbox" name="primaryInterest" value={v} className="h-5 w-5 shrink-0" />
+                    <input type="checkbox" name="primaryInterest" value={v} className="themed-checkbox shrink-0" />
                     <span className="normal-text">{v}</span>
                   </label>
                 ))}
@@ -353,7 +353,7 @@ export default function DemoPage() {
         <section className="space-y-4">
           <h2 className="text-xl font-medium normal-text">Consent / Marketing</h2>
           <label className="flex items-start gap-3 py-2 min-h-[44px]">
-            <input type="checkbox" name="consent" required className="mt-0.5 h-5 w-5 shrink-0" />
+            <input type="checkbox" name="consent" required className="mt-0.5 themed-checkbox shrink-0" />
             <span className="normal-text">
               I agree to receive demo access and related communication from Neo14 Technologies. Read our
               {' '}<Link href="/legal/privacy" className="underline">Privacy Policy</Link>.
@@ -371,7 +371,7 @@ export default function DemoPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="inline-flex items-center justify-center rounded bg-black px-4 py-2 text-white disabled:opacity-60"
+          className="themed-submit-btn"
         >
           {submitting ? 'Submitting…' : 'Request Demo'}
         </button>

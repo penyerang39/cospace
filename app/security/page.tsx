@@ -164,26 +164,32 @@ export default function SecurityPage() {
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="card">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Shield className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Security Documentation</h3>
+                <p className="body-text mb-4">Detailed technical specifications, architecture diagrams, and implementation guides.</p>
               </div>
-              <h3 className="heading-4 mb-3">Security Documentation</h3>
-              <p className="body-text mb-4">Detailed technical specifications, architecture diagrams, and implementation guides.</p>
             </div>
-            <div className="card">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Key className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Key className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Legal & Compliance</h3>
+                <p className="body-text mb-4">Data processing agreements, privacy policies, and compliance certifications.</p>
               </div>
-              <h3 className="heading-4 mb-3">Legal & Compliance</h3>
-              <p className="body-text mb-4">Data processing agreements, privacy policies, and compliance certifications.</p>
             </div>
-            <div className="card">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Eye className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Eye className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Security Testing</h3>
+                <p className="body-text mb-4">Third-party penetration test results, vulnerability assessments, and security audits.</p>
               </div>
-              <h3 className="heading-4 mb-3">Security Testing</h3>
-              <p className="body-text mb-4">Third-party penetration test results, vulnerability assessments, and security audits.</p>
             </div>
           </div>
         </div>

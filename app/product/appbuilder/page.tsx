@@ -32,41 +32,49 @@ export default function AppBuilderPage() {
             </p>
           </div>
           <div className="grid-features">
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Blocks className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Blocks className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Visual builder</h3>
+                <p className="body-text">
+                  Point-and-click interface for forms, tables, and dashboards. No coding needed.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Visual builder</h3>
-              <p className="body-text">
-                Point-and-click interface for forms, tables, and dashboards. No coding needed.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Database className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Database className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Connect any data</h3>
+                <p className="body-text">
+                  Google Sheets, Postgres, MySQL, REST APIs—bring your data together.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Connect any data</h3>
-              <p className="body-text">
-                Google Sheets, Postgres, MySQL, REST APIs—bring your data together.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Workflow className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Workflow className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Trigger workflows</h3>
+                <p className="body-text">
+                  Automate approvals, send notifications, write back to databases.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Trigger workflows</h3>
-              <p className="body-text">
-                Automate approvals, send notifications, write back to databases.
-              </p>
             </div>
-            <div className="card-feature">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-accent" />
+            <div className="card-feature-with-gradient">
+              <div className="card-feature">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                  <Shield className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="heading-4 mb-3">Granular permissions</h3>
+                <p className="body-text">
+                  Control access per app, page, component, or user role.
+                </p>
               </div>
-              <h3 className="heading-4 mb-3">Granular permissions</h3>
-              <p className="body-text">
-                Control access per app, page, component, or user role.
-              </p>
             </div>
           </div>
         </div>
@@ -76,7 +84,7 @@ export default function AppBuilderPage() {
       <section className="section-padding">
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-            <div>
+            <div className="pr-8">
               <h3 className="heading-3 mb-4">Data sources made simple</h3>
               <p className="body-text mb-6">
                 Connect to spreadsheets, databases, and APIs without writing SQL or code. Real-time sync keeps everything current.
@@ -96,30 +104,34 @@ export default function AppBuilderPage() {
                 </div>
               </div>
             </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-foreground/2">
-              <Image
-                src="/product/datamodel.png"
-                alt="Data connections interface"
-                fill
-                className="object-contain"
-                sizes="(min-width: 768px) 40vw, 90vw"
-              />
+            <div className="gradient-border rounded-lg">
+              <div className="image-frame-inner rounded-inherit">
+                <Image
+                  src="/product/datamodel.png"
+                  alt="Data connections interface"
+                  width={1600}
+                  height={1200}
+                  className="w-full h-auto rounded-inherit"
+                />
+              </div>
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-foreground/2">
-                <Image
-                  src="/product/dashboards.png"
-                  alt="App templates"
-                  fill
-                  className="object-contain"
-                  sizes="(min-width: 768px) 40vw, 90vw"
-                />
+              <div className="gradient-border rounded-lg">
+                <div className="image-frame-inner rounded-inherit">
+                  <Image
+                    src="/product/dashboards.png"
+                    alt="App templates"
+                    width={1600}
+                    height={1200}
+                    className="w-full h-auto rounded-inherit"
+                  />
+                </div>
               </div>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 pl-8">
               <h3 className="heading-3 mb-4">Start with templates</h3>
               <p className="body-text mb-6">
                 Skip the setup with pre-built apps for common workflows. Customize them to fit your exact needs in minutes.
