@@ -56,6 +56,26 @@ export function sanitizeEmailContent(input: string): string {
 }
 
 /**
+ * Safely validates and sanitizes an email address for use in CC field
+ * Returns null if email is invalid or potentially malicious
+ */
+export function sanitizeEmailForCC(email: string): string | null {
+  if (!email) return null
+  
+  // Basic email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(email)) return null
+  
+  // Sanitize the email to prevent injection
+  const sanitized = sanitizeEmailHeader(email)
+  
+  // Double-check it's still a valid email after sanitization
+  if (!emailRegex.test(sanitized)) return null
+  
+  return sanitized
+}
+
+/**
  * Validates if an email is a business email (not from free providers)
  */
 export function isBusinessEmail(email: string): boolean {

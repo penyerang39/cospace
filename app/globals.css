@@ -414,6 +414,8 @@ html {
   position: relative;
   width: fit-content;
   z-index: 0;
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
 
 .gradient-border > * {

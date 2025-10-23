@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server'
 import { Resend } from 'resend'
-import { sanitizeInput, sanitizeEmailHeader, sanitizeEmailContent, validateEmail, validatePhone, isRequired, hasMinimumSelections } from '@/lib/validation'
+import { sanitizeInput, sanitizeEmailHeader, sanitizeEmailContent, sanitizeEmailForCC, validateEmail, validatePhone, isRequired, hasMinimumSelections } from '@/lib/validation'
 
 type PricingRequestPayload = {
   fullName: string
@@ -117,9 +117,18 @@ Follow-Up:
 Reply to ${sanitizeEmailContent(body.workEmail)} to continue the conversation.
     `.trim()
 
+    // Safely prepare CC list with sender's email and info@neo14.com
+    const ccList = []
+    const senderEmail = sanitizeEmailForCC(body.workEmail)
+    if (senderEmail) {
+      ccList.push(senderEmail)
+    }
+    ccList.push('info@neo14.com')
+
     const { error: sendError } = await resend.emails.send({
       from: fromAddress,
       to: [toAddress],
+      cc: ccList,
       subject,
       text,
     })

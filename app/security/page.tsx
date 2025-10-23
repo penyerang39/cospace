@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Shield, Lock, Eye, Globe, FileCheck, Users, Key, AlertTriangle } from "lucide-react";
 import CTAButton from "../components/CTAButton";
-import CTALink from "../components/CTALink";
 import PageMain from "../components/PageMain";
 
 export const metadata: Metadata = {
@@ -54,10 +53,6 @@ export default function SecurityPage() {
                 <strong>TLS 1.2+ encryption in transit</strong> — All communications are secured end-to-end.<br/>
                 <strong>Bring-Your-Own-Key (BYOK)</strong> — Business+ plans support customer-managed encryption keys for ultimate control.
               </p>
-              <div className="flex flex-col gap-2">
-                <CTALink href="/security/whitepaper" text="Download Security Whitepaper (PDF)" />
-                <CTALink href="/security/encryption-details" text="Technical Encryption Specifications" />
-              </div>
             </div>
           </div>
         </div>
@@ -82,10 +77,6 @@ export default function SecurityPage() {
                 <strong>Multi-Factor Authentication (MFA)</strong> — Add an extra layer of security with TOTP, SMS, or hardware keys.<br/>
                 <strong>Granular role-based permissions</strong> — Control access down to individual files and conversations.
               </p>
-              <div className="flex flex-col gap-2">
-                <CTALink href="/security/sso-setup" text="SSO Integration Guide" />
-                <CTALink href="/security/permissions-guide" text="Role Management Documentation" />
-              </div>
             </div>
           </div>
         </div>
@@ -110,10 +101,6 @@ export default function SecurityPage() {
                 <strong>Legal hold capabilities</strong> — Preserve data for litigation and regulatory purposes.<br/>
                 <strong>GDPR & CCPA aligned</strong> — Built-in compliance with global privacy regulations.
               </p>
-              <div className="flex flex-col gap-2">
-                <CTALink href="/security/dpa-request" text="Request Data Processing Agreement" />
-                <CTALink href="/security/compliance-certifications" text="View Compliance Certifications" />
-              </div>
             </div>
           </div>
         </div>
@@ -138,10 +125,6 @@ export default function SecurityPage() {
                 <strong>99.95% uptime SLA</strong> — Redundant infrastructure across multiple availability zones.<br/>
                 <strong>Business+ exclusive features</strong> — BYOK encryption and enhanced data sovereignty controls.
               </p>
-              <div className="flex flex-col gap-2">
-                <CTALink href="/security/data-residency-options" text="Data Residency Options" />
-                <CTALink href="/security/infrastructure-details" text="Infrastructure & SLA Details" />
-              </div>
             </div>
           </div>
         </div>
@@ -166,10 +149,6 @@ export default function SecurityPage() {
                 <strong>Vulnerability management</strong> — Proactive identification and remediation of security issues.<br/>
                 <strong>Bug bounty program</strong> — Responsible disclosure and rewards for security researchers.
               </p>
-              <div className="flex flex-col gap-2">
-                <CTALink href="/security/pentest-summary" text="Latest Penetration Test Summary" />
-                <CTALink href="/security/vulnerability-disclosure" text="Security Vulnerability Disclosure Policy" />
-              </div>
             </div>
           </div>
         </div>
@@ -191,7 +170,6 @@ export default function SecurityPage() {
               </div>
               <h3 className="heading-4 mb-3">Security Documentation</h3>
               <p className="body-text mb-4">Detailed technical specifications, architecture diagrams, and implementation guides.</p>
-              <CTALink href="/security/whitepaper" text="Download Security Whitepaper" />
             </div>
             <div className="card">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
@@ -199,7 +177,6 @@ export default function SecurityPage() {
               </div>
               <h3 className="heading-4 mb-3">Legal & Compliance</h3>
               <p className="body-text mb-4">Data processing agreements, privacy policies, and compliance certifications.</p>
-              <CTALink href="/security/dpa-request" text="Request DPA & Legal Documents" />
             </div>
             <div className="card">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
@@ -207,7 +184,6 @@ export default function SecurityPage() {
               </div>
               <h3 className="heading-4 mb-3">Security Testing</h3>
               <p className="body-text mb-4">Third-party penetration test results, vulnerability assessments, and security audits.</p>
-              <CTALink href="/security/pentest-summary" text="View Latest Test Results" />
             </div>
           </div>
         </div>
