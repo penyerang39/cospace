@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "prebuild": "npm run generate-nav && npm run scrape-legal",
-    "dev": "cross-env TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"npm run generate-nav && npm run scrape-legal && next dev --turbopack\"",
-    "dev:prod": "cross-env TINA_PUBLIC_IS_LOCAL=false tinacms dev -c \"npm run generate-nav && npm run scrape-legal && next dev --turbopack\"",
+    "dev": "cross-env TINA_PUBLIC_IS_LOCAL=true npm run generate-nav && npm run scrape-legal && next dev --turbopack",
+    "dev:prod": "cross-env TINA_PUBLIC_IS_LOCAL=false npm run generate-nav && npm run scrape-legal && next dev --turbopack",
     "dev:watch": "node scripts/watch-nav.js",
     "build": "node scripts/build-with-tina.js || echo 'Build completed with errors - check output above'",
     "start": "next start",

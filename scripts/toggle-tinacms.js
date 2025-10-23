@@ -127,6 +127,49 @@ function updateBuildScript(disable = true) {
   console.log(`  Updated: ${BUILD_SCRIPT}`);
 }
 
+function updatePackageJson(disable = true) {
+  const packageJsonPath = 'package.json';
+  
+  if (!fs.existsSync(packageJsonPath)) {
+    console.log(`  Warning: package.json not found: ${packageJsonPath}`);
+    return;
+  }
+  
+  try {
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    
+    if (disable) {
+      // Store original scripts for restoration
+      if (!packageJson._originalScripts) {
+        packageJson._originalScripts = {
+          dev: packageJson.scripts.dev,
+          'dev:prod': packageJson.scripts['dev:prod']
+        };
+      }
+      
+      // Update dev scripts to skip TinaCMS
+      packageJson.scripts.dev = 'cross-env TINA_PUBLIC_IS_LOCAL=true npm run generate-nav && npm run scrape-legal && next dev --turbopack';
+      packageJson.scripts['dev:prod'] = 'cross-env TINA_PUBLIC_IS_LOCAL=false npm run generate-nav && npm run scrape-legal && next dev --turbopack';
+      
+      console.log('  Updated dev scripts to skip TinaCMS');
+    } else {
+      // Restore original scripts
+      if (packageJson._originalScripts) {
+        packageJson.scripts.dev = packageJson._originalScripts.dev;
+        packageJson.scripts['dev:prod'] = packageJson._originalScripts['dev:prod'];
+        delete packageJson._originalScripts;
+        
+        console.log('  Restored original dev scripts');
+      }
+    }
+    
+    fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    console.log(`  Updated: ${packageJsonPath}`);
+  } catch (error) {
+    console.log(`  Warning: Could not update package.json: ${error.message}`);
+  }
+}
+
 function updateNavigationData(disable = true) {
   const navDataPath = 'app/lib/navigation-data.json';
   
@@ -205,6 +248,9 @@ function disable() {
   // Update build script
   updateBuildScript(true);
   
+  // Update package.json scripts
+  updatePackageJson(true);
+  
   // Update navigation data
   updateNavigationData(true);
   
@@ -249,6 +295,9 @@ function enable() {
   
   // Update build script
   updateBuildScript(false);
+  
+  // Update package.json scripts
+  updatePackageJson(false);
   
   // Update navigation data
   updateNavigationData(false);
