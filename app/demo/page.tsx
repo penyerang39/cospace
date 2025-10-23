@@ -4,6 +4,7 @@ import * as React from 'react'
 import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
+import { sanitizeFormData, validateEmail, validatePhone, isRequired, hasMinimumSelections } from '@/lib/validation'
 
 
 const industries = [
@@ -34,18 +35,6 @@ const interests = [
   'Other',
 ]
 
-function isBusinessEmail(email: string) {
-  const lower = email.toLowerCase().trim()
-  const at = lower.lastIndexOf('@')
-  if (at <= 0) return false
-  const domain = lower.slice(at + 1)
-  const free = new Set([
-    'gmail.com','yahoo.com','hotmail.com','outlook.com','live.com','msn.com','icloud.com','me.com','proton.me','protonmail.com','aol.com','yandex.com','yandex.ru','mail.ru','gmx.com','gmx.net','zoho.com','pm.me'
-  ])
-  if (free.has(domain)) return false
-  if (domain.endsWith('.edu')) return false
-  return /.+@.+\..+/.test(lower)
-}
 
 export default function DemoPage() {
   const [submitting, setSubmitting] = useState(false)
@@ -66,36 +55,42 @@ export default function DemoPage() {
     ).map((i) => (i as HTMLInputElement).value)
 
     const payload = {
-      fullName: String(formData.get('fullName') || ''),
-      workEmail: String(formData.get('workEmail') || ''),
-      phone: String(formData.get('phone') || ''),
-      companyName: String(formData.get('companyName') || ''),
-      industry: String(formData.get('industry') || ''),
-      companySize: String(formData.get('companySize') || ''),
-      location: String(formData.get('location') || ''),
-      projectedUsers: String(formData.get('projectedUsers') || ''),
+      fullName: sanitizeFormData(formData.get('fullName')),
+      workEmail: sanitizeFormData(formData.get('workEmail')),
+      phone: sanitizeFormData(formData.get('phone')),
+      companyName: sanitizeFormData(formData.get('companyName')),
+      industry: sanitizeFormData(formData.get('industry')),
+      companySize: sanitizeFormData(formData.get('companySize')),
+      location: sanitizeFormData(formData.get('location')),
+      projectedUsers: sanitizeFormData(formData.get('projectedUsers')),
       primaryInterest,
-      deploymentPreference: String(formData.get('deploymentPreference') || ''),
-      biggestChallenge: String(formData.get('biggestChallenge') || ''),
-      evaluatingFor: String(formData.get('evaluatingFor') || ''),
-      implementationTimeline: String(formData.get('implementationTimeline') || ''),
+      deploymentPreference: sanitizeFormData(formData.get('deploymentPreference')),
+      biggestChallenge: sanitizeFormData(formData.get('biggestChallenge')),
+      evaluatingFor: sanitizeFormData(formData.get('evaluatingFor')),
+      implementationTimeline: sanitizeFormData(formData.get('implementationTimeline')),
       wantsLiveDemo: String(formData.get('wantsLiveDemo') || 'No') === 'Yes',
       consent: formData.get('consent') === 'on',
     }
 
-    if (!payload.fullName.trim()) return setError('Full name is required.')
-    if (!payload.workEmail.trim()) return setError('Work email is required.')
-    if (!isBusinessEmail(payload.workEmail)) return setError('Please use a business email address.')
-    if (!payload.companyName.trim()) return setError('Company name is required.')
-    if (!payload.industry) return setError('Industry is required.')
-    if (!payload.companySize) return setError('Company size is required.')
-    if (!payload.location.trim()) return setError('Location is required.')
-    if (!payload.projectedUsers) return setError('Projected users is required.')
-    if (!payload.primaryInterest.length) return setError('Select at least one primary interest.')
-    if (!payload.deploymentPreference) return setError('Deployment preference is required.')
-    if (!payload.biggestChallenge.trim()) return setError('Describe your current challenge.')
-    if (!payload.evaluatingFor) return setError('Evaluation context is required.')
-    if (!payload.implementationTimeline) return setError('Implementation timeline is required.')
+    // Validate required fields
+    if (!isRequired(payload.fullName)) return setError('Full name is required.')
+    
+    const emailValidation = validateEmail(payload.workEmail)
+    if (!emailValidation.isValid) return setError(emailValidation.error!)
+    
+    const phoneValidation = validatePhone(payload.phone)
+    if (!phoneValidation.isValid) return setError(phoneValidation.error!)
+    
+    if (!isRequired(payload.companyName)) return setError('Company name is required.')
+    if (!isRequired(payload.industry)) return setError('Industry is required.')
+    if (!isRequired(payload.companySize)) return setError('Company size is required.')
+    if (!isRequired(payload.location)) return setError('Location is required.')
+    if (!isRequired(payload.projectedUsers)) return setError('Projected users is required.')
+    if (!hasMinimumSelections(payload.primaryInterest)) return setError('Select at least one primary interest.')
+    if (!isRequired(payload.deploymentPreference)) return setError('Deployment preference is required.')
+    if (!isRequired(payload.biggestChallenge)) return setError('Describe your current challenge.')
+    if (!isRequired(payload.evaluatingFor)) return setError('Evaluation context is required.')
+    if (!isRequired(payload.implementationTimeline)) return setError('Implementation timeline is required.')
     if (!payload.consent) return setError('Consent is required to proceed.')
 
     setSubmitting(true)
@@ -122,22 +117,22 @@ export default function DemoPage() {
   function computeProgress(form: HTMLFormElement) {
     const formData = new FormData(form)
     const checks: Array<boolean> = []
-    const getStr = (k: string) => String(formData.get(k) || '').trim()
+    const getStr = (k: string) => sanitizeFormData(formData.get(k))
     const checkedInterests = form.querySelectorAll('input[name="primaryInterest"]:checked').length
 
     // Required fields contributing to progress
-    checks.push(getStr('fullName').length > 0)
-    checks.push(getStr('workEmail').length > 0 && isBusinessEmail(getStr('workEmail')))
-    checks.push(getStr('companyName').length > 0)
-    checks.push(getStr('industry').length > 0)
-    checks.push(getStr('companySize').length > 0)
-    checks.push(getStr('location').length > 0)
-    checks.push(getStr('projectedUsers').length > 0)
+    checks.push(isRequired(getStr('fullName')))
+    checks.push(isRequired(getStr('workEmail')) && validateEmail(getStr('workEmail')).isValid)
+    checks.push(isRequired(getStr('companyName')))
+    checks.push(isRequired(getStr('industry')))
+    checks.push(isRequired(getStr('companySize')))
+    checks.push(isRequired(getStr('location')))
+    checks.push(isRequired(getStr('projectedUsers')))
     checks.push(checkedInterests > 0)
-    checks.push(getStr('deploymentPreference').length > 0)
-    checks.push(getStr('biggestChallenge').length > 0)
-    checks.push(getStr('evaluatingFor').length > 0)
-    checks.push(getStr('implementationTimeline').length > 0)
+    checks.push(isRequired(getStr('deploymentPreference')))
+    checks.push(isRequired(getStr('biggestChallenge')))
+    checks.push(isRequired(getStr('evaluatingFor')))
+    checks.push(isRequired(getStr('implementationTimeline')))
     checks.push(formData.get('consent') === 'on')
 
     const completed = checks.filter(Boolean).length

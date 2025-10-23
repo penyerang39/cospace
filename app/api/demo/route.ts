@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { Resend } from 'resend'
+import { sanitizeInput, sanitizeEmailHeader, sanitizeEmailContent, validateEmail, validatePhone, isRequired, hasMinimumSelections } from '@/lib/validation'
 
 type DemoRequestPayload = {
   fullName: string
@@ -20,52 +21,47 @@ type DemoRequestPayload = {
   integrationTest?: boolean
 }
 
-function isBusinessEmail(email: string): boolean {
-  const lower = email.toLowerCase().trim()
-  const atIndex = lower.lastIndexOf('@')
-  if (atIndex <= 0) return false
-  const domain = lower.slice(atIndex + 1)
-  const freeDomains = new Set([
-    'gmail.com',
-    'yahoo.com',
-    'hotmail.com',
-    'outlook.com',
-    'live.com',
-    'msn.com',
-    'icloud.com',
-    'me.com',
-    'proton.me',
-    'protonmail.com',
-    'aol.com',
-    'yandex.com',
-    'yandex.ru',
-    'mail.ru',
-    'gmx.com',
-    'gmx.net',
-    'zoho.com',
-    'pm.me'
-  ])
-  if (freeDomains.has(domain)) return false
-  if (domain.endsWith('.edu')) return false
-  return /.+@.+\..+/.test(lower)
-}
 
 function validate(payload: DemoRequestPayload): string | null {
-  if (!payload.fullName?.trim()) return 'Full name is required.'
-  if (!payload.workEmail?.trim()) return 'Work email is required.'
-  if (!isBusinessEmail(payload.workEmail)) return 'Please use a business email address.'
-  if (!payload.companyName?.trim()) return 'Company name is required.'
-  if (!payload.industry?.trim()) return 'Industry is required.'
-  if (!payload.companySize?.trim()) return 'Company size is required.'
-  if (!payload.location?.trim()) return 'Location is required.'
-  if (!payload.projectedUsers?.trim()) return 'Projected number of users is required.'
-  if (!payload.primaryInterest?.length) return 'Select at least one primary interest.'
-  if (!payload.deploymentPreference?.trim()) return 'Deployment preference is required.'
-  if (!payload.biggestChallenge?.trim()) return 'Please describe your current challenge.'
-  if (!payload.evaluatingFor?.trim()) return 'Evaluation context is required.'
-  if (!payload.implementationTimeline?.trim()) return 'Implementation timeline is required.'
+  // Sanitize all inputs
+  const sanitizedPayload = {
+    ...payload,
+    fullName: sanitizeInput(payload.fullName),
+    workEmail: sanitizeInput(payload.workEmail),
+    phone: sanitizeInput(payload.phone),
+    companyName: sanitizeInput(payload.companyName),
+    industry: sanitizeInput(payload.industry),
+    companySize: sanitizeInput(payload.companySize),
+    location: sanitizeInput(payload.location),
+    projectedUsers: sanitizeInput(payload.projectedUsers),
+    deploymentPreference: sanitizeInput(payload.deploymentPreference),
+    biggestChallenge: sanitizeInput(payload.biggestChallenge),
+    evaluatingFor: sanitizeInput(payload.evaluatingFor),
+    implementationTimeline: sanitizeInput(payload.implementationTimeline),
+  }
+
+  // Validate required fields
+  if (!isRequired(sanitizedPayload.fullName)) return 'Full name is required.'
+  
+  const emailValidation = validateEmail(sanitizedPayload.workEmail)
+  if (!emailValidation.isValid) return emailValidation.error!
+  
+  const phoneValidation = validatePhone(sanitizedPayload.phone)
+  if (!phoneValidation.isValid) return phoneValidation.error!
+  
+  if (!isRequired(sanitizedPayload.companyName)) return 'Company name is required.'
+  if (!isRequired(sanitizedPayload.industry)) return 'Industry is required.'
+  if (!isRequired(sanitizedPayload.companySize)) return 'Company size is required.'
+  if (!isRequired(sanitizedPayload.location)) return 'Location is required.'
+  if (!isRequired(sanitizedPayload.projectedUsers)) return 'Projected number of users is required.'
+  if (!hasMinimumSelections(payload.primaryInterest)) return 'Select at least one primary interest.'
+  if (!isRequired(sanitizedPayload.deploymentPreference)) return 'Deployment preference is required.'
+  if (!isRequired(sanitizedPayload.biggestChallenge)) return 'Please describe your current challenge.'
+  if (!isRequired(sanitizedPayload.evaluatingFor)) return 'Evaluation context is required.'
+  if (!isRequired(sanitizedPayload.implementationTimeline)) return 'Implementation timeline is required.'
   if (typeof payload.wantsLiveDemo !== 'boolean') return 'Please indicate demo preference.'
   if (!payload.consent) return 'Consent is required to proceed.'
+  
   return null
 }
 
@@ -93,35 +89,35 @@ export async function POST(req: NextRequest) {
     const fromAddress = process.env.DEMO_REQUEST_FROM || 'Cospace Demo <no-reply@neo14.com>'
 
     const subjectPrefix = body.integrationTest ? '[INTEGRATION TEST] ' : ''
-    const subject = `${subjectPrefix}New Demo Request — ${body.companyName} (${body.fullName})`
+    const subject = `${subjectPrefix}New Demo Request — ${sanitizeEmailHeader(body.companyName)} (${sanitizeEmailHeader(body.fullName)})`
     
     const emailText = `
 New Cospace Demo Request
 
 Contact Information:
-- Full Name: ${body.fullName}
-- Work Email: ${body.workEmail}
-- Phone: ${body.phone || 'Not provided'}
+- Full Name: ${sanitizeEmailContent(body.fullName)}
+- Work Email: ${sanitizeEmailContent(body.workEmail)}
+- Phone: ${body.phone ? sanitizeEmailContent(body.phone) : 'Not provided'}
 
 Company Information:
-- Company Name: ${body.companyName}
-- Industry: ${body.industry}
-- Company Size: ${body.companySize}
-- Location: ${body.location}
+- Company Name: ${sanitizeEmailContent(body.companyName)}
+- Industry: ${sanitizeEmailContent(body.industry)}
+- Company Size: ${sanitizeEmailContent(body.companySize)}
+- Location: ${sanitizeEmailContent(body.location)}
 
 Use Case & Intent:
-- Projected Users: ${body.projectedUsers}
-- Primary Interest: ${body.primaryInterest.join(', ')}
-- Deployment Preference: ${body.deploymentPreference}
-- Biggest Challenge: ${body.biggestChallenge}
+- Projected Users: ${sanitizeEmailContent(body.projectedUsers)}
+- Primary Interest: ${body.primaryInterest.map(interest => sanitizeEmailContent(interest)).join(', ')}
+- Deployment Preference: ${sanitizeEmailContent(body.deploymentPreference)}
+- Biggest Challenge: ${sanitizeEmailContent(body.biggestChallenge)}
 
 Qualification & Follow-Up:
-- Evaluating For: ${body.evaluatingFor}
-- Implementation Timeline: ${body.implementationTimeline}
+- Evaluating For: ${sanitizeEmailContent(body.evaluatingFor)}
+- Implementation Timeline: ${sanitizeEmailContent(body.implementationTimeline)}
 - Wants Live Demo: ${body.wantsLiveDemo ? 'Yes' : 'No'}
 - Consent Given: ${body.consent ? 'Yes' : 'No'}
 
-You can reply directly to ${body.workEmail} to continue the conversation.
+You can reply directly to ${sanitizeEmailContent(body.workEmail)} to continue the conversation.
     `.trim()
 
     const { error: sendError } = await resend.emails.send({

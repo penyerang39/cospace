@@ -4,6 +4,7 @@ import * as React from 'react'
 import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
+import { sanitizeFormData, validateEmail, validatePhone, isRequired, hasMinimumSelections } from '@/lib/validation'
 
 
 const industries = [
@@ -31,18 +32,6 @@ const expectedUseCases = [
   'Other',
 ]
 
-function isBusinessEmail(email: string) {
-  const lower = email.toLowerCase().trim()
-  const at = lower.lastIndexOf('@')
-  if (at <= 0) return false
-  const domain = lower.slice(at + 1)
-  const free = new Set([
-    'gmail.com','yahoo.com','hotmail.com','outlook.com','live.com','msn.com','icloud.com','me.com','proton.me','protonmail.com','aol.com','yandex.com','yandex.ru','mail.ru','gmx.com','gmx.net','zoho.com','pm.me'
-  ])
-  if (free.has(domain)) return false
-  if (domain.endsWith('.edu')) return false
-  return /.+@.+\..+/.test(lower)
-}
 
 export default function RequestPricingPage() {
   const [submitting, setSubmitting] = useState(false)
@@ -53,21 +42,21 @@ export default function RequestPricingPage() {
   function computeProgress(form: HTMLFormElement) {
     const formData = new FormData(form)
     const checks: Array<boolean> = []
-    const getStr = (k: string) => String(formData.get(k) || '').trim()
+    const getStr = (k: string) => sanitizeFormData(formData.get(k))
     const selectedUseCases = form.querySelectorAll('input[name="expectedUseCases"]:checked').length
     
-    checks.push(getStr('fullName').length > 0)
-    checks.push(getStr('workEmail').length > 0 && isBusinessEmail(getStr('workEmail')))
-    checks.push(getStr('companyName').length > 0)
-    checks.push(getStr('companyProfile').length > 0)
-    checks.push(getStr('industry').length > 0)
-    checks.push(getStr('companySize').length > 0)
-    checks.push(getStr('location').length > 0)
-    checks.push(getStr('estimatedUsers').length > 0)
+    checks.push(isRequired(getStr('fullName')))
+    checks.push(isRequired(getStr('workEmail')) && validateEmail(getStr('workEmail')).isValid)
+    checks.push(isRequired(getStr('companyName')))
+    checks.push(isRequired(getStr('companyProfile')))
+    checks.push(isRequired(getStr('industry')))
+    checks.push(isRequired(getStr('companySize')))
+    checks.push(isRequired(getStr('location')))
+    checks.push(isRequired(getStr('estimatedUsers')))
     checks.push(selectedUseCases > 0)
-    checks.push(getStr('preferredDeployment').length > 0)
-    checks.push(getStr('implementationTimeline').length > 0)
-    checks.push(getStr('budgetRange').length > 0)
+    checks.push(isRequired(getStr('preferredDeployment')))
+    checks.push(isRequired(getStr('implementationTimeline')))
+    checks.push(isRequired(getStr('budgetRange')))
 
     const pct = Math.round((checks.filter(Boolean).length / checks.length) * 100)
     if (typeof document !== 'undefined') {
@@ -87,38 +76,43 @@ export default function RequestPricingPage() {
     ).map((i) => (i as HTMLInputElement).value)
 
     const payload = {
-      fullName: String(formData.get('fullName') || ''),
-      workEmail: String(formData.get('workEmail') || ''),
-      phone: String(formData.get('phone') || ''),
-      companyName: String(formData.get('companyName') || ''),
-      companyProfile: String(formData.get('companyProfile') || ''),
-      industry: String(formData.get('industry') || ''),
-      companySize: String(formData.get('companySize') || ''),
-      location: String(formData.get('location') || ''),
-      estimatedUsers: String(formData.get('estimatedUsers') || ''),
+      fullName: sanitizeFormData(formData.get('fullName')),
+      workEmail: sanitizeFormData(formData.get('workEmail')),
+      phone: sanitizeFormData(formData.get('phone')),
+      companyName: sanitizeFormData(formData.get('companyName')),
+      companyProfile: sanitizeFormData(formData.get('companyProfile')),
+      industry: sanitizeFormData(formData.get('industry')),
+      companySize: sanitizeFormData(formData.get('companySize')),
+      location: sanitizeFormData(formData.get('location')),
+      estimatedUsers: sanitizeFormData(formData.get('estimatedUsers')),
       expectedUseCases: expected,
-      preferredDeployment: String(formData.get('preferredDeployment') || ''),
-      implementationTimeline: String(formData.get('implementationTimeline') || ''),
-      budgetRange: String(formData.get('budgetRange') || ''),
+      preferredDeployment: sanitizeFormData(formData.get('preferredDeployment')),
+      implementationTimeline: sanitizeFormData(formData.get('implementationTimeline')),
+      budgetRange: sanitizeFormData(formData.get('budgetRange')),
       wantsProposal: formData.get('wantsProposal') === 'on',
       wantsCall: formData.get('wantsCall') === 'on',
       integrationTest: formData.get('integrationTest') === 'true',
     }
 
     // Validation
-    if (!payload.fullName.trim()) return setError('Full name is required.')
-    if (!payload.workEmail.trim()) return setError('Work email is required.')
-    if (!isBusinessEmail(payload.workEmail)) return setError('Please use a business email address.')
-    if (!payload.companyName.trim()) return setError('Company name is required.')
-    if (!payload.companyProfile.trim()) return setError('Company profile is required.')
-    if (!payload.industry) return setError('Industry is required.')
-    if (!payload.companySize) return setError('Company size is required.')
-    if (!payload.location.trim()) return setError('Location is required.')
-    if (!payload.estimatedUsers) return setError('Estimated users is required.')
-    if (!payload.expectedUseCases.length) return setError('Select at least one expected use case.')
-    if (!payload.preferredDeployment) return setError('Preferred deployment is required.')
-    if (!payload.implementationTimeline) return setError('Implementation timeline is required.')
-    if (!payload.budgetRange.trim()) return setError('Budget range is required.')
+    if (!isRequired(payload.fullName)) return setError('Full name is required.')
+    
+    const emailValidation = validateEmail(payload.workEmail)
+    if (!emailValidation.isValid) return setError(emailValidation.error!)
+    
+    const phoneValidation = validatePhone(payload.phone)
+    if (!phoneValidation.isValid) return setError(phoneValidation.error!)
+    
+    if (!isRequired(payload.companyName)) return setError('Company name is required.')
+    if (!isRequired(payload.companyProfile)) return setError('Company profile is required.')
+    if (!isRequired(payload.industry)) return setError('Industry is required.')
+    if (!isRequired(payload.companySize)) return setError('Company size is required.')
+    if (!isRequired(payload.location)) return setError('Location is required.')
+    if (!isRequired(payload.estimatedUsers)) return setError('Estimated users is required.')
+    if (!hasMinimumSelections(payload.expectedUseCases)) return setError('Select at least one expected use case.')
+    if (!isRequired(payload.preferredDeployment)) return setError('Preferred deployment is required.')
+    if (!isRequired(payload.implementationTimeline)) return setError('Implementation timeline is required.')
+    if (!isRequired(payload.budgetRange)) return setError('Budget range is required.')
 
     setSubmitting(true)
     try {

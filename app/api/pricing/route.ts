@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { Resend } from 'resend'
+import { sanitizeInput, sanitizeEmailHeader, sanitizeEmailContent, validateEmail, validatePhone, isRequired, hasMinimumSelections } from '@/lib/validation'
 
 type PricingRequestPayload = {
   fullName: string
@@ -20,33 +21,45 @@ type PricingRequestPayload = {
   integrationTest?: boolean
 }
 
-function isBusinessEmail(email: string): boolean {
-  const lower = email.toLowerCase().trim()
-  const atIndex = lower.lastIndexOf('@')
-  if (atIndex <= 0) return false
-  const domain = lower.slice(atIndex + 1)
-  const freeDomains = new Set([
-    'gmail.com','yahoo.com','hotmail.com','outlook.com','live.com','msn.com','icloud.com','me.com','proton.me','protonmail.com','aol.com','yandex.com','yandex.ru','mail.ru','gmx.com','gmx.net','zoho.com','pm.me'
-  ])
-  if (freeDomains.has(domain)) return false
-  if (domain.endsWith('.edu')) return false
-  return /.+@.+\..+/.test(lower)
-}
 
 function validate(body: PricingRequestPayload): string | null {
-  if (!body.fullName?.trim()) return 'Full name is required.'
-  if (!body.workEmail?.trim()) return 'Work email is required.'
-  if (!isBusinessEmail(body.workEmail)) return 'Please use a business email address.'
-  if (!body.companyName?.trim()) return 'Company name is required.'
-  if (!body.companyProfile?.trim()) return 'Company profile is required.'
-  if (!body.industry?.trim()) return 'Industry is required.'
-  if (!body.companySize?.trim()) return 'Company size is required.'
-  if (!body.location?.trim()) return 'Location is required.'
-  if (!body.estimatedUsers?.trim()) return 'Estimated users is required.'
-  if (!body.expectedUseCases?.length) return 'Select at least one expected use case.'
-  if (!body.preferredDeployment?.trim()) return 'Preferred deployment is required.'
-  if (!body.implementationTimeline?.trim()) return 'Implementation timeline is required.'
-  if (!body.budgetRange?.trim()) return 'Budget range is required.'
+  // Sanitize all inputs
+  const sanitizedPayload = {
+    ...body,
+    fullName: sanitizeInput(body.fullName),
+    workEmail: sanitizeInput(body.workEmail),
+    phone: sanitizeInput(body.phone),
+    companyName: sanitizeInput(body.companyName),
+    companyProfile: sanitizeInput(body.companyProfile),
+    industry: sanitizeInput(body.industry),
+    companySize: sanitizeInput(body.companySize),
+    location: sanitizeInput(body.location),
+    estimatedUsers: sanitizeInput(body.estimatedUsers),
+    preferredDeployment: sanitizeInput(body.preferredDeployment),
+    implementationTimeline: sanitizeInput(body.implementationTimeline),
+    budgetRange: sanitizeInput(body.budgetRange),
+  }
+
+  // Validate required fields
+  if (!isRequired(sanitizedPayload.fullName)) return 'Full name is required.'
+  
+  const emailValidation = validateEmail(sanitizedPayload.workEmail)
+  if (!emailValidation.isValid) return emailValidation.error!
+  
+  const phoneValidation = validatePhone(sanitizedPayload.phone)
+  if (!phoneValidation.isValid) return phoneValidation.error!
+  
+  if (!isRequired(sanitizedPayload.companyName)) return 'Company name is required.'
+  if (!isRequired(sanitizedPayload.companyProfile)) return 'Company profile is required.'
+  if (!isRequired(sanitizedPayload.industry)) return 'Industry is required.'
+  if (!isRequired(sanitizedPayload.companySize)) return 'Company size is required.'
+  if (!isRequired(sanitizedPayload.location)) return 'Location is required.'
+  if (!isRequired(sanitizedPayload.estimatedUsers)) return 'Estimated users is required.'
+  if (!hasMinimumSelections(body.expectedUseCases)) return 'Select at least one expected use case.'
+  if (!isRequired(sanitizedPayload.preferredDeployment)) return 'Preferred deployment is required.'
+  if (!isRequired(sanitizedPayload.implementationTimeline)) return 'Implementation timeline is required.'
+  if (!isRequired(sanitizedPayload.budgetRange)) return 'Budget range is required.'
+  
   return null
 }
 
@@ -71,37 +84,37 @@ export async function POST(req: NextRequest) {
     const fromAddress = process.env.PRICING_REQUEST_FROM || 'Cospace Pricing <no-reply@neo14.com>'
 
     const subjectPrefix = body.integrationTest ? '[INTEGRATION TEST] ' : ''
-    const subject = `${subjectPrefix}Pricing Request — ${body.companyName} (${body.fullName})`
+    const subject = `${subjectPrefix}Pricing Request — ${sanitizeEmailHeader(body.companyName)} (${sanitizeEmailHeader(body.fullName)})`
 
     const text = `
 New Cospace Pricing Request
 
 Contact Info:
-- Full Name: ${body.fullName}
-- Work Email: ${body.workEmail}
-- Phone: ${body.phone || 'Not provided'}
-- Company Name: ${body.companyName}
-- Company Profile: ${body.companyProfile}
+- Full Name: ${sanitizeEmailContent(body.fullName)}
+- Work Email: ${sanitizeEmailContent(body.workEmail)}
+- Phone: ${body.phone ? sanitizeEmailContent(body.phone) : 'Not provided'}
+- Company Name: ${sanitizeEmailContent(body.companyName)}
+- Company Profile: ${sanitizeEmailContent(body.companyProfile)}
 
 Company:
-- Industry: ${body.industry}
-- Company Size: ${body.companySize}
-- Location: ${body.location}
+- Industry: ${sanitizeEmailContent(body.industry)}
+- Company Size: ${sanitizeEmailContent(body.companySize)}
+- Location: ${sanitizeEmailContent(body.location)}
 
 Usage Needs:
-- Estimated Users: ${body.estimatedUsers}
-- Expected Use Cases: ${body.expectedUseCases.join(', ')}
-- Preferred Deployment: ${body.preferredDeployment}
+- Estimated Users: ${sanitizeEmailContent(body.estimatedUsers)}
+- Expected Use Cases: ${body.expectedUseCases.map(useCase => sanitizeEmailContent(useCase)).join(', ')}
+- Preferred Deployment: ${sanitizeEmailContent(body.preferredDeployment)}
 
 Timeline & Budget:
-- Implementation: ${body.implementationTimeline}
-- Budget Range: ${body.budgetRange}
+- Implementation: ${sanitizeEmailContent(body.implementationTimeline)}
+- Budget Range: ${sanitizeEmailContent(body.budgetRange)}
 
 Follow-Up:
 - Send Proposal: ${body.wantsProposal ? 'Yes' : 'No'}
 - Schedule Call: ${body.wantsCall ? 'Yes' : 'No'}
 
-Reply to ${body.workEmail} to continue the conversation.
+Reply to ${sanitizeEmailContent(body.workEmail)} to continue the conversation.
     `.trim()
 
     const { error: sendError } = await resend.emails.send({
