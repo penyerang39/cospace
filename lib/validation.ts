@@ -1,11 +1,25 @@
-import DOMPurify from 'isomorphic-dompurify'
-
 /**
  * Sanitizes input by trimming whitespace and removing potentially dangerous HTML/script content
+ * Uses a simple regex-based approach for server-side compatibility
  */
 export function sanitizeInput(input: string | null | undefined): string {
   if (!input) return ''
-  return DOMPurify.sanitize(input.trim())
+  
+  // Basic HTML/script tag removal for server-side safety
+  let sanitized = input.trim()
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
+    .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '') // Remove iframe tags
+    .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '') // Remove object tags
+    .replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '') // Remove embed tags
+    .replace(/<link\b[^>]*>/gi, '') // Remove link tags
+    .replace(/<meta\b[^>]*>/gi, '') // Remove meta tags
+    .replace(/on\w+\s*=\s*["'][^"']*["']/gi, '') // Remove event handlers
+    .replace(/javascript:/gi, '') // Remove javascript: protocols
+    .replace(/vbscript:/gi, '') // Remove vbscript: protocols
+    .replace(/data:/gi, '') // Remove data: protocols
+    .replace(/<[^>]*>/g, '') // Remove any remaining HTML tags
+  
+  return sanitized
 }
 
 /**
