@@ -152,7 +152,10 @@ export default function RequestPricingPage() {
       <h1 className="heading-1 gradient-text h-flex pb-2">Request Pricing</h1>
       <p className="mt-2 text-muted-foreground normal-text">Share your requirements and we'll send an indicative proposal.</p>
 
-      <form onSubmit={onSubmit} onChange={(e) => computeProgress(e.currentTarget as HTMLFormElement)} className="mt-8 space-y-6">
+      <form onSubmit={onSubmit} onChange={(e) => {
+        const form = e.currentTarget as HTMLFormElement;
+        computeProgress(form);
+      }} className="mt-8 space-y-6">
         {process.env.NODE_ENV !== 'production' && (
           <div className="flex items-center gap-3 p-3 rounded border border-dashed border-black/10 dark:border-white/10">
             <button
@@ -185,7 +188,10 @@ export default function RequestPricingPage() {
               Prefill dummy data
             </button>
             <label className="flex items-center gap-2 text-sm">
-              <input type="checkbox" onChange={(e) => setIntegrationMode(e.currentTarget.checked)} />
+              <input type="checkbox" onChange={(e) => {
+                const checkbox = e.currentTarget;
+                setIntegrationMode(checkbox.checked);
+              }} />
               Mark as integration test
             </label>
           </div>

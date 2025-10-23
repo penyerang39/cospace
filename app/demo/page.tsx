@@ -59,9 +59,10 @@ export default function DemoPage() {
     setError(null)
     setSuccess(false)
 
-    const formData = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const formData = new FormData(form)
     const primaryInterest = Array.from(
-      e.currentTarget.querySelectorAll('input[name="primaryInterest"]:checked')
+      form.querySelectorAll('input[name="primaryInterest"]:checked')
     ).map((i) => (i as HTMLInputElement).value)
 
     const payload = {
@@ -109,7 +110,7 @@ export default function DemoPage() {
         throw new Error(json.error || 'Something went wrong')
       }
       setSuccess(true)
-      e.currentTarget.reset()
+      form.reset()
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to submit'
       setError(message)
