@@ -36,7 +36,7 @@ const TINACMS_FILES = [
   'app/api/auth',
 ];
 
-// Files to create as fallbacks
+// Files to create as fallbacks (simplified - no admin route)
 const FALLBACK_FILES = {
   'tina/config.ts': `// TinaCMS Disabled - Minimal config
 export default {
@@ -58,29 +58,16 @@ export default {
   },
 };`,
   'pages/api/tina/[...routes].ts': `// TinaCMS Disabled - Fallback API
-export default function handler(req, res) {
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   res.status(503).json({ 
     error: 'TinaCMS is temporarily disabled',
     message: 'Use toggle script to re-enable'
   });
 }`,
-  'app/admin/page.tsx': `// TinaCMS Disabled - Fallback page
-export default function AdminPage() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="heading-2 mb-4">TinaCMS Disabled</h1>
-        <p className="body-text text-muted">
-          TinaCMS is temporarily disabled for debugging.
-        </p>
-        <p className="body-text text-muted mt-2">
-          Run: <code>node scripts/toggle-tinacms.js enable</code>
-        </p>
-      </div>
-    </div>
-  );
-}`,
 };
+
 
 function ensureDirectoryExists(dirPath) {
   if (!fs.existsSync(dirPath)) {
@@ -140,6 +127,41 @@ function updateBuildScript(disable = true) {
   console.log(`  Updated: ${BUILD_SCRIPT}`);
 }
 
+function updateNavigationData(disable = true) {
+  const navDataPath = 'app/lib/navigation-data.json';
+  
+  if (!fs.existsSync(navDataPath)) {
+    console.log(`  Warning: Navigation data not found: ${navDataPath}`);
+    return;
+  }
+  
+  try {
+    const navData = JSON.parse(fs.readFileSync(navDataPath, 'utf8'));
+    
+    if (disable) {
+      // Remove admin route from navigation
+      navData.routes = navData.routes.filter(route => route.path !== '/admin');
+      console.log('  Removed admin route from navigation');
+    } else {
+      // Add admin route back to navigation (if it exists in disabled files)
+      const disabledNavPath = path.join(DISABLED_DIR, navDataPath);
+      if (fs.existsSync(disabledNavPath)) {
+        const originalNavData = JSON.parse(fs.readFileSync(disabledNavPath, 'utf8'));
+        const adminRoute = originalNavData.routes.find(route => route.path === '/admin');
+        if (adminRoute) {
+          navData.routes.push(adminRoute);
+          console.log('  Restored admin route to navigation');
+        }
+      }
+    }
+    
+    fs.writeFileSync(navDataPath, JSON.stringify(navData, null, 2));
+    console.log(`  Updated: ${navDataPath}`);
+  } catch (error) {
+    console.log(`  Warning: Could not update navigation data: ${error.message}`);
+  }
+}
+
 function updateGitignore() {
   const gitignorePath = '.gitignore';
   const gitignoreEntry = `# TinaCMS disabled files
@@ -183,6 +205,9 @@ function disable() {
   // Update build script
   updateBuildScript(true);
   
+  // Update navigation data
+  updateNavigationData(true);
+  
   // Update gitignore
   updateGitignore();
   
@@ -224,6 +249,9 @@ function enable() {
   
   // Update build script
   updateBuildScript(false);
+  
+  // Update navigation data
+  updateNavigationData(false);
   
   // Clean up disabled directory if empty
   try {

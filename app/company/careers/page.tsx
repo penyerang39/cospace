@@ -6,28 +6,22 @@ import ScrollHint from "../../components/ScrollHint";
 export default function CareersPage() {
   const openRoles = [
     {
-      title: "Product Engineer",
-      team: "Engineering",
-      location: "Remote",
-      description: "Build the core features that power Cospace. Full-stack development with React, Node.js, and modern infrastructure."
+      title: "Sales Manager",
+      team: "Sales",
+      location: "Remote or NYC based",
+      description: "Lead and expand our client network by driving strategic B2B sales growth across U.S. and international markets."
     },
     {
-      title: "Security Engineer", 
-      team: "Engineering",
-      location: "Remote",
-      description: "Ensure our platform meets the highest security standards. Experience with encryption, compliance, and threat modeling required."
+      title: "Marketing Manager", 
+      team: "Marketing",
+      location: "Remote or NYC based",
+      description: "Develop and execute high-impact marketing campaigns that elevate our brand, generate qualified leads, and support global expansion."
     },
     {
-      title: "Product Designer",
-      team: "Design", 
-      location: "Remote",
-      description: "Shape the user experience across our platform. Create intuitive interfaces that make complex workflows feel simple."
-    },
-    {
-      title: "Solutions Architect",
-      team: "Customer Success",
-      location: "Remote",
-      description: "Help enterprise customers implement Cospace successfully. Technical consulting and solution design expertise required."
+      title: "Executive Director (acting CEO)",
+      team: "Executive", 
+      location: "U.S. based",
+      description: "Oversee company strategy, operations, and growth initiatives while guiding cross-border teams toward ambitious performance and investment goals."
     }
   ];
 
@@ -45,7 +39,7 @@ export default function CareersPage() {
               who are creating the tools that will define how teams collaborate.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <CTAButton variant="primary" text="contact us" />
+              <CTAButton variant="primary" text="apply" />
             </div>
           </div>
         </div>
@@ -180,9 +174,9 @@ export default function CareersPage() {
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                   <div className="mb-4 md:mb-0">
                     <div className="flex items-center gap-3 mb-2">
-                      {role.team === "Engineering" && <Code className="w-5 h-5 text-accent" />}
-                      {role.team === "Design" && <Palette className="w-5 h-5 text-accent" />}
-                      {role.team === "Customer Success" && <Settings className="w-5 h-5 text-accent" />}
+                      {role.team === "Sales" && <Users className="w-5 h-5 text-accent" />}
+                      {role.team === "Marketing" && <Lightbulb className="w-5 h-5 text-accent" />}
+                      {role.team === "Executive" && <Shield className="w-5 h-5 text-accent" />}
                       <h3 className="heading-4">{role.title}</h3>
                     </div>
                     <div className="flex items-center gap-4 text-sm text-muted mb-3">
@@ -196,7 +190,7 @@ export default function CareersPage() {
                     <p className="body-text max-w-2xl">{role.description}</p>
                   </div>
                   <div className="flex-shrink-0">
-                    <CTAButton variant="primary" text="contact us" className="w-full md:w-auto" />
+                    <CTAButton variant="primary" text="apply" className="w-full md:w-auto" />
                   </div>
                 </div>
               </div>
@@ -207,7 +201,7 @@ export default function CareersPage() {
             <p className="body-text mb-4">
               Don't see a role that fits? We're always interested in hearing from talented people.
             </p>
-            <CTALink href="/company/contact" text="Get in touch anyway" />
+            <CTALink href="mailto:info@neo14.com" text="Get in touch anyway" />
           </div>
         </div>
       </section>
@@ -222,7 +216,7 @@ export default function CareersPage() {
               something meaningful and have the skills to make it happen.
             </p>
             <div className="flex justify-center">
-              <CTAButton variant="primary" text="contact us" />
+              <CTAButton variant="primary" text="apply" />
             </div>
           </div>
         </div>

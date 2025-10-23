@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 interface CTAButtonProps {
   variant: 'primary' | 'secondary';
-  text: 'book a demo' | 'request pricing' | 'see more' | 'get started' | 'talk to sales' | 'contact us';
+  text: 'book a demo' | 'request pricing' | 'see more' | 'get started' | 'talk to sales' | 'contact us' | 'apply';
   className?: string;
 }
 
@@ -17,10 +17,12 @@ const textVariants = {
   'get started': 'Get started',
   'talk to sales': 'Talk to sales',
   'contact us': 'Contact Us',
+  'apply': 'Apply',
 };
 
 export default function CTAButton({ variant, text, className = '' }: CTAButtonProps) {
   const CONTACT_MAILTO = 'mailto:sales@neo14.ai';
+  const APPLY_MAILTO = 'mailto:info@neo14.com';
   const [isVisible, setIsVisible] = useState(false);
   const iconRef = useRef<HTMLSpanElement>(null);
   const router = useRouter();
@@ -62,6 +64,8 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
         return '/request';
       case 'contact us':
         return CONTACT_MAILTO;
+      case 'apply':
+        return APPLY_MAILTO;
       default:
         return '/demo';
     }

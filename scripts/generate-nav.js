@@ -45,6 +45,11 @@ function scanAppDirectory(appDir) {
         return false;
       }
       
+      // Skip admin route when TinaCMS is disabled
+      if (entry.name === 'admin' && !fs.existsSync(path.join(appDir, 'admin', 'page.tsx'))) {
+        return false;
+      }
+      
       const dirPath = path.join(appDir, entry.name);
       const hasPageFile = fs.existsSync(path.join(dirPath, 'page.tsx'));
       
