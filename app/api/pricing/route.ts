@@ -65,10 +65,10 @@ export async function POST(req: NextRequest) {
     }
 
     const resend = new Resend(apiKey)
-    const toAddress = (body.integrationTest && process.env.DEMO_REQUEST_TO_DEV)
-      ? String(process.env.DEMO_REQUEST_TO_DEV)
-      : (process.env.DEMO_REQUEST_TO || 'hello@neo14.tech')
-    const fromAddress = process.env.DEMO_REQUEST_FROM || 'Cospace Pricing <no-reply@cospace.demo>'
+    const toAddress = (body.integrationTest && process.env.PRICING_REQUEST_TO_DEV)
+      ? String(process.env.PRICING_REQUEST_TO_DEV)
+      : (process.env.PRICING_REQUEST_TO || 'info@neo14.com')
+    const fromAddress = process.env.PRICING_REQUEST_FROM || 'Cospace Pricing <no-reply@neo14.com>'
 
     const subjectPrefix = body.integrationTest ? '[INTEGRATION TEST] ' : ''
     const subject = `${subjectPrefix}Pricing Request — ${body.companyName} (${body.fullName})`

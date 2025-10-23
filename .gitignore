@@ -45,3 +45,5 @@ node_modules
 
 # example 4 ai
 /tina-self-hosted-demo
+# TinaCMS disabled files
+.tinacms-disabled/

@@ -19,15 +19,9 @@ try {
 }
 
 // Step 2: Build TinaCMS (self-hosted, always runs)
-console.log('🦙 Building TinaCMS...');
-try {
-  execSync('pnpm exec tinacms build --partial-reindex', { stdio: 'inherit' });
-  console.log('✅ TinaCMS build completed successfully');
-} catch (error) {
-  console.error('❌ TinaCMS build failed:', error.message);
-  console.log('   Skipping TinaCMS build and continuing with Next.js...');
-  // Don't set hasErrors = true for TinaCMS failures to allow deployment
-}
+console.log('🦙 TinaCMS Build DISABLED - skipping...');
+    // TinaCMS build temporarily disabled
+    console.log('   TinaCMS disabled via toggle script');
 
 // Step 3: Build Next.js
 console.log('⚡ Building Next.js application...');

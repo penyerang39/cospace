@@ -89,8 +89,8 @@ export async function POST(req: NextRequest) {
 
     const toAddress = (body.integrationTest && process.env.DEMO_REQUEST_TO_DEV)
       ? String(process.env.DEMO_REQUEST_TO_DEV)
-      : (process.env.DEMO_REQUEST_TO || 'hello@neo14.tech')
-    const fromAddress = process.env.DEMO_REQUEST_FROM || 'Cospace Demo <no-reply@cospace.demo>'
+      : (process.env.DEMO_REQUEST_TO || 'info@neo14.com')
+    const fromAddress = process.env.DEMO_REQUEST_FROM || 'Cospace Demo <no-reply@neo14.com>'
 
     const subjectPrefix = body.integrationTest ? '[INTEGRATION TEST] ' : ''
     const subject = `${subjectPrefix}New Demo Request — ${body.companyName} (${body.fullName})`
