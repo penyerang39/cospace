@@ -90,7 +90,9 @@ export default async function Home() {
                   alt="Cospace projects overview"
                   fill
                   priority
+                  quality={95}
                   className="object-contain"
+                  style={{ imageRendering: 'auto' }}
                 />
               </div>
             </div>
@@ -321,7 +323,9 @@ export default async function Home() {
                   alt="Chat & Meetings interface"
                   width={1600}
                   height={1200}
+                  quality={95}
                   className="w-full h-auto rounded-inherit"
+                  style={{ imageRendering: 'auto' }}
                 />
               </div>
             </div>
@@ -341,7 +345,9 @@ export default async function Home() {
                     alt="Files & Docs interface"
                     width={1600}
                     height={1200}
+                    quality={95}
                     className="w-full h-auto rounded-inherit"
+                    style={{ imageRendering: 'auto' }}
                   />
                 </div>
               </div>
@@ -409,7 +415,9 @@ export default async function Home() {
                   alt="AppBuilder interface"
                   width={1600}
                   height={1200}
+                  quality={95}
                   className="w-full h-auto rounded-inherit"
+                  style={{ imageRendering: 'auto' }}
                 />
               </div>
             </div>
@@ -429,7 +437,9 @@ export default async function Home() {
                     alt="Data & Dashboards interface"
                     width={1600}
                     height={1200}
+                    quality={95}
                     className="w-full h-auto rounded-inherit"
+                    style={{ imageRendering: 'auto' }}
                   />
                 </div>
               </div>
@@ -511,7 +521,9 @@ export default async function Home() {
                   alt="Software development workflow"
                   width={1600}
                   height={1200}
+                  quality={95}
                   className="w-full h-auto rounded-inherit"
+                  style={{ imageRendering: 'auto' }}
                 />
               </div>
             </div>
@@ -531,7 +543,9 @@ export default async function Home() {
                     alt="Marketing campaign planning"
                     width={1600}
                     height={1200}
+                    quality={95}
                     className="w-full h-auto rounded-inherit"
+                    style={{ imageRendering: 'auto' }}
                   />
                 </div>
               </div>
@@ -599,7 +613,9 @@ export default async function Home() {
                   alt="Design workflow interface"
                   width={1600}
                   height={1200}
+                  quality={95}
                   className="w-full h-auto rounded-inherit"
+                  style={{ imageRendering: 'auto' }}
                 />
               </div>
             </div>
@@ -619,7 +635,9 @@ export default async function Home() {
                     alt="Government security dashboard"
                     width={1600}
                     height={1200}
+                    quality={95}
                     className="w-full h-auto rounded-inherit"
+                    style={{ imageRendering: 'auto' }}
                   />
                 </div>
               </div>

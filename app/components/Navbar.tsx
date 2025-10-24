@@ -162,9 +162,10 @@ function Dropdown({ group }: { group: MenuGroup }) {
                   alt="Section preview"
                   fill
                   sizes="(min-width: 1280px) 33vw, (min-width: 1024px) 41.666vw, (min-width: 640px) 50vw, 100vw"
-                  quality={90}
+                  quality={95}
                   className="object-cover"
                   priority={false}
+                  style={{ imageRendering: 'auto' }}
                 />
               </div>
             </div>
@@ -198,7 +199,9 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
               alt="Cospace by NEO14" 
               width={120} 
               height={32} 
+              quality={100}
               className="transition-transform duration-200"
+              style={{ imageRendering: 'auto' }}
             />
           </Link>
 
@@ -248,7 +251,9 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
                 alt="Cospace by NEO14" 
                 width={120} 
                 height={32} 
+                quality={100}
                 className="transition-transform duration-200"
+                style={{ imageRendering: 'auto' }}
               />
             </Link>
             <div className="flex items-center gap-2">

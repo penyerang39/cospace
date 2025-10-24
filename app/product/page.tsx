@@ -45,7 +45,7 @@ export default function ProductPage() {
           <div className="order-1">
             <div className="gradient-border rounded-lg">
               <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/Picture2.png" alt="Chat & Meetings preview" width={1600} height={900} className="w-full h-auto rounded-inherit" priority />
+                <Image src="/product/Picture2.png" alt="Chat & Meetings preview" width={1600} height={900} quality={95} className="w-full h-auto rounded-inherit" priority style={{ imageRendering: 'auto' }} />
               </div>
             </div>
           </div>
@@ -72,7 +72,7 @@ export default function ProductPage() {
           <div className="order-1 md:order-2">
             <div className="gradient-border rounded-lg">
               <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/files_main_screen.png" alt="Files & Docs preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+                <Image src="/product/files_main_screen.png" alt="Files & Docs preview" width={1600} height={900} quality={95} className="w-full h-auto rounded-inherit" style={{ imageRendering: 'auto' }} />
               </div>
             </div>
           </div>
@@ -99,7 +99,7 @@ export default function ProductPage() {
           <div className="order-1">
             <div className="gradient-border rounded-lg">
               <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/datamodel.png" alt="AppBuilder preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+                <Image src="/product/datamodel.png" alt="AppBuilder preview" width={1600} height={900} quality={95} className="w-full h-auto rounded-inherit" style={{ imageRendering: 'auto' }} />
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ export default function ProductPage() {
           <div className="order-1 md:order-2">
             <div className="gradient-border rounded-lg">
               <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/dashboards.png" alt="Data & Dashboards preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+                <Image src="/product/dashboards.png" alt="Data & Dashboards preview" width={1600} height={900} quality={95} className="w-full h-auto rounded-inherit" style={{ imageRendering: 'auto' }} />
               </div>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function ProductPage() {
           <div className="order-1">
             <div className="gradient-border rounded-lg">
               <div className="image-frame-inner rounded-inherit">
-                <Image src="/product/Picture6.png" alt="Admin & Security preview" width={1600} height={900} className="w-full h-auto rounded-inherit" />
+                <Image src="/product/Picture6.png" alt="Admin & Security preview" width={1600} height={900} quality={95} className="w-full h-auto rounded-inherit" style={{ imageRendering: 'auto' }} />
               </div>
             </div>
           </div>
