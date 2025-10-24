@@ -159,6 +159,27 @@ export default function AutoReveal() {
     // Gradient Border Effect Observer - Middle 40% viewport detection
     const gradientSelectors = '.gradient-border:not([data-no-gradient])';
 
+    // Helper function to check if element is in middle 40% of viewport
+    const isInMiddleViewport = (element: HTMLElement): boolean => {
+      const rect = element.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const elementTop = rect.top;
+      const elementBottom = rect.bottom;
+      const viewportTop = viewportHeight * 0.3; // 30% from top
+      const viewportBottom = viewportHeight * 0.7; // 70% from top
+      
+      return elementTop < viewportBottom && elementBottom > viewportTop;
+    };
+
+    // Helper function to apply gradient state
+    const applyGradientState = (element: HTMLElement, isActive: boolean) => {
+      if (isActive) {
+        element.classList.add('gradient-active');
+      } else {
+        element.classList.remove('gradient-active');
+      }
+    };
+
     const gradientElements = Array.from(document.querySelectorAll<HTMLElement>(gradientSelectors));
 
     if (gradientElements.length > 0) {
@@ -168,13 +189,7 @@ export default function AutoReveal() {
       const gradientObserver = new IntersectionObserver((entries) => {
         for (const entry of entries) {
           const target = entry.target as HTMLElement;
-          if (entry.isIntersecting) {
-            // Element is in the middle 40% of viewport
-            target.classList.add('gradient-active');
-          } else {
-            // Element has left the middle 40% of viewport
-            target.classList.remove('gradient-active');
-          }
+          applyGradientState(target, entry.isIntersecting);
         }
       }, { 
         root: null, 
@@ -182,7 +197,14 @@ export default function AutoReveal() {
         rootMargin: gradientRootMargin 
       });
 
-      gradientElements.forEach((el) => gradientObserver.observe(el));
+      // Set up observer for existing elements
+      gradientElements.forEach((el) => {
+        gradientObserver.observe(el);
+        // Check initial state for elements already in viewport
+        if (isInMiddleViewport(el)) {
+          applyGradientState(el, true);
+        }
+      });
 
       // Handle dynamically added gradient elements
       const gradientMutationObserver = new MutationObserver((mutations) => {
@@ -192,21 +214,73 @@ export default function AutoReveal() {
             
             if (node.matches(gradientSelectors)) {
               gradientObserver.observe(node);
+              // Check initial state for newly added elements
+              if (isInMiddleViewport(node)) {
+                applyGradientState(node, true);
+              }
             }
             
             const subtree = node.querySelectorAll<HTMLElement>(gradientSelectors);
-            subtree.forEach((el) => gradientObserver.observe(el));
+            subtree.forEach((el) => {
+              gradientObserver.observe(el);
+              // Check initial state for newly added elements
+              if (isInMiddleViewport(el)) {
+                applyGradientState(el, true);
+              }
+            });
           });
         }
       });
 
       gradientMutationObserver.observe(document.body, { childList: true, subtree: true });
 
+      // Fallback: Check all gradient elements periodically to catch any missed updates
+      // This ensures consistency even if intersection observer fails
+      let fallbackTimeout: NodeJS.Timeout | null = null;
+      
+      const runFallbackCheck = () => {
+        const allGradientElements = Array.from(document.querySelectorAll<HTMLElement>(gradientSelectors));
+        let hasChanges = false;
+        
+        allGradientElements.forEach((el) => {
+          const shouldBeActive = isInMiddleViewport(el);
+          const isCurrentlyActive = el.classList.contains('gradient-active');
+          
+          if (shouldBeActive !== isCurrentlyActive) {
+            applyGradientState(el, shouldBeActive);
+            hasChanges = true;
+          }
+        });
+        
+        // Only schedule next check if there were changes or elements exist
+        if (hasChanges || allGradientElements.length > 0) {
+          fallbackTimeout = setTimeout(runFallbackCheck, 2000); // Check every 2 seconds
+        }
+      };
+      
+      // Start fallback check after a delay to let intersection observer work first
+      fallbackTimeout = setTimeout(runFallbackCheck, 3000);
+
+      // Handle window resize events to recalculate viewport positions
+      const handleResize = () => {
+        // Debounce resize events
+        if (fallbackTimeout) {
+          clearTimeout(fallbackTimeout);
+        }
+        fallbackTimeout = setTimeout(runFallbackCheck, 100);
+      };
+
+      window.addEventListener('resize', handleResize, { passive: true });
+
       return () => {
         observer.disconnect();
         mutationObserver.disconnect();
         gradientObserver.disconnect();
         gradientMutationObserver.disconnect();
+        window.removeEventListener('resize', handleResize);
+        if (fallbackTimeout) {
+          clearTimeout(fallbackTimeout);
+        }
       };
     }
 

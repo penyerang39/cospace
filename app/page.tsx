@@ -3,6 +3,45 @@ import Image from "next/image";
 import { LayoutDashboard, Zap, ShieldCheck, Sparkles, Users, Activity, Globe, MessageSquare, FileText, Blocks, BarChart3, Hash, Mic, Video, Search, Clock, UserPlus, History, Share2, Lock, MessageCircle, GitBranch, Download, Database, Bell, Brain, TrendingUp, RefreshCw, AlertTriangle, Workflow, Settings, Play, Code, Bug, Rocket, CheckCircle, Target, Calendar, Megaphone, Palette, Layers, Eye, ChevronDown } from "lucide-react";
 import CTAButton from "./components/CTAButton";
 import CTALink from "./components/CTALink";
+import PricingCards from "./components/PricingCards";
+import fs from 'fs';
+import path from 'path';
+
+interface TierStatus {
+  tierSlug: string;
+  status: number;
+}
+
+interface Feature {
+  name: string;
+  description?: string;
+  category: string;
+  order: number;
+  tierStatus: TierStatus[];
+}
+
+interface Tier {
+  name: string;
+  slug: string;
+  pricing: string;
+  pricePerUser: number;
+  userLimit?: string;
+  description?: string;
+  isPopular: boolean;
+  order: number;
+}
+
+interface Category {
+  name: string;
+  slug: string;
+  description?: string;
+}
+
+interface PricingData {
+  categories: Category[];
+  tiers: Tier[];
+  features: Feature[];
+}
 
 export const metadata: Metadata = {
   title: "Cospace by NEO14 — Your private digital office",
@@ -27,7 +66,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  // Load pricing data from JSON file
+  const pricingPath = path.join(process.cwd(), 'content', 'pricing.json');
+  const pricingContent = fs.readFileSync(pricingPath, 'utf-8');
+  const pricing: PricingData = JSON.parse(pricingContent);
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
@@ -235,7 +278,7 @@ export default function Home() {
       <section className="section-padding" aria-labelledby="product-features-heading">
         <div className="max-width container-padding">
           <header className="text-center">
-            <h2 id="product-features-heading" className="heading-2 mb-4">What NEO14 Can Do</h2>
+            <h2 id="product-features-heading" className="heading-2 mb-4">Product Features</h2>
             <p className="body-large max-w-2xl mx-auto">
               Everything you need to collaborate, create, and manage your work.
             </p>
@@ -425,7 +468,7 @@ export default function Home() {
         <section className="section-padding text-white" aria-labelledby="solutions-heading">
         <div className="max-width container-padding">
           <header className="text-center">
-            <h2 id="solutions-heading" className="heading-2 mb-4 !text-white">NEO14 for any Workflow</h2>
+            <h2 id="solutions-heading" className="heading-2 mb-4 !text-white">Solutions by Industry</h2>
             <p className="body-large max-w-2xl mx-auto !text-white">
               Tailored workflows for every team: marketing, design, software, and government.
             </p>
@@ -438,7 +481,7 @@ export default function Home() {
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="pr-8">
-              <h3 className="heading-3 mb-4 !text-white">For Software Developers</h3>
+              <h3 className="heading-3 mb-4 !text-white">Software Development</h3>
               <p className="body-text mb-6 !text-white">
                 Roadmaps, sprints, release notes, and on-call runbooks. Link issues, PRDs, and docs to the code or service.
               </p>
@@ -494,7 +537,7 @@ export default function Home() {
               </div>
             </div>
             <div className="order-1 md:order-2 pl-8">
-              <h3 className="heading-3 mb-4 !text-white">For Marketers</h3>
+              <h3 className="heading-3 mb-4 !text-white">Marketing</h3>
               <p className="body-text mb-6 !text-white">
                 Plan campaigns, track assets, centralize briefs, and review creatives all in one place. Connect ad spend data and build ROAS dashboards.
               </p>
@@ -526,7 +569,7 @@ export default function Home() {
         <div className="max-width container-padding">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="pr-8">
-              <h3 className="heading-3 mb-4 !text-white">For Designers</h3>
+              <h3 className="heading-3 mb-4 !text-white">Design</h3>
               <p className="body-text mb-6 !text-white">
                 Manage versions, share mocks, collect feedback, and ship on time. Link design tasks and specs to the latest files.
               </p>
@@ -582,7 +625,7 @@ export default function Home() {
               </div>
             </div>
             <div className="order-1 md:order-2 pl-8">
-              <h3 className="heading-3 mb-4 !text-white">For Governments</h3>
+              <h3 className="heading-3 mb-4 !text-white">Government</h3>
               <p className="body-text mb-6 !text-white">
                 Secure document exchange, private file storage, and safe communication. Fine-grained access controls, audit logs, and data residency options.
               </p>
@@ -609,6 +652,9 @@ export default function Home() {
         </div>
       </section>
       </div>
+      {/* End Solutions Area */}
+
+      {/* ===== COMMUNITY SECTION ===== */}
       <section className="section-padding" aria-labelledby="community-heading">
         <div className="max-width container-padding">
           <header className="text-center mb-16">
@@ -675,162 +721,7 @@ export default function Home() {
               Choose the plan that fits your team. All plans include our core collaboration features with transparent, usage-based pricing.
             </p>
           </header>
-          <div className="grid md:grid-cols-4 gap-8" role="list">
-            {/* Free Plan */}
-            <li className="card flex flex-col justify-between">
-              <div>
-                <div className="mb-6">
-                  <h3 className="heading-4 mb-2">Free</h3>
-                  <div className="mb-4 justify-between">
-                    <span className="text-3xl font-bold">$0</span>
-                    <span className="text-muted"> forever</span>
-                  </div>
-                  <p className="body-small text-muted">Perfect for small teams getting started</p>
-                </div>
-                
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Up to 5 users</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">5 GB storage</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Core chat & docs</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Basic dashboards</span>
-                  </div>
-                </div>
-              </div>
-              
-              <CTAButton variant="secondary" text="get started" className="w-full" />
-            </li>
-
-            {/* Pro Plan */}
-            <li className="card border-accent/20 relative flex flex-col justify-between">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">Most popular</span>
-              </div>
-              
-              <div>
-                <div className="mb-6">
-                  <h3 className="heading-4 mb-2">Pro</h3>
-                  <div className="mb-4">
-                    <span className="text-3xl font-bold">$9</span>
-                    <span className="text-muted">/user/month</span>
-                  </div>
-                  <p className="body-small text-muted">For growing teams that need more features</p>
-                </div>
-                
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Unlimited users</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">100 GB storage</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Meetings & Huddles</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">AppBuilder (standard)</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Basic SSO</span>
-                  </div>
-                </div>
-              </div>
-              
-              <CTAButton variant="primary" text="get started" className="w-full" />
-            </li>
-
-            {/* Business Plan */}
-            <li className="card flex flex-col justify-between">
-              <div>
-                <div className="mb-6">
-                  <h3 className="heading-4 mb-2">Business</h3>
-                  <div className="mb-4">
-                    <span className="text-3xl font-bold">$18</span>
-                    <span className="text-muted">/user/month</span>
-                  </div>
-                  <p className="body-small text-muted">For teams that need advanced security & controls</p>
-                </div>
-                
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">1 TB storage</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Advanced AppBuilder</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Database connectors</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">SSO/SAML</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">SCIM & Audit logs</span>
-                  </div>
-                </div>
-              </div>
-              
-              <CTAButton variant="primary" text="get started" className="w-full" />
-            </li>
-
-            {/* Enterprise Plan */}
-            <li className="card flex flex-col justify-between">
-              <div>
-                <div className="mb-6">
-                  <h3 className="heading-4 mb-2">Enterprise</h3>
-                  <div className="mb-4">
-                    <span className="text-3xl font-bold">Custom</span>
-                  </div>
-                  <p className="body-small text-muted">For organizations with complex requirements</p>
-                </div>
-                
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Enterprise security</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">BYOK encryption</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Private cloud/VPC</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">EU/US data residency</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="body-text">Dedicated support</span>
-                  </div>
-                </div>
-              </div>
-              
-              <CTAButton variant="primary" text="request pricing" className="w-full" />
-            </li>
-          </div>
+          <PricingCards pricing={pricing} />
         </div>
       </section>
 

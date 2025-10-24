@@ -101,7 +101,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
       <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} />
       <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} style={{ transform: 'translateY(2px)' }} />
       <div
-        className={`fixed left-0 right-0 top-full z-50 bg-background/95 backdrop-blur-sm transition-[opacity,transform] duration-300 ease-out ${
+        className={`fixed left-0 right-0 top-full z-50 bg-background transition-[opacity,transform] duration-300 ease-out ${
           open ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-2"
         }`}
         role="menu"
@@ -189,7 +189,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
 
   return (
     <>
-    <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 border-b border-black/10 navbar-dark-theme">
+    <header className="sticky top-0 z-40 bg-background supports-[backdrop-filter]:bg-background border-b border-black/10 navbar-dark-theme">
       <nav className="relative max-width container-padding">
         <div className="flex items-center justify-between h-16">
           <Link href="/" aria-label="Cospace home" className="flex items-center group">
@@ -233,7 +233,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
     </header>
     {/* Mobile full-screen overlay moved outside header to cover viewport */}
     <div
-      className={`sm:hidden fixed inset-0 z-50 bg-background/95 backdrop-blur-md transition-[opacity,transform] duration-300 ease-out ${
+      className={`sm:hidden fixed inset-0 z-50 bg-background transition-[opacity,transform] duration-300 ease-out ${
         mobileOpen ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-2"
       }`}
       role="dialog"

@@ -683,7 +683,7 @@ input[type="radio"]:focus-visible {
   }
   to {
     opacity: 1;
-    max-height: 200px;
+    max-height: 10000px;
     padding-top: 1rem;
     padding-bottom: 0;
     margin-top: 0;
@@ -693,7 +693,7 @@ input[type="radio"]:focus-visible {
 @keyframes faqSlideUp {
   from {
     opacity: 1;
-    max-height: 200px;
+    max-height: 10000px;
     padding-top: 1rem;
     padding-bottom: 0;
     margin-top: 0;
@@ -727,7 +727,7 @@ details:not([open]) .faq-content {
 }
 
 details[open] .faq-content {
-  max-height: 200px;
+  max-height: 1000px;
   opacity: 1;
   padding-top: 1rem;
 }

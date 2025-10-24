@@ -50,7 +50,7 @@ export default function ProductPage() {
             </div>
           </div>
           <div className="order-2">
-            <div className="w-full">
+            <div className="w-full pl-8">
               <h3 className="heading-4 mb-3">Chat & Meetings</h3>
               <p className="body-text mb-4">
                 Channels and DMs with mentions, threads, and file previews.<br/>
@@ -77,7 +77,7 @@ export default function ProductPage() {
             </div>
           </div>
           <div className="order-2 md:order-1">
-            <div className="w-full">
+            <div className="w-full pr-8">
               <h3 className="heading-4 mb-3">Files & Docs</h3>
               <p className="body-text mb-4">
                 Rich docs with comments, tasks, and version history.<br/>
@@ -104,7 +104,7 @@ export default function ProductPage() {
             </div>
           </div>
           <div className="order-2">
-            <div className="w-full">
+            <div className="w-full pl-8">
               <h3 className="heading-4 mb-3">AppBuilder</h3>
               <p className="body-text mb-4">
                 Point‑and‑click interfaces for forms, requests, and internal tools.<br/>
@@ -131,7 +131,7 @@ export default function ProductPage() {
             </div>
           </div>
           <div className="order-2 md:order-1">
-            <div className="w-full">
+            <div className="w-full pr-8">
               <h3 className="heading-4 mb-3">Data & Dashboards</h3>
               <p className="body-text mb-4">
                 Bring in CSVs, databases, and third‑party metrics.<br/>
@@ -158,7 +158,7 @@ export default function ProductPage() {
             </div>
           </div>
           <div className="order-2">
-            <div className="w-full">
+            <div className="w-full pl-8">
               <h3 className="heading-4 mb-3">Admin & Security</h3>
               <p className="body-text mb-4">
                 SSO/SAML, SCIM provisioning, MFA, and granular roles.<br/>
