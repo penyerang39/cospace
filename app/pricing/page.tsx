@@ -83,7 +83,7 @@ export default async function PricingPage() {
   ];
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen max-width-[100] container-padding-no-right pr-0 mr-0">
       <PageMain
         title={<>Simple plans that <span className="gradient-text">scale with you</span></>}
         subtitle={
@@ -94,8 +94,10 @@ export default async function PricingPage() {
       />
 
       {/* Pricing Plans */}
-      <section className="section-padding">
-        <PricingCards pricing={pricing} />
+      <section className="overflow-visible max-width-[100]">
+        <div className="max-width-[100] container-padding container-padding-no-right pr-0 mr-0">
+          <PricingCards pricing={pricing} />
+        </div>
       </section>
 
       {/* Feature Comparison */}

@@ -730,7 +730,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ===== PRICING SECTION ===== */}
+      {/* ===== PRICING HEADER ===== */}
       <section className="section-padding" aria-labelledby="pricing-heading">
         <div className="max-width container-padding">
           <header className="text-center mb-16">
@@ -739,6 +739,12 @@ export default async function Home() {
               Choose the plan that fits your team. All plans include our core collaboration features with transparent, usage-based pricing.
             </p>
           </header>
+        </div>
+      </section>
+
+      {/* ===== PRICING CARDS ===== */}
+      <section className="overflow-visible">
+        <div className="max-width-[100] container-padding container-padding-no-right pr-0 mr-0">
           <PricingCards pricing={pricing} />
         </div>
       </section>

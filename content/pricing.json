@@ -124,8 +124,8 @@
       ]
     },
     {
-      "name": "Public share link Settings (password, expiry, reshare etc.)",
-      "description": "",
+      "name": "Public share link Settings",
+      "description": "password, expiry, reshare etc.",
       "category": "collaborate",
       "order": 4,
       "tierStatus": [
@@ -215,8 +215,8 @@
       ]
     },
     {
-      "name": "Add several File storage backends (Local, S3 etc.)",
-      "description": "",
+      "name": "Add several File storage backends",
+      "description": "Local, S3 etc.",
       "category": "data",
       "order": 11,
       "tierStatus": [
@@ -410,8 +410,8 @@
       ]
     },
     {
-      "name": "Enterprise Content Management (Sensitive, Personal, Confidential, Restricted)",
-      "description": "",
+      "name": "Enterprise Content Management",
+      "description": "Sensitive, Personal, Confidential, Restricted",
       "category": "security",
       "order": 26,
       "tierStatus": [
@@ -423,8 +423,8 @@
       ]
     },
     {
-      "name": "AI Chat with All Cospace info (Files, Apps, Data)",
-      "description": "",
+      "name": "AI Chat with All Cospace info",
+      "description": "Files, Apps, Data",
       "category": "chat",
       "order": 27,
       "tierStatus": [
@@ -501,8 +501,8 @@
       ]
     },
     {
-      "name": "Premier Support (24 x 7, response in 4hours with Screen Share and Senior Support Member)",
-      "description": "",
+      "name": "Premier Support",
+      "description": "24 x 7, response in 4hours with Screen Share and Senior Support Member",
       "category": "support",
       "order": 33,
       "tierStatus": [
@@ -579,8 +579,8 @@
       ]
     },
     {
-      "name": "Professional Support (5 x 8 CET time, response by chat next working day)",
-      "description": "",
+      "name": "Professional Support",
+      "description": "5 x 8 CET time, response by chat next working day",
       "category": "support",
       "order": 39,
       "tierStatus": [
@@ -605,8 +605,8 @@
       ]
     },
     {
-      "name": "Data Retention Policy (30, 60, 90 after \"soft delete\" per Channel, Files, Folders)",
-      "description": "",
+      "name": "Data Retention Policy",
+      "description": "30, 60, 90 after \"soft delete\" per Channel, Files, Folders",
       "category": "security",
       "order": 41,
       "tierStatus": [

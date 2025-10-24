@@ -9,45 +9,17 @@ import previews from "../lib/nav-previews";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "./ThemeProvider";
 
-const productImages = [
-  "/product/Picture1.png",
-  "/product/Picture2.png",
-  "/product/Picture3.png",
-  "/product/Picture4.png",
-  "/product/Picture5.png",
-  "/product/Picture6.png",
-  "/product/Picture7.png",
-  "/product/Picture8.png",
-  "/product/dashboards.png",
-  "/product/datamodel.png",
-  "/product/updated_data1.png",
-  "/product/data-spider-web.png",
-  "/product/updated_data.png",
-  "/product/updated_chat.png",
-  "/product/updated_projects.png",
-  "/product/updated_files.png",
-  "/product/files_main_screen.png",
-];
-
 // Hide parent overview link for specific groups
 const HIDE_OVERVIEW_FOR = new Set(["Company", "Legal"]);
-
-function useRandomProductImage() {
-  const chosenRef = useRef<string | null>(null);
-  if (!chosenRef.current) {
-    const idx = Math.floor(Math.random() * productImages.length);
-    chosenRef.current = productImages[idx];
-  }
-  return chosenRef.current as string;
-}
 
 function Dropdown({ group }: { group: MenuGroup }) {
   const [open, setOpen] = useState(false);
   const [hoverHref, setHoverHref] = useState<string | undefined>(undefined);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const fallbackImage = useRandomProductImage();
+  const { actualTheme } = useTheme();
   const activeHref = hoverHref || group.href;
-  const previewSrc = (activeHref && (previews as Record<string, string>)[activeHref]) || fallbackImage;
+  const hasPreview = activeHref && (previews as Record<string, string>)[activeHref];
+  const previewSrc = hasPreview || (actualTheme === 'dark' ? "/branding/neo14White.svg" : "/branding/neo14Logo.svg");
   const hasChildren = (group.items?.length ?? 0) > 0;
 
   const handleMouseEnter = () => {
@@ -89,8 +61,8 @@ function Dropdown({ group }: { group: MenuGroup }) {
         className="px-4 h-full flex items-center text-foreground hover:text-foreground/80 transition-colors duration-200 font-medium relative"
         href={group.href || "#"}
         onClick={(e) => {
-          // If there's no href or it's just "#", prevent navigation and toggle dropdown
-          if (!group.href || group.href === "#") {
+          // If there's no href, it's just "#", or it's a Legal parent link, prevent navigation and toggle dropdown
+          if (!group.href || group.href === "#" || (group.label === "Legal" && group.href === "/legal")) {
             e.preventDefault();
             setOpen(v => !v);
           }
@@ -156,14 +128,14 @@ function Dropdown({ group }: { group: MenuGroup }) {
               </ul>
             </div>
             <div className="col-span-5">
-              <div className="h-48 w-full overflow-hidden rounded-lg border border-black/10 bg-gradient-to-br from-background to-background/50 relative shadow-inner">
+              <div className="h-48 w-full overflow-hidden rounded-lg bg-gradient-to-br from-background to-background/50 relative">
                 <Image
                   src={previewSrc}
                   alt="Section preview"
                   fill
                   sizes="(min-width: 1280px) 33vw, (min-width: 1024px) 41.666vw, (min-width: 640px) 50vw, 100vw"
                   quality={95}
-                  className="object-cover"
+                  className={hasPreview ? "object-cover" : "object-contain"}
                   priority={false}
                   style={{ imageRendering: 'auto' }}
                 />
@@ -292,7 +264,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
                       onClick={() => {
                         if (hasChildren) {
                           setActiveParentLabel(group.label);
-                        } else if (group.href) {
+                        } else if (group.href && !(group.label === "Legal" && group.href === "/legal")) {
                           window.location.href = group.href;
                         }
                       }}

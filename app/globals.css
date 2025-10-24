@@ -323,6 +323,50 @@ html {
   }
 }
 
+/* Container Padding Modifiers */
+.container-padding.container-padding-no-right {
+  padding-right: 0 !important;
+}
+
+.container-padding.container-padding-no-left {
+  padding-left: 0 !important;
+}
+
+.container-padding.container-padding-no-right-no-left {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+@media (min-width: 640px) {
+  .container-padding.container-padding-no-right {
+    padding-right: 0 !important;
+  }
+  
+  .container-padding.container-padding-no-left {
+    padding-left: 0 !important;
+  }
+  
+  .container-padding.container-padding-no-right-no-left {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-padding.container-padding-no-right {
+    padding-right: 0 !important;
+  }
+  
+  .container-padding.container-padding-no-left {
+    padding-left: 0 !important;
+  }
+  
+  .container-padding.container-padding-no-right-no-left {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 .max-width {
   max-width: 80rem;
   margin-left: auto;

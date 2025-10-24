@@ -45,6 +45,11 @@ interface DynamicGradientBlobProps {
    * Callback to receive debug information
    */
   onDebugInfo?: (info: { x: number; y: number; scale: number; rotation: number }) => void;
+  
+  /**
+   * Default weight multiplier for all tracked elements (overrides data-blob-weight when not set)
+   */
+  defaultWeight?: number;
 }
 
 export default function DynamicGradientBlob({
@@ -55,6 +60,7 @@ export default function DynamicGradientBlob({
   blurAmount = 40,
   containerRef,
   onDebugInfo,
+  defaultWeight = 1,
 }: DynamicGradientBlobProps) {
   const blobRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState<BlobPosition>({
@@ -212,8 +218,8 @@ export default function DynamicGradientBlob({
         const area = rect.width * rect.height;
         const areaWeight = Math.min(area / (containerRect.width * containerRect.height), 1);
         
-        // Get custom weight from data attribute
-        const customWeight = parseFloat(target.getAttribute('data-blob-weight') || '1');
+        // Get custom weight from data attribute, fallback to defaultWeight
+        const customWeight = parseFloat(target.getAttribute('data-blob-weight') || defaultWeight.toString());
         
         // Calculate element center relative to container
         const centerX = (rect.left + rect.width / 2 - containerRect.left) / containerRect.width;
@@ -319,7 +325,7 @@ export default function DynamicGradientBlob({
 
     // Start initialization with a small delay to ensure DOM is ready
     setTimeout(initializeTracking, 100);
-  }, [isClient, targetSelector, followMouse, intersectionWeight, containerRef]);
+  }, [isClient, targetSelector, followMouse, intersectionWeight, containerRef, defaultWeight]);
 
   // Don't render anything if not client-side
   if (!isClient) {

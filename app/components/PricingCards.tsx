@@ -1,6 +1,6 @@
 'use client';
 
-import { Check, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, X, ChevronDown, ChevronUp, Info } from 'lucide-react';
 import CTAButton from './CTAButton';
 import { useState, useRef, useEffect } from 'react';
 
@@ -45,15 +45,23 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [visibleTooltips, setVisibleTooltips] = useState<Set<string>>(new Set());
 
   // Ensure hydration is complete before rendering interactive elements
   useEffect(() => {
     setIsHydrated(true);
   }, []);
 
-  // Click and drag horizontal scrolling
+  // Click and drag horizontal scrolling (disabled on small screens)
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (!pricingContainerRef.current) return;
+    if (!pricingContainerRef.current || window.innerWidth < 640) return; // Disable on sm and below
+    
+    // Don't start dragging if clicking on interactive elements
+    const target = e.target as HTMLElement;
+    if (target.closest('button, a, [role="button"], details, summary') || target.tagName === 'BUTTON' || target.tagName === 'A' || target.tagName === 'SUMMARY') {
+      return;
+    }
+    
     setIsDragging(true);
     setStartX(e.pageX - pricingContainerRef.current.offsetLeft);
     setScrollLeft(pricingContainerRef.current.scrollLeft);
@@ -68,7 +76,7 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !pricingContainerRef.current) return;
+    if (!isDragging || !pricingContainerRef.current || window.innerWidth < 640) return; // Disable on sm and below
     e.preventDefault();
     const x = e.pageX - pricingContainerRef.current.offsetLeft;
     const walk = (x - startX) * 2;
@@ -104,11 +112,23 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
     }
   };
 
+  const toggleTooltip = (featureKey: string) => {
+    setVisibleTooltips(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(featureKey)) {
+        newSet.delete(featureKey);
+      } else {
+        newSet.add(featureKey);
+      }
+      return newSet;
+    });
+  };
+
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full overflow-visible">
       <div 
         ref={pricingContainerRef}
-        className={`flex gap-8 px-4 md:px-8 overflow-x-auto scrollbar-hide items-stretch ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
+        className={`flex flex-col py-5 sm:flex-row gap-8 sm:overflow-x-auto scrollbar-hide ${isDragging ? 'sm:cursor-grabbing' : 'sm:cursor-grab'} select-none`}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         onMouseDown={handleMouseDown}
         onMouseLeave={handleMouseLeave}
@@ -169,13 +189,16 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
             <div 
               key={tier.slug} 
               data-tier-slug={tier.slug}
-              className="flex-shrink-0 w-80 flex flex-col h-full"
+              className={`flex-shrink-0 w-full sm:w-80 flex flex-col ${tier.isPopular ? 'relative' : ''}`}
             >
-              <div className={`card flex flex-col border h-full ${tier.isPopular ? 'border-accent/20 relative' : 'border-foreground/10'}`}>
+              {tier.isPopular && (
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+                  <span className="pricing-badge px-3 py-1 rounded-full text-sm font-medium">Most popular</span>
+                </div>
+              )}
+              <div className={`card flex items-center flex-col overflow-visible border h-full ${tier.isPopular ? 'border-accent' : tier.pricePerUser === 0 ? 'border-foreground/5' : 'border-foreground/10'}`}>
                 {tier.isPopular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                    <span className="pricing-badge px-3 py-1 rounded-full text-sm font-medium">Most popular</span>
-                  </div>
+                  <div className="absolute -inset-0.5 border border-accent/30 rounded-[0.875rem] pointer-events-none z-5"></div>
                 )}
                 
                 <div className="flex flex-col h-full">
@@ -200,11 +223,24 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
                     {initialFeatures.map((feature) => (
                       <div key={feature.name} className="flex items-center gap-3">
                         {feature.isEnabled ? (
-                          <Check className="w-5 h-5 text-accent flex-shrink-0" />
+                          <Check className={`w-5 h-5 flex-shrink-0 ${tier.pricePerUser === 0 ? 'text-muted' : 'text-accent'}`} />
                         ) : (
                           <X className="w-5 h-5 text-muted flex-shrink-0" />
                         )}
-                        <span className={`body-text ${feature.isEnabled ? '' : 'text-muted'}`}>{feature.name}</span>
+                        <div className="flex items-center gap-2 flex-1">
+                          <span className={`body-text ${feature.isEnabled ? '' : 'text-muted'}`}>{feature.name}</span>
+                          {feature.description && (
+                            <div className="group relative">
+                              <button className="p-2 -m-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
+                                <Info className="w-4 h-4 text-muted hover:text-foreground focus:text-foreground transition-colors cursor-help" />
+                              </button>
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-foreground text-background text-sm rounded-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                                {feature.description}
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-foreground"></div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     ))}
                     
@@ -220,8 +256,8 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
                         }}
                       >
                         <summary className="flex items-center gap-3 cursor-pointer list-none">
-                          <ChevronDown className="w-5 h-5 text-accent transition-transform duration-200 group-open:rotate-180" />
-                          <span className="body-text text-accent">
+                          <ChevronDown className={`w-5 h-5 transition-transform duration-200 group-open:rotate-180 ${tier.pricePerUser === 0 ? 'text-muted' : 'text-accent'}`} />
+                          <span className={`body-text ${tier.pricePerUser === 0 ? 'text-muted' : 'text-accent'}`}>
                             {isExpanded ? 'Show less' : `+${additionalEnabledFeatures.length} more features`}
                           </span>
                         </summary>
@@ -230,11 +266,24 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
                             {additionalFeatures.map((feature) => (
                               <div key={feature.name} className="flex items-center gap-3">
                                 {feature.isEnabled ? (
-                                  <Check className="w-5 h-5 text-accent flex-shrink-0" />
+                                  <Check className={`w-5 h-5 flex-shrink-0 ${tier.pricePerUser === 0 ? 'text-muted' : 'text-accent'}`} />
                                 ) : (
                                   <X className="w-5 h-5 text-muted flex-shrink-0" />
                                 )}
-                                <span className={`body-text ${feature.isEnabled ? '' : 'text-muted'}`}>{feature.name}</span>
+                                <div className="flex items-center gap-2 flex-1">
+                                  <span className={`body-text ${feature.isEnabled ? '' : 'text-muted'}`}>{feature.name}</span>
+                                  {feature.description && (
+                                    <div className="group relative">
+                                      <button className="p-2 -m-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
+                                        <Info className="w-4 h-4 text-muted hover:text-foreground focus:text-foreground transition-colors cursor-help" />
+                                      </button>
+                                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-foreground text-background text-sm rounded-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                                        {feature.description}
+                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-foreground"></div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             ))}
                           </div>
@@ -243,9 +292,9 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
                           <div className="mt-4 pt-3 border-t border-border">
                             <button
                               onClick={() => toggleTierExpansion(tier.slug)}
-                              className="flex items-center gap-2 text-accent hover:text-accent/80 transition-colors"
+                              className={`flex items-center gap-2 transition-colors ${tier.pricePerUser === 0 ? 'text-muted hover:text-foreground' : 'text-accent hover:text-accent/80'}`}
                             >
-                              <ChevronUp className="w-4 h-4" />
+                              <ChevronUp className="w-5 h-5" />
                               <span className="body-small">Show less</span>
                             </button>
                           </div>
