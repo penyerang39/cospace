@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Shield, Lock, FileCheck, Users, Globe, Eye, Clock, CheckCircle } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "Government Solutions — FedRAMP, FISMA & Compliance",
+  description: "Secure document exchange, private file storage, and safe communication. Fine-grained access controls, audit logs, and data residency options.",
+  openGraph: {
+    title: "Government Solutions — FedRAMP, FISMA & Compliance",
+    description: "Secure document exchange, private file storage, and safe communication. Fine-grained access controls, audit logs, and data residency options.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Government Solutions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Government Solutions — FedRAMP, FISMA & Compliance",
+    description: "Secure document exchange, private file storage, and safe communication. Fine-grained access controls, audit logs, and data residency options.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function GovernmentPage() {
   return (

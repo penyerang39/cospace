@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { FileText, Users, History, Share2, Lock, MessageCircle, GitBranch, Download } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "Files & Docs — Real-time Collaboration in Cospace",
+  description: "Create, share, and ship together. Real-time collaboration with version control that actually works. Manage all your files in one secure place.",
+  openGraph: {
+    title: "Files & Docs — Real-time Collaboration in Cospace",
+    description: "Create, share, and ship together. Real-time collaboration with version control that actually works. Manage all your files in one secure place.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Files & Docs",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Files & Docs — Real-time Collaboration in Cospace",
+    description: "Create, share, and ship together. Real-time collaboration with version control that actually works. Manage all your files in one secure place.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function FilesPage() {
   return (

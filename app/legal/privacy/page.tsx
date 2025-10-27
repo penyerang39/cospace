@@ -1,4 +1,28 @@
+import type { Metadata } from "next";
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: "Privacy Policy — Cospace by NEO14",
+  description: "Learn how NEO14 Technologies collects, uses, and protects your personal information in accordance with GDPR and privacy best practices.",
+  openGraph: {
+    title: "Privacy Policy — Cospace by NEO14",
+    description: "Learn how NEO14 Technologies collects, uses, and protects your personal information in accordance with GDPR and privacy best practices.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Privacy Policy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy — Cospace by NEO14",
+    description: "Learn how NEO14 Technologies collects, uses, and protects your personal information in accordance with GDPR and privacy best practices.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function Page() {
   return (

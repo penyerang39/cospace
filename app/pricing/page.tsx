@@ -15,12 +15,36 @@
  * - Features: Individual features with tier availability (1 = enabled, -1 = disabled)
  */
 
+ import type { Metadata } from "next";
  import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from 'lucide-react';
 import CTAButton from '../components/CTAButton';
 import PageMain from '../components/PageMain';
 import PricingCards from '../components/PricingCards';
 import fs from 'fs';
 import path from 'path';
+
+export const metadata: Metadata = {
+  title: "Cospace Pricing — Free, Pro, Business, Enterprise",
+  description: "Simple, scalable plans. Start free and upgrade as you grow. Transparent, usage-based pricing for teams of all sizes.",
+  openGraph: {
+    title: "Cospace Pricing — Free, Pro, Business, Enterprise",
+    description: "Simple, scalable plans. Start free and upgrade as you grow. Transparent, usage-based pricing for teams of all sizes.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Pricing",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cospace Pricing — Free, Pro, Business, Enterprise",
+    description: "Simple, scalable plans. Start free and upgrade as you grow. Transparent, usage-based pricing for teams of all sizes.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 interface TierStatus {
   tierSlug: string;

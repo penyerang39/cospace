@@ -1,4 +1,28 @@
+import type { Metadata } from "next";
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: "Subscription Agreement — Cospace by NEO14",
+  description: "Subscription terms and billing information for Cospace plans. Understand your rights and obligations as a subscriber.",
+  openGraph: {
+    title: "Subscription Agreement — Cospace by NEO14",
+    description: "Subscription terms and billing information for Cospace plans. Understand your rights and obligations as a subscriber.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Subscription Agreement",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Subscription Agreement — Cospace by NEO14",
+    description: "Subscription terms and billing information for Cospace plans. Understand your rights and obligations as a subscriber.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function Page() {
   return (

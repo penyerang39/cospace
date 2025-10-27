@@ -291,9 +291,34 @@ class MarkdownScraper {
   /**
    * Generate a React component that renders provided HTML safely within our styled container
    */
-  generateReactHtmlComponent(processedHtml) {
+  generateReactHtmlComponent(processedHtml, metadataInfo = null) {
     const inlined = JSON.stringify(processedHtml);
-    return `import React from 'react';
+    const metadataExport = metadataInfo ? `\nimport type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "${metadataInfo.title}",
+  description: "${metadataInfo.description}",
+  openGraph: {
+    title: "${metadataInfo.title}",
+    description: "${metadataInfo.description}",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "${metadataInfo.alt}",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "${metadataInfo.title}",
+    description: "${metadataInfo.description}",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};` : '';
+    
+    return `import React from 'react';${metadataExport}
 
 export default function Page() {
   return (
@@ -339,25 +364,45 @@ export default function Page() {
         // Privacy Policy
         html: 'Neo14 Privacy Policy.html',
         md: 'PrivacyPolicy.md',
-        out: 'privacy/page.tsx'
+        out: 'privacy/page.tsx',
+        metadata: {
+          title: 'Privacy Policy — Cospace by NEO14',
+          description: 'Learn how NEO14 Technologies collects, uses, and protects your personal information in accordance with GDPR and privacy best practices.',
+          alt: 'Cospace Privacy Policy'
+        }
       },
       {
         // Terms of Use
         html: 'Neo14 Terms of Use.html',
         md: 'TOS.md',
-        out: 'terms/page.tsx'
+        out: 'terms/page.tsx',
+        metadata: {
+          title: 'Terms of Use — Cospace by NEO14',
+          description: 'Terms and conditions for using Cospace by NEO14 Technologies. Read our acceptable use policies and service terms.',
+          alt: 'Cospace Terms of Use'
+        }
       },
       {
         // Subscription Agreement
         html: 'Neo 14 Subscription Agreement.html',
         md: 'Agreement.md',
-        out: 'subscription/page.tsx'
+        out: 'subscription/page.tsx',
+        metadata: {
+          title: 'Subscription Agreement — Cospace by NEO14',
+          description: 'Subscription terms and billing information for Cospace plans. Understand your rights and obligations as a subscriber.',
+          alt: 'Cospace Subscription Agreement'
+        }
       },
       {
         // Disclaimer and AUP
         html: 'Neo14 Disclaimer and AUP.html',
         md: 'Disclaimer.md',
-        out: 'acceptable-use/page.tsx'
+        out: 'acceptable-use/page.tsx',
+        metadata: {
+          title: 'Acceptable Use Policy — Cospace by NEO14',
+          description: 'Acceptable use policy and disclaimer for Cospace. Learn about prohibited activities and platform usage guidelines.',
+          alt: 'Cospace Acceptable Use Policy'
+        }
       }
     ];
 
@@ -376,7 +421,7 @@ export default function Page() {
         if (fs.existsSync(htmlPath)) {
           const rawHtml = fs.readFileSync(htmlPath, 'utf8');
           const processedHtml = this.processHtml(rawHtml);
-          const component = this.generateReactHtmlComponent(processedHtml);
+          const component = this.generateReactHtmlComponent(processedHtml, mapping.metadata);
           fs.writeFileSync(outputFilePath, component);
           console.log(`Updated from HTML: ${mapping.out}`);
           continue;

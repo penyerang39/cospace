@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Code, GitBranch, Bug, Rocket, FileText, MessageSquare, CheckCircle, Users } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "Software Solutions — Roadmaps, Sprints & Release Management",
+  description: "Roadmaps, sprints, release notes, and on-call runbooks. Link issues, PRDs, and docs to the code or service.",
+  openGraph: {
+    title: "Software Solutions — Roadmaps, Sprints & Release Management",
+    description: "Roadmaps, sprints, release notes, and on-call runbooks. Link issues, PRDs, and docs to the code or service.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Software Solutions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Software Solutions — Roadmaps, Sprints & Release Management",
+    description: "Roadmaps, sprints, release notes, and on-call runbooks. Link issues, PRDs, and docs to the code or service.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function SoftwarePage() {
   return (

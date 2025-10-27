@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import { Building2, Users, Mail, ChevronDown } from "lucide-react";
 import CTAButton from "../components/CTAButton";
 import CTALink from "../components/CTALink";
 import ScrollHint from "../components/ScrollHint";
 import PageMain from "../components/PageMain";
+
+export const metadata: Metadata = {
+  title: "About NEO14 — Building the Future of Work",
+  description: "Learn about NEO14 Technologies, the team building Cospace—a secure, integrated workspace that helps teams move faster with less app-switching.",
+  openGraph: {
+    title: "About NEO14 — Building the Future of Work",
+    description: "Learn about NEO14 Technologies, the team building Cospace—a secure, integrated workspace that helps teams move faster with less app-switching.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "NEO14 Technologies",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About NEO14 — Building the Future of Work",
+    description: "Learn about NEO14 Technologies, the team building Cospace—a secure, integrated workspace that helps teams move faster with less app-switching.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function CompanyPage() {
   return (

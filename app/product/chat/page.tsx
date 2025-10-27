@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { MessageSquare, Users, Mic, Video, Search, Hash, UserPlus, Clock } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "Chat & Meetings — Real-time Collaboration in Cospace",
+  description: "Conversations that stay connected to the work. Channels for teams, threads for focus, and instant video calls when you need them.",
+  openGraph: {
+    title: "Chat & Meetings — Real-time Collaboration in Cospace",
+    description: "Conversations that stay connected to the work. Channels for teams, threads for focus, and instant video calls when you need them.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Chat & Meetings",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chat & Meetings — Real-time Collaboration in Cospace",
+    description: "Conversations that stay connected to the work. Channels for teams, threads for focus, and instant video calls when you need them.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function ChatPage() {
   return (

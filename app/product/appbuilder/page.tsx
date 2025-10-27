@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Blocks, Database, Zap, Shield, Workflow, Settings, Play, Users } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "AppBuilder — Build Internal Tools Without Code",
+  description: "Internal tools without ticketing the dev team. Build forms, dashboards, and workflows visually in minutes with no coding required.",
+  openGraph: {
+    title: "AppBuilder — Build Internal Tools Without Code",
+    description: "Internal tools without ticketing the dev team. Build forms, dashboards, and workflows visually in minutes with no coding required.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace AppBuilder",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AppBuilder — Build Internal Tools Without Code",
+    description: "Internal tools without ticketing the dev team. Build forms, dashboards, and workflows visually in minutes with no coding required.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function AppBuilderPage() {
   return (

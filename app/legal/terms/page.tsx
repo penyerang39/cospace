@@ -1,4 +1,28 @@
+import type { Metadata } from "next";
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: "Terms of Use — Cospace by NEO14",
+  description: "Terms and conditions for using Cospace by NEO14 Technologies. Read our acceptable use policies and service terms.",
+  openGraph: {
+    title: "Terms of Use — Cospace by NEO14",
+    description: "Terms and conditions for using Cospace by NEO14 Technologies. Read our acceptable use policies and service terms.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Terms of Use",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Use — Cospace by NEO14",
+    description: "Terms and conditions for using Cospace by NEO14 Technologies. Read our acceptable use policies and service terms.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function Page() {
   return (

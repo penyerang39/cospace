@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Palette, GitBranch, MessageCircle, Clock, Users, Share2, Eye, Layers } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "Design Solutions — Version Control & Collaboration",
+  description: "Manage versions, share mocks, collect feedback, and ship on time. Link design tasks and specs to the latest files.",
+  openGraph: {
+    title: "Design Solutions — Version Control & Collaboration",
+    description: "Manage versions, share mocks, collect feedback, and ship on time. Link design tasks and specs to the latest files.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Design Solutions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Design Solutions — Version Control & Collaboration",
+    description: "Manage versions, share mocks, collect feedback, and ship on time. Link design tasks and specs to the latest files.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function DesignPage() {
   return (

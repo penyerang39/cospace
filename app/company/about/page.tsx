@@ -1,7 +1,31 @@
+import type { Metadata } from "next";
 import { Shield, Zap, Users, Target, Globe } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "About Us — Our Mission to Eliminate App-Sprawl",
+  description: "NEO14 Technologies creates secure, integrated tools that help teams move faster with less noise. Learn about our mission to solve app-sprawl and create better ways to work.",
+  openGraph: {
+    title: "About Us — Our Mission to Eliminate App-Sprawl",
+    description: "NEO14 Technologies creates secure, integrated tools that help teams move faster with less noise. Learn about our mission to solve app-sprawl and create better ways to work.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "About NEO14",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us — Our Mission to Eliminate App-Sprawl",
+    description: "NEO14 Technologies creates secure, integrated tools that help teams move faster with less noise. Learn about our mission to solve app-sprawl and create better ways to work.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function AboutPage() {
   return (

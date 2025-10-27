@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { TrendingUp, Target, Calendar, Users, BarChart3, Megaphone, Share2, ArrowRight } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "Marketing Solutions — Campaign Planning & Analytics",
+  description: "Plan campaigns, track assets, centralize briefs, and review creatives all in one place. Connect ad spend data and build ROAS dashboards.",
+  openGraph: {
+    title: "Marketing Solutions — Campaign Planning & Analytics",
+    description: "Plan campaigns, track assets, centralize briefs, and review creatives all in one place. Connect ad spend data and build ROAS dashboards.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Marketing Solutions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Marketing Solutions — Campaign Planning & Analytics",
+    description: "Plan campaigns, track assets, centralize briefs, and review creatives all in one place. Connect ad spend data and build ROAS dashboards.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function MarketingPage() {
   return (

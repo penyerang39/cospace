@@ -1,7 +1,31 @@
+import type { Metadata } from "next";
 import { Heart, Users, Globe, Lightbulb, Code, Shield, Palette, Settings } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "Careers at NEO14 — Join Our Team",
+  description: "Join NEO14 Technologies and help build the future of work. We're hiring globally for engineering, design, and product roles—remote-friendly.",
+  openGraph: {
+    title: "Careers at NEO14 — Join Our Team",
+    description: "Join NEO14 Technologies and help build the future of work. We're hiring globally for engineering, design, and product roles—remote-friendly.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "NEO14 Careers",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Careers at NEO14 — Join Our Team",
+    description: "Join NEO14 Technologies and help build the future of work. We're hiring globally for engineering, design, and product roles—remote-friendly.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function CareersPage() {
   const openRoles = [

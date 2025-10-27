@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { BarChart3, Database, Zap, Bell, Brain, TrendingUp, RefreshCw, AlertTriangle } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "Data & Dashboards — Connect, Visualize & Analyze",
+  description: "All your key metrics—live and trustworthy. Connect data sources, build charts, and get AI insights without the complexity.",
+  openGraph: {
+    title: "Data & Dashboards — Connect, Visualize & Analyze",
+    description: "All your key metrics—live and trustworthy. Connect data sources, build charts, and get AI insights without the complexity.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Data & Dashboards",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Data & Dashboards — Connect, Visualize & Analyze",
+    description: "All your key metrics—live and trustworthy. Connect data sources, build charts, and get AI insights without the complexity.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function DataPage() {
   return (

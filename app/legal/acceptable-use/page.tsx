@@ -1,4 +1,28 @@
+import type { Metadata } from "next";
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: "Acceptable Use Policy — Cospace by NEO14",
+  description: "Acceptable use policy and disclaimer for Cospace. Learn about prohibited activities and platform usage guidelines.",
+  openGraph: {
+    title: "Acceptable Use Policy — Cospace by NEO14",
+    description: "Acceptable use policy and disclaimer for Cospace. Learn about prohibited activities and platform usage guidelines.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Cospace Acceptable Use Policy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Acceptable Use Policy — Cospace by NEO14",
+    description: "Acceptable use policy and disclaimer for Cospace. Learn about prohibited activities and platform usage guidelines.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function Page() {
   return (

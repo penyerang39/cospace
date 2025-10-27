@@ -1,7 +1,31 @@
+import type { Metadata } from "next";
 import { Mail, Phone, MapPin, MessageCircle, Briefcase, Newspaper, HelpCircle, Clock } from "lucide-react";
 import CTAButton from "../../components/CTAButton";
 import CTALink from "../../components/CTALink";
 import ScrollHint from "../../components/ScrollHint";
+
+export const metadata: Metadata = {
+  title: "Contact Us — Get in Touch with NEO14",
+  description: "Contact NEO14 Technologies for sales inquiries, technical support, or media requests. We're here to help with questions about Cospace.",
+  openGraph: {
+    title: "Contact Us — Get in Touch with NEO14",
+    description: "Contact NEO14 Technologies for sales inquiries, technical support, or media requests. We're here to help with questions about Cospace.",
+    siteName: "Cospace",
+    type: "website",
+    images: [
+      {
+        url: "/branding/neo14Logo.svg",
+        alt: "Contact NEO14",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us — Get in Touch with NEO14",
+    description: "Contact NEO14 Technologies for sales inquiries, technical support, or media requests. We're here to help with questions about Cospace.",
+    images: ["/branding/neo14Logo.svg"],
+  },
+};
 
 export default function ContactPage() {
   const contactMethods = [
