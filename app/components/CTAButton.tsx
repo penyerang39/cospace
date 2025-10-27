@@ -21,7 +21,7 @@ const textVariants = {
 };
 
 export default function CTAButton({ variant, text, className = '' }: CTAButtonProps) {
-  const CONTACT_MAILTO = 'mailto:sales@neo14.ai';
+  const CONTACT_MAILTO = 'mailto:sales@neo14.com';
   const APPLY_MAILTO = 'mailto:info@neo14.com';
   const [isVisible, setIsVisible] = useState(false);
   const iconRef = useRef<HTMLSpanElement>(null);

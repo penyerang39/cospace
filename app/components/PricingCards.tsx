@@ -1,7 +1,8 @@
 'use client';
 
-import { Check, X, ChevronDown, ChevronUp, Info } from 'lucide-react';
+import { Check, X, ChevronDown, ChevronUp } from 'lucide-react';
 import CTAButton from './CTAButton';
+import FeatureTooltip from './FeatureTooltip';
 import { useState, useRef, useEffect } from 'react';
 
 interface TierStatus {
@@ -45,7 +46,6 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [visibleTooltips, setVisibleTooltips] = useState<Set<string>>(new Set());
 
   // Ensure hydration is complete before rendering interactive elements
   useEffect(() => {
@@ -112,17 +112,6 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
     }
   };
 
-  const toggleTooltip = (featureKey: string) => {
-    setVisibleTooltips(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(featureKey)) {
-        newSet.delete(featureKey);
-      } else {
-        newSet.add(featureKey);
-      }
-      return newSet;
-    });
-  };
 
   return (
     <div className="w-full overflow-visible">
@@ -230,15 +219,7 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
                         <div className="flex items-center gap-2 flex-1">
                           <span className={`body-text ${feature.isEnabled ? '' : 'text-muted'}`}>{feature.name}</span>
                           {feature.description && (
-                            <div className="group relative">
-                              <button className="p-2 -m-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
-                                <Info className="w-4 h-4 text-muted hover:text-foreground focus:text-foreground transition-colors cursor-help" />
-                              </button>
-                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-foreground text-background text-sm rounded-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                                {feature.description}
-                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-foreground"></div>
-                              </div>
-                            </div>
+                            <FeatureTooltip description={feature.description} />
                           )}
                         </div>
                       </div>
@@ -273,15 +254,7 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
                                 <div className="flex items-center gap-2 flex-1">
                                   <span className={`body-text ${feature.isEnabled ? '' : 'text-muted'}`}>{feature.name}</span>
                                   {feature.description && (
-                                    <div className="group relative">
-                                      <button className="p-2 -m-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
-                                        <Info className="w-4 h-4 text-muted hover:text-foreground focus:text-foreground transition-colors cursor-help" />
-                                      </button>
-                                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-foreground text-background text-sm rounded-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                                        {feature.description}
-                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-foreground"></div>
-                                      </div>
-                                    </div>
+                                    <FeatureTooltip description={feature.description} />
                                   )}
                                 </div>
                               </div>
