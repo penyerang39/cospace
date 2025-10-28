@@ -16,10 +16,10 @@ function Dropdown({ group }: { group: MenuGroup }) {
   const [open, setOpen] = useState(false);
   const [hoverHref, setHoverHref] = useState<string | undefined>(undefined);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { actualTheme } = useTheme();
+  const { theme } = useTheme();
   const activeHref = hoverHref || group.href;
   const hasPreview = activeHref && (previews as Record<string, string>)[activeHref];
-  const previewSrc = hasPreview || (actualTheme === 'dark' ? "/branding/neo14White.svg" : "/branding/neo14Logo.svg");
+  const previewSrc = hasPreview || (theme === 'dark' ? "/branding/neo14White.svg" : "/branding/neo14Logo.svg");
   const hasChildren = (group.items?.length ?? 0) > 0;
 
   const handleMouseEnter = () => {
@@ -152,13 +152,13 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
   const navGroups = navigation && navigation.length > 0 ? navigation : getNavigation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeParentLabel, setActiveParentLabel] = useState<string | null>(null);
-  const { actualTheme } = useTheme();
+  const { theme } = useTheme();
   const activeParent: MenuGroup | undefined = useMemo(() => {
     if (!activeParentLabel) return undefined;
     return navGroups.find(g => g.label === activeParentLabel);
   }, [activeParentLabel, navGroups]);
 
-  const logoSrc = actualTheme === 'dark' ? "/branding/neo14White.svg" : "/branding/neo14Logo.svg";
+  const logoSrc = theme === 'dark' ? "/branding/neo14White.svg" : "/branding/neo14Logo.svg";
 
   return (
     <>

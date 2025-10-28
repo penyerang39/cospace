@@ -20,6 +20,7 @@
 import CTAButton from '../components/CTAButton';
 import PageMain from '../components/PageMain';
 import PricingCards from '../components/PricingCards';
+import StickyTableHeader from '../components/StickyTableHeader';
 import fs from 'fs';
 import path from 'path';
 
@@ -134,26 +135,32 @@ export default async function PricingPage() {
             </p>
           </div>
           
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
+          <StickyTableHeader
+            topOffset={3.85}
+            headerContent={
                 <tr className="border-b border-border">
                   <th className="text-left py-4 px-4 body-text font-semibold">Feature</th>
-                  <th className="text-left py-4 px-4 body-text font-semibold">Category</th>
                   {pricing.tiers.sort((a, b) => a.order - b.order).map(tier => (
                     <th key={tier.slug} className="text-center py-4 px-4 body-text font-semibold">{tier.name}</th>
                   ))}
                 </tr>
-              </thead>
-              <tbody>
+            }
+            bodyContent={
+              <>
                 {pricing.categories.map(category => {
                   const categoryFeatures = pricing.features.filter(f => f.category === category.slug).sort((a, b) => a.order - b.order);
                   if (categoryFeatures.length === 0) return null;
                   
-                  return categoryFeatures.map((feature, idx) => (
+                  return (
+                    <>
+                      <tr key={`${category.slug}-divider`} className="bg-foreground/5">
+                        <td colSpan={1 + pricing.tiers.length} className="py-3 px-4 body-text font-semibold">
+                          {category.name}
+                        </td>
+                      </tr>
+                      {categoryFeatures.map((feature) => (
                     <tr key={feature.name} className="border-b border-border/50 hover:bg-foreground/5">
                       <td className="py-3 px-4 body-text">{feature.name}</td>
-                      <td className="py-3 px-4 body-small text-muted">{idx === 0 ? category.name : ''}</td>
                       {pricing.tiers.sort((a, b) => a.order - b.order).map(tier => {
                         const status = feature.tierStatus.find(ts => ts.tierSlug === tier.slug)?.status || -1;
                         return (
@@ -167,11 +174,13 @@ export default async function PricingPage() {
                         );
                       })}
                     </tr>
-                  ));
+                      ))}
+                    </>
+                  );
                 })}
-              </tbody>
-            </table>
-          </div>
+              </>
+            }
+          />
         </div>
       </section>
 

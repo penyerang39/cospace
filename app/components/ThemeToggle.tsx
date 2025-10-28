@@ -12,15 +12,16 @@ export default function ThemeToggle() {
     }
   };
 
+  // Show the icon of the theme we'll switch TO (opposite of current)
   const getIcon = () => {
-    return theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />;
+    return theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />;
   };
 
   const getLabel = () => {
     if (isTransitioning) {
       return 'Switching theme...';
     }
-    return theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme';
+    return theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
   };
 
   return (

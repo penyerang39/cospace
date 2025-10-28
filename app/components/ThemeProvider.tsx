@@ -7,7 +7,6 @@ type Theme = 'light' | 'dark';
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
-  actualTheme: 'light' | 'dark';
   isTransitioning: boolean;
 }
 
@@ -23,18 +22,21 @@ export function useTheme() {
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
-  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('light');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     // Get saved theme from localStorage or default to system preference
     const savedTheme = localStorage.getItem('theme') as Theme;
     if (savedTheme && ['light', 'dark'].includes(savedTheme)) {
       setTheme(savedTheme);
+      document.documentElement.setAttribute('data-theme', savedTheme);
     } else {
       // Default to system preference if no saved theme
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       setTheme(systemTheme);
+      document.documentElement.setAttribute('data-theme', systemTheme);
     }
   }, []);
 
@@ -54,7 +56,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Change theme after a brief delay to ensure overlay is visible
     setTimeout(() => {
       setTheme(newTheme);
-      setActualTheme(newTheme);
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
 
@@ -73,14 +74,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }, 50);
   };
 
-  useEffect(() => {
-    // Apply initial theme without transition
-    document.documentElement.setAttribute('data-theme', theme);
-    setActualTheme(theme);
-  }, []);
-
   return (
-    <ThemeContext.Provider value={{ theme, setTheme: handleThemeChange, actualTheme, isTransitioning }}>
+    <ThemeContext.Provider value={{ theme, setTheme: handleThemeChange, isTransitioning }}>
       {children}
     </ThemeContext.Provider>
   );
