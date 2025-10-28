@@ -16,12 +16,13 @@
  */
 
 import type { Metadata } from "next";
-import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from 'lucide-react';
+import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown, Info } from 'lucide-react';
 import { Fragment } from 'react';
 import CTAButton from '../components/CTAButton';
 import PageMain from '../components/PageMain';
 import PricingCards from '../components/PricingCards';
 import StickyTableHeader from '../components/StickyTableHeader';
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import fs from 'fs';
 import path from 'path';
 
@@ -161,7 +162,23 @@ export default async function PricingPage() {
                       </tr>
                       {categoryFeatures.map((feature) => (
                         <tr key={feature.name} className="border-b border-border/50 hover:bg-foreground/5">
-                          <td className="py-3 px-4 body-text">{feature.name}</td>
+                          <td className="py-3 px-4 body-text">
+                            <div className="flex items-center gap-2">
+                              <span>{feature.name}</span>
+                              {feature.description && (
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <button className="p-2 -m-2 min-w-[44px] min-h-[44px] flex items-center justify-center" tabIndex={0}>
+                                      <Info className="w-4 h-4 text-muted hover:text-foreground focus:text-foreground transition-colors cursor-help" />
+                                    </button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    {feature.description}
+                                  </TooltipContent>
+                                </Tooltip>
+                              )}
+                            </div>
+                          </td>
                           {pricing.tiers.sort((a, b) => a.order - b.order).map(tier => {
                             const status = feature.tierStatus.find(ts => ts.tierSlug === tier.slug)?.status || -1;
                             return (

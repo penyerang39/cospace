@@ -10,6 +10,7 @@ interface StickyTableHeaderProps {
 
 export default function StickyTableHeader({ headerContent, bodyContent, topOffset = 3.75 }: StickyTableHeaderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const stickyScrollContainerRef = useRef<HTMLDivElement>(null);
   const observerTargetRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
   const staticHeaderRef = useRef<HTMLTableSectionElement>(null);
@@ -27,6 +28,7 @@ export default function StickyTableHeader({ headerContent, bodyContent, topOffse
     const staticHeader = staticHeaderRef.current;
     const stickyHeader = stickyHeaderRef.current;
     const containerElement = containerRef.current;
+    const stickyScrollContainer = stickyScrollContainerRef.current;
     
     if (!observerTarget || !tableElement || !staticHeader || !containerElement) return;
 
@@ -81,6 +83,34 @@ export default function StickyTableHeader({ headerContent, bodyContent, topOffse
       }
     };
 
+    // Sync horizontal scroll between main container and sticky header
+    let isScrollingStickyHeader = false;
+    let isScrollingContainer = false;
+
+    const handleContainerScroll = () => {
+      if (!containerElement || !stickyScrollContainer || isScrollingStickyHeader) return;
+      
+      isScrollingContainer = true;
+      stickyScrollContainer.scrollLeft = containerElement.scrollLeft;
+      
+      // Reset flag after a brief delay
+      requestAnimationFrame(() => {
+        isScrollingContainer = false;
+      });
+    };
+
+    const handleStickyScroll = () => {
+      if (!containerElement || !stickyScrollContainer || isScrollingContainer) return;
+      
+      isScrollingStickyHeader = true;
+      containerElement.scrollLeft = stickyScrollContainer.scrollLeft;
+      
+      // Reset flag after a brief delay
+      requestAnimationFrame(() => {
+        isScrollingStickyHeader = false;
+      });
+    };
+
     // Sync dimensions whenever sticky state changes or dimensions change
     const handleUpdate = () => {
       syncDimensions();
@@ -89,9 +119,15 @@ export default function StickyTableHeader({ headerContent, bodyContent, topOffse
     // Initial sync with a small delay to ensure layout is settled
     setTimeout(syncDimensions, 0);
     
-    // Sync on resize and scroll
+    // Sync on resize and scroll (vertical)
     window.addEventListener('resize', handleUpdate);
     window.addEventListener('scroll', handleUpdate, { passive: true });
+
+    // Sync horizontal scroll
+    containerElement.addEventListener('scroll', handleContainerScroll, { passive: true });
+    if (stickyScrollContainer) {
+      stickyScrollContainer.addEventListener('scroll', handleStickyScroll, { passive: true });
+    }
 
     // Use ResizeObserver for more accurate tracking of the static header
     const resizeObserver = new ResizeObserver(handleUpdate);
@@ -103,6 +139,10 @@ export default function StickyTableHeader({ headerContent, bodyContent, topOffse
       resizeObserver.disconnect();
       window.removeEventListener('resize', handleUpdate);
       window.removeEventListener('scroll', handleUpdate);
+      containerElement.removeEventListener('scroll', handleContainerScroll);
+      if (stickyScrollContainer) {
+        stickyScrollContainer.removeEventListener('scroll', handleStickyScroll);
+      }
     };
   }, [isSticky]);
 
@@ -129,6 +169,7 @@ export default function StickyTableHeader({ headerContent, bodyContent, topOffse
             }}
           >
             <div 
+              ref={stickyScrollContainerRef}
               className="overflow-x-auto"
               style={{
                 paddingLeft: `${stickyStyles.left}px`,

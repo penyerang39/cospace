@@ -1,8 +1,8 @@
 'use client';
 
-import { Check, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, X, ChevronDown, ChevronUp, Info } from 'lucide-react';
 import CTAButton from './CTAButton';
-import FeatureTooltip from './FeatureTooltip';
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { useState, useRef, useEffect } from 'react';
 
 interface TierStatus {
@@ -219,7 +219,16 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
                         <div className="flex items-center gap-2 flex-1">
                           <span className={`body-text ${feature.isEnabled ? '' : 'text-muted'}`}>{feature.name}</span>
                           {feature.description && (
-                            <FeatureTooltip description={feature.description} />
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button className="p-2 -m-2 min-w-[44px] min-h-[44px] flex items-center justify-center" tabIndex={0}>
+                                  <Info className="w-4 h-4 text-muted hover:text-foreground focus:text-foreground transition-colors cursor-help" />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                {feature.description}
+                              </TooltipContent>
+                            </Tooltip>
                           )}
                         </div>
                       </div>
@@ -254,7 +263,16 @@ export default function PricingCards({ pricing }: PricingCardsProps) {
                                 <div className="flex items-center gap-2 flex-1">
                                   <span className={`body-text ${feature.isEnabled ? '' : 'text-muted'}`}>{feature.name}</span>
                                   {feature.description && (
-                                    <FeatureTooltip description={feature.description} />
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <button className="p-2 -m-2 min-w-[44px] min-h-[44px] flex items-center justify-center" tabIndex={0}>
+                                          <Info className="w-4 h-4 text-muted hover:text-foreground focus:text-foreground transition-colors cursor-help" />
+                                        </button>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        {feature.description}
+                                      </TooltipContent>
+                                    </Tooltip>
                                   )}
                                 </div>
                               </div>
