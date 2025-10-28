@@ -15,8 +15,9 @@
  * - Features: Individual features with tier availability (1 = enabled, -1 = disabled)
  */
 
- import type { Metadata } from "next";
- import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from 'lucide-react';
+import type { Metadata } from "next";
+import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown } from 'lucide-react';
+import { Fragment } from 'react';
 import CTAButton from '../components/CTAButton';
 import PageMain from '../components/PageMain';
 import PricingCards from '../components/PricingCards';
@@ -152,30 +153,30 @@ export default async function PricingPage() {
                   if (categoryFeatures.length === 0) return null;
                   
                   return (
-                    <>
-                      <tr key={`${category.slug}-divider`} className="bg-foreground/5">
+                    <Fragment key={category.slug}>
+                      <tr className="bg-foreground/5">
                         <td colSpan={1 + pricing.tiers.length} className="py-3 px-4 body-text font-semibold">
                           {category.name}
                         </td>
                       </tr>
                       {categoryFeatures.map((feature) => (
-                    <tr key={feature.name} className="border-b border-border/50 hover:bg-foreground/5">
-                      <td className="py-3 px-4 body-text">{feature.name}</td>
-                      {pricing.tiers.sort((a, b) => a.order - b.order).map(tier => {
-                        const status = feature.tierStatus.find(ts => ts.tierSlug === tier.slug)?.status || -1;
-                        return (
-                          <td key={tier.slug} className="py-3 px-4 text-center">
-                            {status === 1 ? (
-                              <Check className="w-5 h-5 text-accent mx-auto" />
-                            ) : (
-                              <X className="w-5 h-5 text-muted mx-auto" />
-                            )}
-                          </td>
-                        );
-                      })}
-                    </tr>
+                        <tr key={feature.name} className="border-b border-border/50 hover:bg-foreground/5">
+                          <td className="py-3 px-4 body-text">{feature.name}</td>
+                          {pricing.tiers.sort((a, b) => a.order - b.order).map(tier => {
+                            const status = feature.tierStatus.find(ts => ts.tierSlug === tier.slug)?.status || -1;
+                            return (
+                              <td key={tier.slug} className="py-3 px-4 text-center">
+                                {status === 1 ? (
+                                  <Check className="w-5 h-5 text-accent mx-auto" />
+                                ) : (
+                                  <X className="w-5 h-5 text-muted mx-auto" />
+                                )}
+                              </td>
+                            );
+                          })}
+                        </tr>
                       ))}
-                    </>
+                    </Fragment>
                   );
                 })}
               </>
