@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { intersectionObserverManager } from '@/app/utils/intersectionObserverManager';
 
 interface BlobPosition {
   x: number;
@@ -134,22 +135,21 @@ export default function DynamicGradientBlob({
 
       // Set up intersection observer for target elements
       const observerMap = new Map<Element, number>();
+      const blobObserverConfig = {
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0] as number[],
+        rootMargin: '-10% 0px -10% 0px',
+      };
     
-      const intersectionObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            observerMap.set(entry.target, entry.intersectionRatio);
-          });
-        },
-        {
-          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
-          rootMargin: '-10% 0px -10% 0px',
-        }
-      );
-
+      // Use unified observer to track intersection ratios
       targets.forEach((target) => {
-        intersectionObserver.observe(target);
         observerMap.set(target, 0);
+        intersectionObserverManager.observe(
+          target,
+          (entry) => {
+            observerMap.set(entry.target, entry.intersectionRatio);
+          },
+          blobObserverConfig
+        );
       });
 
       // Mouse move handler for follow mode
@@ -316,7 +316,10 @@ export default function DynamicGradientBlob({
         if (animationFrameRef.current) {
           cancelAnimationFrame(animationFrameRef.current);
         }
-        intersectionObserver.disconnect();
+        // Unobserve all targets
+        targets.forEach((target) => {
+          intersectionObserverManager.unobserve(target);
+        });
         if (followMouse) {
           window.removeEventListener('mousemove', handleMouseMove);
         }

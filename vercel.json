@@ -1,4 +1,3 @@
 {
-  "installCommand": "pnpm install --no-frozen-lockfile",
-  "buildCommand": "node scripts/build-with-tina.js"
+  "installCommand": "pnpm install --no-frozen-lockfile"
 }

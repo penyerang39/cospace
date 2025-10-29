@@ -9,17 +9,6 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000, // 1 year cache
   },
-  // TinaCMS configuration
-  serverExternalPackages: ['@tinacms/datalayer'],
-  // Ensure TinaCMS admin files are served correctly
-  async rewrites() {
-    return [
-      {
-        source: '/admin',
-        destination: '/admin/index.html',
-      },
-    ];
-  },
 };
 
 export default nextConfig;

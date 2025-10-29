@@ -3,6 +3,7 @@
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { observeElement } from '@/app/utils/intersectionObserverManager';
 
 interface CTALinkProps {
   href: string;
@@ -15,9 +16,13 @@ export default function CTALink({ href, text, className = '' }: CTALinkProps) {
   const linkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+    const current = linkRef.current;
+    if (!current) return;
+
+    return observeElement(
+      current,
+      (isIntersecting) => {
+        if (isIntersecting) {
           setIsVisible(true);
         }
       },
@@ -26,13 +31,6 @@ export default function CTALink({ href, text, className = '' }: CTALinkProps) {
         rootMargin: '0px 0px -50px 0px',
       }
     );
-
-    const current = linkRef.current;
-    if (current) observer.observe(current);
-
-    return () => {
-      if (current) observer.unobserve(current);
-    };
   }, []);
 
   const baseClasses = 'inline-flex items-center gap-2 underline text-accent hover:text-accent/80 transition-all duration-300';

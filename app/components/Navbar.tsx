@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import { getNavigation, type MenuGroup } from "../lib/navigation";
 import Image from "next/image";
-import { ArrowRight, ArrowLeft, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowLeft, Menu, X, Calendar, DollarSign } from "lucide-react";
 import previews from "../lib/nav-previews";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "./ThemeProvider";
@@ -184,6 +184,22 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
             ))}
           </ul>
 
+          {/* Desktop action buttons */}
+          <div className="hidden md:flex items-center gap-3 ml-auto mr-4">
+            <Link href="/demo" className="navbar-demo-btn-wrapper">
+              <button className="navbar-action-btn">
+                <Calendar className="w-4 h-4" />
+                <span>Book Demo</span>
+              </button>
+            </Link>
+            <Link href="/request">
+              <button className="navbar-action-btn">
+                <DollarSign className="w-4 h-4" />
+                <span>Pricing</span>
+              </button>
+            </Link>
+          </div>
+
           {/* Theme toggle and mobile hamburger */}
           <div className="flex items-center gap-2">
             <ThemeToggle />
@@ -329,8 +345,19 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
                       </li>
                   ))}
                 </ul>
-                <div className="px-4 pb-6 mt-auto">
-
+                <div className="px-4 pb-6 mt-auto flex flex-col gap-3">
+                    <Link href="/demo" className="w-full">
+                      <button className="navbar-action-btn w-full">
+                        <Calendar className="w-4 h-4" />
+                        <span>Book Demo</span>
+                      </button>
+                    </Link>
+                    <Link href="/request" className="w-full">
+                      <button className="navbar-action-btn w-full">
+                        <DollarSign className="w-4 h-4" />
+                        <span>Pricing</span>
+                      </button>
+                    </Link>
                 </div>
               </div>
             )}

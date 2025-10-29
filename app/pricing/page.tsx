@@ -1,20 +1,3 @@
-/**
- * Pricing Page - CMS Managed
- * 
- * This page dynamically renders pricing tiers, features, and categories from content/pricing.json
- * which is managed through TinaCMS at /admin when running the dev server.
- * 
- * To edit pricing data:
- * 1. Run: pnpm dev
- * 2. Navigate to: /admin
- * 3. Edit the "Pricing" collection
- * 
- * Data structure:
- * - Categories: Feature groupings (appbuilder, chat, data, collaborate, security, support)
- * - Tiers: Pricing plans with name, price, description, and order
- * - Features: Individual features with tier availability (1 = enabled, -1 = disabled)
- */
-
 import type { Metadata } from "next";
 import { Check, X, ArrowRight, Users, HardDrive, Video, Database, Shield, Zap, ChevronDown, Info } from 'lucide-react';
 import { Fragment } from 'react';

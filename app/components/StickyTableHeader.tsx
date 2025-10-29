@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { intersectionObserverManager } from '@/app/utils/intersectionObserverManager';
 
 interface StickyTableHeaderProps {
   headerContent: React.ReactNode;
@@ -32,9 +33,10 @@ export default function StickyTableHeader({ headerContent, bodyContent, topOffse
     
     if (!observerTarget || !tableElement || !staticHeader || !containerElement) return;
 
-    // Create an intersection observer for the sentinel element
-    const observer = new IntersectionObserver(
-      ([entry]) => {
+    // Use unified intersection observer for the sentinel element
+    intersectionObserverManager.observe(
+      observerTarget,
+      (entry) => {
         // When the sentinel goes out of view upward, make header sticky
         setIsSticky(!entry.isIntersecting && entry.boundingClientRect.top < 0);
       },
@@ -43,8 +45,6 @@ export default function StickyTableHeader({ headerContent, bodyContent, topOffse
         rootMargin: '0px'
       }
     );
-
-    observer.observe(observerTarget);
 
     // Sync dimensions from static header to sticky header
     const syncDimensions = () => {
@@ -135,7 +135,7 @@ export default function StickyTableHeader({ headerContent, bodyContent, topOffse
     resizeObserver.observe(containerElement);
 
     return () => {
-      observer.disconnect();
+      intersectionObserverManager.unobserve(observerTarget);
       resizeObserver.disconnect();
       window.removeEventListener('resize', handleUpdate);
       window.removeEventListener('scroll', handleUpdate);

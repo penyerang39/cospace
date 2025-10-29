@@ -42,10 +42,3 @@ next-env.d.ts
 
 node_modules
 .env
-
-# Example for AI
-/tina-self-hosted-demo
-# TinaCMS disabled files
-.tinacms-disabled/
-# Extension for CSS injection (seperate project)
-/usdemo-modifier-extension

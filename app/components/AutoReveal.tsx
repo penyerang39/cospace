@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { intersectionObserverManager } from '@/app/utils/intersectionObserverManager';
 
 /**
  * AutoReveal
@@ -72,42 +73,47 @@ export default function AutoReveal() {
 
     if (allTargets.length === 0) return;
 
-    const rootMargin = '0px 0px -10% 0px';
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        const target = entry.target as HTMLElement;
-        if (entry.isIntersecting) {
-          // Stagger children if parent has many items
-          const isSection = target.tagName.toLowerCase() === 'section';
-          if (isSection) {
-            // First, reveal the section itself
-            applyVisible(target);
-            // Then reveal its children after the section's transition ends
-            const children = Array.from(
-              target.querySelectorAll<HTMLElement>('.reveal-init')
-            );
-            const sectionDurationMs = 500; // keep in sync with CSS
-            children.forEach((child, index) => {
-              const delay = sectionDurationMs + Math.min(index * 120, 960);
-              child.style.transitionDelay = `${delay}ms`;
-              applyVisible(child);
-            });
+    // Use unified observer for reveal animations
+    const revealObserverConfig = { root: null, threshold: 0.1, rootMargin: '0px 0px -5% 0px' };
+    
+    allTargets.forEach((el) => {
+      intersectionObserverManager.observe(
+        el,
+        (entry) => {
+          const target = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            // Stagger children if parent has many items
+            const isSection = target.tagName.toLowerCase() === 'section';
+            if (isSection) {
+              // First, reveal the section itself
+              applyVisible(target);
+              // Then reveal its children after the section's transition ends
+              const children = Array.from(
+                target.querySelectorAll<HTMLElement>('.reveal-init')
+              );
+              const sectionDurationMs = 500; // keep in sync with CSS
+              children.forEach((child, index) => {
+                const delay = sectionDurationMs + Math.min(index * 120, 960);
+                child.style.transitionDelay = `${delay}ms`;
+                applyVisible(child);
+              });
+            }
+
+            // Reveal the element itself
+            if (target.classList.contains('reveal-init')) {
+              // If part of a common list/grid, add a small per-item stagger
+              const index = Array.from(target.parentElement?.children || []).indexOf(target);
+              const delay = index >= 0 ? Math.min(index * 120, 960) : 0;
+              applyVisible(target, delay);
+            }
+
+            // Unobserve after revealing (one-time animation)
+            intersectionObserverManager.unobserve(target);
           }
-
-          // Reveal the element itself
-          if (target.classList.contains('reveal-init')) {
-            // If part of a common list/grid, add a small per-item stagger
-            const index = Array.from(target.parentElement?.children || []).indexOf(target);
-            const delay = index >= 0 ? Math.min(index * 120, 960) : 0;
-            applyVisible(target, delay);
-          }
-
-          observer.unobserve(target);
-        }
-      }
-    }, { root: null, threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
-
-    allTargets.forEach((el) => observer.observe(el));
+        },
+        revealObserverConfig
+      );
+    });
 
     // Progressive enhancement: listen for future nodes added dynamically
     const mutationObserver = new MutationObserver((mutations) => {
@@ -124,7 +130,19 @@ export default function AutoReveal() {
           ) {
             if (!node.classList.contains('reveal-visible')) {
               node.classList.add('reveal-init');
-              observer.observe(node);
+              intersectionObserverManager.observe(
+                node,
+                (entry) => {
+                  const target = entry.target as HTMLElement;
+                  if (entry.isIntersecting) {
+                    const index = Array.from(target.parentElement?.children || []).indexOf(target);
+                    const delay = index >= 0 ? Math.min(index * 120, 960) : 0;
+                    applyVisible(target, delay);
+                    intersectionObserverManager.unobserve(target);
+                  }
+                },
+                revealObserverConfig
+              );
             }
           }
           // Also scan children of added subtree
@@ -132,7 +150,19 @@ export default function AutoReveal() {
           subtree.forEach((el) => {
             if (!el.classList.contains('reveal-visible')) {
               el.classList.add('reveal-init');
-              observer.observe(el);
+              intersectionObserverManager.observe(
+                el,
+                (entry) => {
+                  const target = entry.target as HTMLElement;
+                  if (entry.isIntersecting) {
+                    const index = Array.from(target.parentElement?.children || []).indexOf(target);
+                    const delay = index >= 0 ? Math.min(index * 120, 960) : 0;
+                    applyVisible(target, delay);
+                    intersectionObserverManager.unobserve(target);
+                  }
+                },
+                revealObserverConfig
+              );
             }
           });
         });
@@ -151,7 +181,7 @@ export default function AutoReveal() {
           const index = Array.from(el.parentElement?.children || []).indexOf(el);
           const delay = index >= 0 ? Math.min(index * 120, 960) : 0;
           applyVisible(el, delay);
-          observer.unobserve(el);
+          intersectionObserverManager.unobserve(el);
         }
       });
     });
@@ -185,21 +215,22 @@ export default function AutoReveal() {
     if (gradientElements.length > 0) {
       // Middle 40% viewport: 30% from top to 70% from top
       const gradientRootMargin = '-30% 0px -30% 0px';
-      
-      const gradientObserver = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          const target = entry.target as HTMLElement;
-          applyGradientState(target, entry.isIntersecting);
-        }
-      }, { 
+      const gradientObserverConfig = { 
         root: null, 
         threshold: 0.1, 
         rootMargin: gradientRootMargin 
-      });
+      };
 
-      // Set up observer for existing elements
+      // Set up observer for existing elements using unified manager
       gradientElements.forEach((el) => {
-        gradientObserver.observe(el);
+        intersectionObserverManager.observe(
+          el,
+          (entry) => {
+            const target = entry.target as HTMLElement;
+            applyGradientState(target, entry.isIntersecting);
+          },
+          gradientObserverConfig
+        );
         // Check initial state for elements already in viewport
         if (isInMiddleViewport(el)) {
           applyGradientState(el, true);
@@ -213,7 +244,14 @@ export default function AutoReveal() {
             if (!(node instanceof HTMLElement)) return;
             
             if (node.matches(gradientSelectors)) {
-              gradientObserver.observe(node);
+              intersectionObserverManager.observe(
+                node,
+                (entry) => {
+                  const target = entry.target as HTMLElement;
+                  applyGradientState(target, entry.isIntersecting);
+                },
+                gradientObserverConfig
+              );
               // Check initial state for newly added elements
               if (isInMiddleViewport(node)) {
                 applyGradientState(node, true);
@@ -222,7 +260,14 @@ export default function AutoReveal() {
             
             const subtree = node.querySelectorAll<HTMLElement>(gradientSelectors);
             subtree.forEach((el) => {
-              gradientObserver.observe(el);
+              intersectionObserverManager.observe(
+                el,
+                (entry) => {
+                  const target = entry.target as HTMLElement;
+                  applyGradientState(target, entry.isIntersecting);
+                },
+                gradientObserverConfig
+              );
               // Check initial state for newly added elements
               if (isInMiddleViewport(el)) {
                 applyGradientState(el, true);
@@ -273,9 +318,16 @@ export default function AutoReveal() {
       window.addEventListener('resize', handleResize, { passive: true });
 
       return () => {
-        observer.disconnect();
+        // Unobserve all gradient elements
+        gradientElements.forEach((el) => {
+          intersectionObserverManager.unobserve(el);
+        });
+        // Clean up dynamically added gradient elements
+        const allGradientElements = Array.from(document.querySelectorAll<HTMLElement>(gradientSelectors));
+        allGradientElements.forEach((el) => {
+          intersectionObserverManager.unobserve(el);
+        });
         mutationObserver.disconnect();
-        gradientObserver.disconnect();
         gradientMutationObserver.disconnect();
         window.removeEventListener('resize', handleResize);
         if (fallbackTimeout) {
@@ -285,7 +337,10 @@ export default function AutoReveal() {
     }
 
     return () => {
-      observer.disconnect();
+      // Unobserve all reveal elements
+      allTargets.forEach((el) => {
+        intersectionObserverManager.unobserve(el);
+      });
       mutationObserver.disconnect();
     };
   }, []);

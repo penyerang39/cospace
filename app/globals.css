@@ -1027,7 +1027,7 @@ details summary:hover {
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --accent: #679bff;
+  --accent: #6E9bff;
   --muted: #7D8DAA;
   transition: --background var(--theme-transition-duration) var(--theme-transition-timing),
               --foreground var(--theme-transition-duration) var(--theme-transition-timing),
@@ -1105,4 +1105,70 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Navbar action buttons */
+.navbar-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: white;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  transition: background-color 200ms ease, transform 150ms ease;
+  white-space: nowrap;
+}
+
+.navbar-action-btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 90%, black);
+  transform: translateY(-2px);
+}
+
+.navbar-action-btn:active:not(:disabled) {
+  transform: translateY(0px);
+}
+
+.navbar-action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Gradient border demo button wrapper */
+.navbar-demo-btn-wrapper {
+  position: relative;
+  width: fit-content;
+  z-index: 0;
+}
+
+.navbar-demo-btn-wrapper > button {
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-demo-btn-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px; /* border thickness */
+  background: linear-gradient(var(--gradient-angle), var(--foreground), var(--foreground));
+  border-radius: 0.5rem;
+  /* show only the border ring */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 1;
+  z-index: 0;
+  pointer-events: none;
+  animation: gradientRotate 6s linear infinite;
+}
+
+/* Remove hover lift only for the demo button */
+.navbar-demo-btn-wrapper .navbar-action-btn:hover {
+  transform: none;
 }

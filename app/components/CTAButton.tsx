@@ -3,6 +3,7 @@
 import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { observeElement } from '@/app/utils/intersectionObserverManager';
 
 interface CTAButtonProps {
   variant: 'primary' | 'secondary';
@@ -25,12 +26,26 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
   const APPLY_MAILTO = 'mailto:info@neo14.com';
   const [isVisible, setIsVisible] = useState(false);
   const iconRef = useRef<HTMLSpanElement>(null);
+  const buttonRef = useRef<HTMLElement>(null);
   const router = useRouter();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+    const button = buttonRef.current;
+    if (!button) return;
+
+    // Check initial visibility
+    const rect = button.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.top < viewportHeight * 0.75 && rect.bottom > 0) {
+      setIsVisible(true);
+      return;
+    }
+
+    // Observe the button/link element (larger, more reliable than the small span)
+    return observeElement(
+      button,
+      (isIntersecting) => {
+        if (isIntersecting) {
           setIsVisible(true);
         }
       },
@@ -39,13 +54,6 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
         rootMargin: '0px 0px -50px 0px',
       }
     );
-
-    const current = iconRef.current;
-    if (current) observer.observe(current);
-
-    return () => {
-      if (current) observer.unobserve(current);
-    };
   }, []);
 
   const baseClasses = 'btn-primary flex items-center gap-2 group transition-all duration-300';
@@ -75,6 +83,7 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
   if (isMailto) {
     return (
       <a
+        ref={buttonRef as React.RefObject<HTMLAnchorElement>}
         href={targetHref}
         className={`${baseClasses} ${variantClasses} ${className}`}
         target="_self"
@@ -102,6 +111,7 @@ export default function CTAButton({ variant, text, className = '' }: CTAButtonPr
 
   return (
     <button
+      ref={buttonRef as React.RefObject<HTMLButtonElement>}
       type="button"
       className={`${baseClasses} ${variantClasses} ${className}`}
       onClick={() => {
