@@ -3,6 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Define animatable gradient angle property */
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 135deg;
+  inherits: false;
+}
+
 :root {
   --accent: oklch(0.97 0 0);
   --muted: oklch(0.97 0 0);
@@ -39,7 +46,7 @@
 }
 
 [data-theme="dark"] {
-  --background: #000000;
+  --background: #44444E;
   --foreground: #ffffff;
   --accent: #a855f7;
   --muted: #d1d5db;
@@ -284,14 +291,14 @@ html {
   content: '';
   position: absolute;
   inset: -8px;
-  background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
+  background: linear-gradient(var(--gradient-angle), var(--accent), #cc67ff);
   border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
   filter: blur(10px);
   z-index: -2;
   pointer-events: none;
-  animation: gradientRotate 6s ease-in-out infinite;
+  animation: gradientRotate 8s linear infinite;
 }
 
 .card-gradient-wrapper:hover::before {
@@ -328,14 +335,14 @@ html {
   left: -8px;
   right: -8px;
   bottom: -8px;
-  background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
+  background: linear-gradient(var(--gradient-angle), var(--accent), #cc67ff);
   border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
   filter: blur(10px);
   z-index: -1;
   pointer-events: none;
-  animation: gradientRotate 6s ease-in-out infinite;
+  animation: gradientRotate 8s linear infinite;
 }
 
 .card-feature-with-gradient:hover::before {
@@ -530,14 +537,14 @@ html {
   left: -8px;
   right: -8px;
   bottom: -8px;
-  background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
+  background: linear-gradient(var(--gradient-angle), var(--accent), #cc67ff);
   border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
   filter: blur(10px);
   z-index: -1;
   pointer-events: none;
-  animation: gradientRotate 6s ease-in-out infinite;
+  animation: gradientRotate 8s linear infinite;
 }
 
 .gradient-border.gradient-active::before {
@@ -572,17 +579,17 @@ html {
 
 /* Keep default image rendering to avoid over-sharpening photos */
 
-/* Gradient Border Animation */
+/* Gradient Border Animation - rotates the gradient angle */
 @keyframes gradientRotate {
   0% {
-    background: linear-gradient(var(--gradient-start, 135deg), var(--accent), #cc67ff);
+    --gradient-angle: var(--gradient-start, 135deg);
   }
   100% {
-    background: linear-gradient(calc(var(--gradient-start, 135deg) + 360deg), var(--accent), #cc67ff);
+    --gradient-angle: calc(var(--gradient-start, 135deg) + 360deg);
   }
 }
 
-/* Gradient direction variants for randomization */
+/* Gradient direction variants for randomization - each starts at a different angle */
 .gradient-dir-1 { --gradient-start: 45deg; }
 .gradient-dir-2 { --gradient-start: 90deg; }
 .gradient-dir-3 { --gradient-start: 135deg; }
