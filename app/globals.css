@@ -921,8 +921,7 @@ details summary:hover {
 .themed-checkbox {
   appearance: none;
   width: 1.25rem;
-  height: 1.25rem;
-  border: 1px solid color-mix(in srgb, var(--muted) 60%, transparent);
+  height: 1.25rem\mix(in srgb, var(--muted) 60%, transparent);
   border-radius: 0.25rem;
   background: transparent;
   position: relative;
@@ -1028,6 +1027,7 @@ details summary:hover {
   --background: #ffffff;
   --foreground: #171717;
   --accent: #6E9bff;
+  --accent1: #a855f7;
   --muted: #7D8DAA;
   transition: --background var(--theme-transition-duration) var(--theme-transition-timing),
               --foreground var(--theme-transition-duration) var(--theme-transition-timing),
@@ -1118,7 +1118,7 @@ body {
   font-weight: 500;
   font-size: 0.875rem;
   color: white;
-  background: var(--accent);
+  background: var(--foreground);
   border: none;
   cursor: pointer;
   transition: background-color 200ms ease, transform 150ms ease;
@@ -1126,7 +1126,7 @@ body {
 }
 
 .navbar-action-btn:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--accent) 90%, black);
+  background: color-mix(in srgb, var(--foreground) 90%, black);
   transform: translateY(-2px);
 }
 
@@ -1155,8 +1155,8 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  padding: 2px; /* border thickness */
-  background: linear-gradient(var(--gradient-angle), var(--foreground), var(--foreground));
+  padding: 8px; /* border thickness */
+  background: linear-gradient(var(--gradient-angle), var(--accent), var(--accent1));
   border-radius: 0.5rem;
   /* show only the border ring */
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);

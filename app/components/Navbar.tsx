@@ -19,7 +19,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
   const { theme } = useTheme();
   const activeHref = hoverHref || group.href;
   const hasPreview = activeHref && (previews as Record<string, string>)[activeHref];
-  const previewSrc = hasPreview || (theme === 'dark' ? "/branding/neo14White.svg" : "/branding/neo14Logo.svg");
+  const previewSrc = hasPreview ? (previews as Record<string, string>)[activeHref!] : (theme === 'dark' ? "/branding/neo14White.svg" : "/branding/neo14Logo.svg");
   const hasChildren = (group.items?.length ?? 0) > 0;
 
   const handleMouseEnter = () => {
@@ -44,8 +44,8 @@ function Dropdown({ group }: { group: MenuGroup }) {
           href={group.href || "#"}
         >
           {group.label}
-          <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
-          <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0" style={{ transform: 'translateY(2px)' }} />
+          <div className="absolute left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0 z-[45]" style={{ bottom: '1px' }} />
+          <div className="absolute left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0 z-[45]" style={{ bottom: '1px', transform: 'translateY(2px)' }} />
         </Link>
       </li>
     );
@@ -70,8 +70,8 @@ function Dropdown({ group }: { group: MenuGroup }) {
       >
         {group.label}
       </Link>
-      <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} />
-      <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} style={{ transform: 'translateY(2px)' }} />
+      <div className={`absolute left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''} z-[45]`} style={{ bottom: '1px' }} />
+      <div className={`absolute left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''} z-[45]`} style={{ bottom: '1px', transform: 'translateY(2px)' }} />
       <div
         className={`fixed left-0 right-0 top-full z-50 bg-background transition-[opacity,transform] duration-300 ease-out ${
           open ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-2"
@@ -128,7 +128,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
               </ul>
             </div>
             <div className="col-span-5">
-              <div className="h-48 w-full overflow-hidden rounded-lg bg-gradient-to-br from-background to-background/50 relative">
+              <div className="h-48 w-full overflow-hidden relative">
                 <Image
                   src={previewSrc}
                   alt="Section preview"
