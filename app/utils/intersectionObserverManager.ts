@@ -10,7 +10,7 @@ type IntersectionCallback = (entry: IntersectionObserverEntry) => void;
 interface ObserverConfig {
   threshold?: number | number[];
   rootMargin?: string;
-  root?: Element | null;
+  root?: Element | Document | null;
 }
 
 // Create a unique key for observer configs
@@ -18,7 +18,14 @@ function getConfigKey(config: IntersectionObserverInit): string {
   const threshold = Array.isArray(config.threshold)
     ? config.threshold.join(',')
     : config.threshold ?? 0;
-  return `${threshold}|${config.rootMargin ?? '0px'}|${config.root?.tagName ?? 'null'}`;
+  const rootPart = (() => {
+    if (!('root' in config) || config.root == null) return 'null';
+    // On the server, Element/Document might be undefined; guard with typeof checks
+    if (typeof Document !== 'undefined' && config.root instanceof Document) return '#document';
+    if (typeof Element !== 'undefined' && config.root instanceof Element) return config.root.tagName;
+    return 'unknown';
+  })();
+  return `${threshold}|${config.rootMargin ?? '0px'}|${rootPart}`;
 }
 
 class IntersectionObserverManager {
