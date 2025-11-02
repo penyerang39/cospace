@@ -21,13 +21,9 @@ function TooltipProvider({
 const TooltipContext = React.createContext<{
   open: boolean
   setOpen: (open: boolean) => void
-  clickedOpen: boolean
-  setClickedOpen: (clicked: boolean) => void
 }>({
   open: false,
   setOpen: () => {},
-  clickedOpen: false,
-  setClickedOpen: () => {},
 })
 
 function Tooltip({
@@ -35,16 +31,14 @@ function Tooltip({
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Root>) {
   const [open, setOpen] = React.useState(false)
-  const [clickedOpen, setClickedOpen] = React.useState(false)
   
   return (
     <TooltipProvider>
-      <TooltipContext.Provider value={{ open, setOpen, clickedOpen, setClickedOpen }}>
+      <TooltipContext.Provider value={{ open, setOpen }}>
         <TooltipPrimitive.Root 
           data-slot="tooltip" 
           open={open}
           onOpenChange={setOpen}
-          disableHoverableContent={true}
           {...props}
         >
           {children}
@@ -58,44 +52,23 @@ function TooltipTrigger({
   onFocus,
   onBlur,
   onClick,
-  onMouseEnter,
-  onMouseLeave,
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  const { open, setOpen, clickedOpen, setClickedOpen } = React.useContext(TooltipContext)
+  const { open, setOpen } = React.useContext(TooltipContext)
   
   return (
     <TooltipPrimitive.Trigger 
       data-slot="tooltip-trigger"
-      onMouseEnter={(e) => {
-        if (!clickedOpen) {
-          setOpen(true)
-        }
-        onMouseEnter?.(e)
-      }}
-      onMouseLeave={(e) => {
-        if (!clickedOpen) {
-          setOpen(false)
-        }
-        onMouseLeave?.(e)
-      }}
       onFocus={(e) => {
-        if (!clickedOpen) {
-          setOpen(true)
-        }
+        setOpen(true)
         onFocus?.(e)
       }}
       onBlur={(e) => {
-        if (!clickedOpen) {
-          setOpen(false)
-        }
+        setOpen(false)
         onBlur?.(e)
       }}
       onClick={(e) => {
-        e.preventDefault()
-        const newOpenState = !open
-        setOpen(newOpenState)
-        setClickedOpen(newOpenState)
+        setOpen(!open)
         onClick?.(e)
       }}
       {...props} 

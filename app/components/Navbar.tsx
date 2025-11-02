@@ -44,8 +44,8 @@ function Dropdown({ group }: { group: MenuGroup }) {
           href={group.href || "#"}
         >
           {group.label}
-          <div className="absolute left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0 z-[45]" style={{ bottom: '1px' }} />
-          <div className="absolute left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0 z-[45]" style={{ bottom: '1px', transform: 'translateY(2px)' }} />
+          <div className="absolute left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0" style={{ bottom: '0px', zIndex: 45 }} />
+          <div className="absolute left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0" style={{ bottom: '0px', transform: 'translateY(2px)', zIndex: 44 }} />
         </Link>
       </li>
     );
@@ -70,14 +70,14 @@ function Dropdown({ group }: { group: MenuGroup }) {
       >
         {group.label}
       </Link>
-      <div className={`absolute left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''} z-[45]`} style={{ bottom: '1px' }} />
-      <div className={`absolute left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''} z-[45]`} style={{ bottom: '1px', transform: 'translateY(2px)' }} />
+      <div className={`absolute left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} style={{ bottom: '0px', zIndex: 45 }} />
+      <div className={`absolute left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} style={{ bottom: '0px', transform: 'translateY(2px)', zIndex: 44 }} />
       <div
-        className={`fixed left-0 right-0 top-full z-50 bg-background transition-[opacity,transform] duration-300 ease-out ${
+        className={`fixed left-0 right-0 bg-background border-b border-black/10 shadow-lg transition-[opacity,transform] duration-300 ease-out ${
           open ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-2"
         }`}
         role="menu"
-        style={{ top: '4rem' }}
+        style={{ top: 'calc(4rem + 1px)', zIndex: 100 }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

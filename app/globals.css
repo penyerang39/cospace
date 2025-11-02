@@ -1053,14 +1053,6 @@ body {
               color var(--theme-transition-duration) var(--theme-transition-timing);
 }
 
-/* Smooth transitions for all elements using theme variables */
-* {
-  transition: background-color var(--theme-transition-duration) var(--theme-transition-timing),
-              color var(--theme-transition-duration) var(--theme-transition-timing),
-              border-color var(--theme-transition-duration) var(--theme-transition-timing),
-              box-shadow var(--theme-transition-duration) var(--theme-transition-timing);
-}
-
 /* Disable transitions during theme change to prevent flickering */
 .theme-transitioning * {
   transition: none !important;
