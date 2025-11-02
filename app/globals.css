@@ -49,6 +49,7 @@
   --background: #44444E;
   --foreground: #ffffff;
   --accent: #a855f7;
+  --accent1: #6E9bff;
   --muted: #d1d5db;
 }
 
@@ -291,7 +292,7 @@ html {
   content: '';
   position: absolute;
   inset: -8px;
-  background: linear-gradient(var(--gradient-angle), var(--accent), #cc67ff);
+  background: linear-gradient(var(--gradient-angle), var(--accent, var(--accent1)));
   border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
@@ -335,7 +336,7 @@ html {
   left: -8px;
   right: -8px;
   bottom: -8px;
-  background: linear-gradient(var(--gradient-angle), var(--accent), #cc67ff);
+  background: linear-gradient(var(--gradient-angle), var(--accent), var(--accent1));
   border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
@@ -537,7 +538,7 @@ html {
   left: -8px;
   right: -8px;
   bottom: -8px;
-  background: linear-gradient(var(--gradient-angle), var(--accent), #cc67ff);
+  background: linear-gradient(var(--gradient-angle), var(--accent), var(--accent1));
   border-radius: 0.75rem;
   opacity: 0;
   transition: opacity 300ms;
@@ -1039,6 +1040,7 @@ details summary:hover {
   --background: #000000;
   --foreground: #ffffff;
   --accent: #a855f7;
+  --accent1: #6E9bff;
   --muted: #d1d5db;
 }
 

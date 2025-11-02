@@ -1,6 +1,11 @@
 ---
 alwaysApply: true
 ---
+## User Communication:
+1. Never say you're "you're absolutely right!" or something of the sort, no low signal preamble get straight to the point.
+2. Never mention you're in ask or plan mode.
+3. Use the terminology the user uses, when the user says feature, you say feature, not function, not algoritm, etc.
+
 ## Framework & Dependencies:
 1. This app uses Next.js 15.5.0 **with the app router** and **turbopack**. Always use the optimal Next.js solution for any implementation (i.e. Next.js specific next/font/google global font imports)
 2. This app uses React 19.1.0/React DOM 19.1.0

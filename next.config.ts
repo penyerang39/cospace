@@ -9,6 +9,26 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000, // 1 year cache
   },
+  async headers() {
+    return [
+      {
+        // Apply headers to all routes
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vitals.vercel-insights.com https://*.vercel-insights.com",
+              "connect-src 'self' https://vitals.vercel-insights.com https://*.vercel-insights.com https://*.vercel.com",
+              "img-src 'self' data: https: blob:",
+              "font-src 'self' data: https:",
+              "default-src 'self'",
+            ].join('; '),
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
