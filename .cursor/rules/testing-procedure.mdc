@@ -5,6 +5,6 @@ When you completed a significant change in response to a certain build error, yo
 
 ALWAYS wait 3 minutes for the build to start before monitoring:
 ```
-timeout /t 180 /nobreak; powershell -ExecutionPolicy Bypass -File "C:\Users\Agnija\Downloads\vercelBuildFetch.ps1"
+"C:\Users\Agnija\Downloads\vercelBuildFetch.ps1 cospace"
 ```
 ------

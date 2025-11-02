@@ -1119,21 +1119,11 @@ body {
   border-radius: 0.5rem;
   font-weight: 500;
   font-size: 0.875rem;
-  color: white;
+  color: var(--background);
   background: var(--foreground);
-  border: none;
   cursor: pointer;
   transition: background-color 200ms ease, transform 150ms ease;
   white-space: nowrap;
-}
-
-.navbar-action-btn:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--foreground) 90%, black);
-  transform: translateY(-2px);
-}
-
-.navbar-action-btn:active:not(:disabled) {
-  transform: translateY(0px);
 }
 
 .navbar-action-btn:disabled {
@@ -1168,9 +1158,4 @@ body {
   z-index: 0;
   pointer-events: none;
   animation: gradientRotate 6s linear infinite;
-}
-
-/* Remove hover lift only for the demo button */
-.navbar-demo-btn-wrapper .navbar-action-btn:hover {
-  transform: none;
 }
