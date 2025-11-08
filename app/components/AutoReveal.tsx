@@ -187,51 +187,24 @@ export default function AutoReveal() {
     // Gradient Border Effect Observer - Middle 40% viewport detection
     const gradientSelectors = '.gradient-border:not([data-no-gradient])';
 
-    // Track which elements are currently in the middle viewport zone
-    const elementsInMiddleZone = new Set<HTMLElement>();
-    let currentActiveGradientElement: HTMLElement | null = null;
-
-    // Calculate distance from center of viewport
-    const getDistanceFromCenter = (element: HTMLElement): number => {
+    // Helper function to check if element is in middle 40% of viewport
+    const isInMiddleViewport = (element: HTMLElement): boolean => {
       const rect = element.getBoundingClientRect();
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const elementCenter = rect.top + rect.height / 2;
-      const viewportCenter = viewportHeight / 2;
-      return Math.abs(elementCenter - viewportCenter);
+      const elementTop = rect.top;
+      const elementBottom = rect.bottom;
+      const viewportTop = viewportHeight * 0.3; // 30% from top
+      const viewportBottom = viewportHeight * 0.7; // 70% from top
+      
+      return elementTop < viewportBottom && elementBottom > viewportTop;
     };
 
-    // Update which element should be active based on all elements in zone
-    const updateActiveGradient = () => {
-      if (elementsInMiddleZone.size === 0) {
-        // No elements in zone, deactivate current if any
-        if (currentActiveGradientElement) {
-          currentActiveGradientElement.classList.remove('gradient-active');
-          currentActiveGradientElement = null;
-        }
-        return;
-      }
-
-      // Find the element closest to the center of the viewport
-      let closestElement: HTMLElement | null = null;
-      let minDistance = Infinity;
-
-      elementsInMiddleZone.forEach((el) => {
-        const distance = getDistanceFromCenter(el);
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestElement = el;
-        }
-      });
-
-      // Update active state if changed
-      if (closestElement && closestElement !== currentActiveGradientElement) {
-        // Deactivate previous
-        if (currentActiveGradientElement) {
-          currentActiveGradientElement.classList.remove('gradient-active');
-        }
-        // Activate new
-        closestElement.classList.add('gradient-active');
-        currentActiveGradientElement = closestElement;
+    // Helper function to apply gradient state
+    const applyGradientState = (element: HTMLElement, isActive: boolean) => {
+      if (isActive) {
+        element.classList.add('gradient-active');
+      } else {
+        element.classList.remove('gradient-active');
       }
     };
 
@@ -252,29 +225,15 @@ export default function AutoReveal() {
           el,
           (entry) => {
             const target = entry.target as HTMLElement;
-            if (entry.isIntersecting) {
-              elementsInMiddleZone.add(target);
-            } else {
-              elementsInMiddleZone.delete(target);
-            }
-            updateActiveGradient();
+            applyGradientState(target, entry.isIntersecting);
           },
           gradientObserverConfig
         );
         // Check initial state for elements already in viewport
-        const rect = el.getBoundingClientRect();
-        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-        const elementTop = rect.top;
-        const elementBottom = rect.bottom;
-        const viewportTop = viewportHeight * 0.3;
-        const viewportBottom = viewportHeight * 0.7;
-        if (elementTop < viewportBottom && elementBottom > viewportTop) {
-          elementsInMiddleZone.add(el);
+        if (isInMiddleViewport(el)) {
+          applyGradientState(el, true);
         }
       });
-
-      // Initial update after checking all elements
-      updateActiveGradient();
 
       // Handle dynamically added gradient elements
       const gradientMutationObserver = new MutationObserver((mutations) => {
@@ -287,25 +246,13 @@ export default function AutoReveal() {
                 node,
                 (entry) => {
                   const target = entry.target as HTMLElement;
-                  if (entry.isIntersecting) {
-                    elementsInMiddleZone.add(target);
-                  } else {
-                    elementsInMiddleZone.delete(target);
-                  }
-                  updateActiveGradient();
+                  applyGradientState(target, entry.isIntersecting);
                 },
                 gradientObserverConfig
               );
               // Check initial state for newly added elements
-              const rect = node.getBoundingClientRect();
-              const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-              const elementTop = rect.top;
-              const elementBottom = rect.bottom;
-              const viewportTop = viewportHeight * 0.3;
-              const viewportBottom = viewportHeight * 0.7;
-              if (elementTop < viewportBottom && elementBottom > viewportTop) {
-                elementsInMiddleZone.add(node);
-                updateActiveGradient();
+              if (isInMiddleViewport(node)) {
+                applyGradientState(node, true);
               }
             }
             
@@ -315,25 +262,13 @@ export default function AutoReveal() {
                 el,
                 (entry) => {
                   const target = entry.target as HTMLElement;
-                  if (entry.isIntersecting) {
-                    elementsInMiddleZone.add(target);
-                  } else {
-                    elementsInMiddleZone.delete(target);
-                  }
-                  updateActiveGradient();
+                  applyGradientState(target, entry.isIntersecting);
                 },
                 gradientObserverConfig
               );
               // Check initial state for newly added elements
-              const rect = el.getBoundingClientRect();
-              const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-              const elementTop = rect.top;
-              const elementBottom = rect.bottom;
-              const viewportTop = viewportHeight * 0.3;
-              const viewportBottom = viewportHeight * 0.7;
-              if (elementTop < viewportBottom && elementBottom > viewportTop) {
-                elementsInMiddleZone.add(el);
-                updateActiveGradient();
+              if (isInMiddleViewport(el)) {
+                applyGradientState(el, true);
               }
             });
           });
@@ -348,26 +283,20 @@ export default function AutoReveal() {
       
       const runFallbackCheck = () => {
         const allGradientElements = Array.from(document.querySelectorAll<HTMLElement>(gradientSelectors));
+        let hasChanges = false;
         
-        // Rebuild the set of elements in middle zone
-        elementsInMiddleZone.clear();
         allGradientElements.forEach((el) => {
-          const rect = el.getBoundingClientRect();
-          const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-          const elementTop = rect.top;
-          const elementBottom = rect.bottom;
-          const viewportTop = viewportHeight * 0.3;
-          const viewportBottom = viewportHeight * 0.7;
-          if (elementTop < viewportBottom && elementBottom > viewportTop) {
-            elementsInMiddleZone.add(el);
+          const shouldBeActive = isInMiddleViewport(el);
+          const isCurrentlyActive = el.classList.contains('gradient-active');
+          
+          if (shouldBeActive !== isCurrentlyActive) {
+            applyGradientState(el, shouldBeActive);
+            hasChanges = true;
           }
         });
         
-        // Update which element should be active
-        updateActiveGradient();
-        
-        // Schedule next check if elements exist
-        if (allGradientElements.length > 0) {
+        // Only schedule next check if there were changes or elements exist
+        if (hasChanges || allGradientElements.length > 0) {
           fallbackTimeout = setTimeout(runFallbackCheck, 2000); // Check every 2 seconds
         }
       };
@@ -375,35 +304,16 @@ export default function AutoReveal() {
       // Start fallback check after a delay to let intersection observer work first
       fallbackTimeout = setTimeout(runFallbackCheck, 3000);
 
-      // Handle window resize and scroll events to recalculate viewport positions
-      const handleViewportChange = () => {
-        // Debounce viewport change events
+      // Handle window resize events to recalculate viewport positions
+      const handleResize = () => {
+        // Debounce resize events
         if (fallbackTimeout) {
           clearTimeout(fallbackTimeout);
         }
-        fallbackTimeout = setTimeout(() => {
-          // Recalculate which elements are in the zone
-          const allGradientElements = Array.from(document.querySelectorAll<HTMLElement>(gradientSelectors));
-          elementsInMiddleZone.clear();
-          allGradientElements.forEach((el) => {
-            const rect = el.getBoundingClientRect();
-            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-            const elementTop = rect.top;
-            const elementBottom = rect.bottom;
-            const viewportTop = viewportHeight * 0.3;
-            const viewportBottom = viewportHeight * 0.7;
-            if (elementTop < viewportBottom && elementBottom > viewportTop) {
-              elementsInMiddleZone.add(el);
-            }
-          });
-          updateActiveGradient();
-          // Resume fallback checks
-          fallbackTimeout = setTimeout(runFallbackCheck, 2000);
-        }, 50);
+        fallbackTimeout = setTimeout(runFallbackCheck, 100);
       };
 
-      window.addEventListener('resize', handleViewportChange, { passive: true });
-      window.addEventListener('scroll', handleViewportChange, { passive: true });
+      window.addEventListener('resize', handleResize, { passive: true });
 
       return () => {
         // Unobserve all gradient elements
@@ -417,8 +327,7 @@ export default function AutoReveal() {
         });
         mutationObserver.disconnect();
         gradientMutationObserver.disconnect();
-        window.removeEventListener('resize', handleViewportChange);
-        window.removeEventListener('scroll', handleViewportChange);
+        window.removeEventListener('resize', handleResize);
         if (fallbackTimeout) {
           clearTimeout(fallbackTimeout);
         }
