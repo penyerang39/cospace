@@ -187,6 +187,9 @@ export default function AutoReveal() {
     // Gradient Border Effect Observer - Middle 40% viewport detection
     const gradientSelectors = '.gradient-border:not([data-no-gradient])';
 
+    // Track currently active gradient element to ensure only one at a time
+    let currentActiveGradientElement: HTMLElement | null = null;
+
     // Helper function to check if element is in middle 40% of viewport
     const isInMiddleViewport = (element: HTMLElement): boolean => {
       const rect = element.getBoundingClientRect();
@@ -199,12 +202,21 @@ export default function AutoReveal() {
       return elementTop < viewportBottom && elementBottom > viewportTop;
     };
 
-    // Helper function to apply gradient state
+    // Helper function to apply gradient state - ensures only one element is active at a time
     const applyGradientState = (element: HTMLElement, isActive: boolean) => {
       if (isActive) {
+        // If activating a new element and there's already an active one, deactivate it first
+        if (currentActiveGradientElement && currentActiveGradientElement !== element) {
+          currentActiveGradientElement.classList.remove('gradient-active');
+        }
         element.classList.add('gradient-active');
+        currentActiveGradientElement = element;
       } else {
         element.classList.remove('gradient-active');
+        // Only clear the reference if this was the active element
+        if (currentActiveGradientElement === element) {
+          currentActiveGradientElement = null;
+        }
       }
     };
 
@@ -285,15 +297,23 @@ export default function AutoReveal() {
         const allGradientElements = Array.from(document.querySelectorAll<HTMLElement>(gradientSelectors));
         let hasChanges = false;
         
-        allGradientElements.forEach((el) => {
-          const shouldBeActive = isInMiddleViewport(el);
-          const isCurrentlyActive = el.classList.contains('gradient-active');
+        // Find all elements currently in the middle viewport
+        const elementsInMiddle = allGradientElements.filter(el => isInMiddleViewport(el));
+        
+        if (elementsInMiddle.length > 0) {
+          // Pick the first element in the middle viewport (closest to center or first in DOM order)
+          const targetElement = elementsInMiddle[0];
+          const isCurrentlyActive = targetElement.classList.contains('gradient-active');
           
-          if (shouldBeActive !== isCurrentlyActive) {
-            applyGradientState(el, shouldBeActive);
+          if (!isCurrentlyActive || currentActiveGradientElement !== targetElement) {
+            applyGradientState(targetElement, true);
             hasChanges = true;
           }
-        });
+        } else if (currentActiveGradientElement) {
+          // No elements in middle viewport, deactivate current if any
+          applyGradientState(currentActiveGradientElement, false);
+          hasChanges = true;
+        }
         
         // Only schedule next check if there were changes or elements exist
         if (hasChanges || allGradientElements.length > 0) {

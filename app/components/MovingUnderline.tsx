@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 
 export default function MovingUnderline({ containerRef }: { containerRef: React.RefObject<HTMLUListElement | null> }) {
   const barElementRef = useRef<HTMLDivElement | null>(null);
-  const glowElementRef = useRef<HTMLDivElement | null>(null);
 
   const targetLeftRef = useRef(0);
   const targetWidthRef = useRef(0);
@@ -26,16 +25,22 @@ export default function MovingUnderline({ containerRef }: { containerRef: React.
     currentLeftRef.current = linearInterpolation(currentLeftRef.current, targetLeftRef.current, easingFactor);
     currentWidthRef.current = linearInterpolation(currentWidthRef.current, targetWidthRef.current, easingFactor);
 
+    // Calculate distance to target (represents friction - larger distance = lower friction = more glow)
+    const distanceX = Math.abs(currentLeftRef.current - targetLeftRef.current);
+    const distanceWidth = Math.abs(currentWidthRef.current - targetWidthRef.current);
+    const totalDistance = distanceX + distanceWidth;
+    
+    // Shadow size inversely proportional to friction, with a max limit
+    // Higher totalDistance = lower friction = larger shadow
+    const maxShadowSize = 12;
+    const shadowSize = Math.min(totalDistance / 10, maxShadowSize);
+    
     barElementRef.current.style.transform = `translateX(${currentLeftRef.current}px)`;
     barElementRef.current.style.width = `${currentWidthRef.current}px`;
+    barElementRef.current.style.boxShadow = `0 -${shadowSize}px ${shadowSize * 1.5}px hsl(var(--accent))`;
 
-    if (glowElementRef.current) {
-      glowElementRef.current.style.transform = `translateX(${currentLeftRef.current}px)`;
-      glowElementRef.current.style.width = `${currentWidthRef.current}px`;
-    }
-
-    const closeEnoughX = Math.abs(currentLeftRef.current - targetLeftRef.current) < 0.5;
-    const closeEnoughWidth = Math.abs(currentWidthRef.current - targetWidthRef.current) < 0.5;
+    const closeEnoughX = distanceX < 0.5;
+    const closeEnoughWidth = distanceWidth < 0.5;
 
     if (!closeEnoughX || !closeEnoughWidth) {
       requestAnimationFrame(stepAnimation);
@@ -64,7 +69,6 @@ export default function MovingUnderline({ containerRef }: { containerRef: React.
         isVisibleRef.current = true;
 
         if (barElementRef.current) barElementRef.current.style.opacity = '1';
-        if (glowElementRef.current) glowElementRef.current.style.opacity = '1';
       }
 
       if (!isAnimatingRef.current) {
@@ -89,7 +93,6 @@ export default function MovingUnderline({ containerRef }: { containerRef: React.
     const handlePointerLeaveContainer = () => {
       isVisibleRef.current = false;
       if (barElementRef.current) barElementRef.current.style.opacity = '0';
-      if (glowElementRef.current) glowElementRef.current.style.opacity = '0';
     };
 
     containerElement.addEventListener('pointerenter', handlePointerEnter, true);
@@ -110,18 +113,10 @@ export default function MovingUnderline({ containerRef }: { containerRef: React.
   }, [containerRef]);
 
   return (
-    <>
-      <div
-        ref={barElementRef}
-        className="pointer-events-none absolute bottom-[-1px] left-0 h-0.5 bg-accent opacity-0 transition-opacity duration-150 will-change-transform"
-        style={{ zIndex: 1 }}
-      />
-      <div
-        ref={glowElementRef}
-        className="pointer-events-none absolute bottom-[-2px] left-0 h-[3px] bg-accent/40 blur-sm opacity-0 transition-opacity duration-150 will-change-transform"
-        style={{ zIndex: 0 }}
-      />
-    </>
+    <div
+      ref={barElementRef}
+      className="pointer-events-none absolute bottom-[-1px] left-0 h-0.5 bg-accent opacity-0 transition-opacity duration-150 will-change-transform"
+    />
   );
 }
 

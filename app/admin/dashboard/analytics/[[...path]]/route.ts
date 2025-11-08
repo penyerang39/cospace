@@ -109,7 +109,7 @@ async function proxyRequest(
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path?: string[] } }
+  { params }: { params: Promise<{ path?: string[] }> }
 ) {
   const session = await auth();
   
@@ -117,13 +117,14 @@ export async function GET(
     return NextResponse.redirect(new URL('/admin/signin', request.url));
   }
 
-  const path = params.path ? `/${params.path.join('/')}` : '/';
+  const resolvedParams = await params;
+  const path = resolvedParams.path ? `/${resolvedParams.path.join('/')}` : '/';
   return proxyRequest(request, path, 'GET');
 }
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { path?: string[] } }
+  { params }: { params: Promise<{ path?: string[] }> }
 ) {
   const session = await auth();
   
@@ -131,13 +132,14 @@ export async function POST(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const path = params.path ? `/${params.path.join('/')}` : '/';
+  const resolvedParams = await params;
+  const path = resolvedParams.path ? `/${resolvedParams.path.join('/')}` : '/';
   return proxyRequest(request, path, 'POST');
 }
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { path?: string[] } }
+  { params }: { params: Promise<{ path?: string[] }> }
 ) {
   const session = await auth();
   
@@ -145,13 +147,14 @@ export async function PUT(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const path = params.path ? `/${params.path.join('/')}` : '/';
+  const resolvedParams = await params;
+  const path = resolvedParams.path ? `/${resolvedParams.path.join('/')}` : '/';
   return proxyRequest(request, path, 'PUT');
 }
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { path?: string[] } }
+  { params }: { params: Promise<{ path?: string[] }> }
 ) {
   const session = await auth();
   
@@ -159,13 +162,14 @@ export async function DELETE(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const path = params.path ? `/${params.path.join('/')}` : '/';
+  const resolvedParams = await params;
+  const path = resolvedParams.path ? `/${resolvedParams.path.join('/')}` : '/';
   return proxyRequest(request, path, 'DELETE');
 }
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { path?: string[] } }
+  { params }: { params: Promise<{ path?: string[] }> }
 ) {
   const session = await auth();
   
@@ -173,7 +177,8 @@ export async function PATCH(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const path = params.path ? `/${params.path.join('/')}` : '/';
+  const resolvedParams = await params;
+  const path = resolvedParams.path ? `/${resolvedParams.path.join('/')}` : '/';
   return proxyRequest(request, path, 'PATCH');
 }
 
