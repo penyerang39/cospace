@@ -32,12 +32,17 @@ export default function MovingUnderline({ containerRef }: { containerRef: React.
     
     // Shadow size inversely proportional to friction, with a max limit
     // Higher totalDistance = lower friction = larger shadow
-    const maxShadowSize = 12;
-    const shadowSize = Math.min(totalDistance / 10, maxShadowSize);
+    const maxShadowSize = 16;
+    const shadowSize = Math.min(totalDistance / 8, maxShadowSize);
     
     barElementRef.current.style.transform = `translateX(${currentLeftRef.current}px)`;
     barElementRef.current.style.width = `${currentWidthRef.current}px`;
-    barElementRef.current.style.boxShadow = `0 -${shadowSize}px ${shadowSize * 1.5}px hsl(var(--accent))`;
+    // Multiple shadows for more visible glow effect on upper edge
+    barElementRef.current.style.boxShadow = shadowSize > 0 
+      ? `0 -${shadowSize * 0.5}px ${shadowSize}px hsl(var(--accent) / 0.6),
+         0 -${shadowSize}px ${shadowSize * 2}px hsl(var(--accent) / 0.4),
+         0 -${shadowSize * 1.5}px ${shadowSize * 3}px hsl(var(--accent) / 0.2)`
+      : 'none';
 
     const closeEnoughX = distanceX < 0.5;
     const closeEnoughWidth = distanceWidth < 0.5;

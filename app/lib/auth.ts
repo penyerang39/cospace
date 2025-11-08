@@ -1,8 +1,20 @@
 import NextAuth from 'next-auth';
 import Resend from 'next-auth/providers/resend';
 import type { NextAuthConfig } from 'next-auth';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
+
+// Singleton pattern for Prisma Client
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+const prisma = globalForPrisma.prisma ?? new PrismaClient();
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 export const authConfig: NextAuthConfig = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     Resend({
       apiKey: process.env.RESEND_API_KEY,
@@ -14,21 +26,8 @@ export const authConfig: NextAuthConfig = {
     verifyRequest: '/admin/verify',
     error: '/admin/error',
   },
-  callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = !!auth?.user;
-      const isOnAdminDashboard = nextUrl.pathname.startsWith('/admin/dashboard');
-      
-      if (isOnAdminDashboard) {
-        if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
-      }
-      
-      return true;
-    },
-  },
   session: {
-    strategy: 'jwt',
+    strategy: 'database',
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   secret: process.env.AUTH_SECRET,

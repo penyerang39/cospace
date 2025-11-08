@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "postinstall": "prisma generate",
     "prebuild": "npm run generate-nav && npm run scrape-legal",
     "dev": "next dev --turbopack",
     "dev:prod": "npm run generate-nav && npm run scrape-legal && next dev --turbopack",
@@ -16,6 +17,8 @@
   },
   "dependencies": {
     "@auth/core": "^0.34.3",
+    "@auth/prisma-adapter": "^2.11.1",
+    "@prisma/client": "^6.19.0",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@upstash/redis": "^1.35.6",
     "@vercel/speed-insights": "^1.2.0",
@@ -25,6 +28,7 @@
     "lucide-react": "^0.544.0",
     "next": "15.5.4",
     "next-auth": "5.0.0-beta.30",
+    "prisma": "^6.19.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "resend": "^6.1.0",

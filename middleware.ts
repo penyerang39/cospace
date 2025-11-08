@@ -1,20 +1,18 @@
-import { auth } from './app/lib/auth';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-export default auth((req) => {
-  const isLoggedIn = !!req.auth;
-  const { pathname } = req.nextUrl;
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
   
   // Protect /admin/dashboard/* routes
   if (pathname.startsWith('/admin/dashboard')) {
-    if (!isLoggedIn) {
-      const signInUrl = new URL('/admin/signin', req.url);
-      signInUrl.searchParams.set('callbackUrl', pathname);
-      return Response.redirect(signInUrl);
-    }
+    // Session check will happen at the page level
+    // Middleware just handles the route matching
+    return NextResponse.next();
   }
   
-  return undefined;
-});
+  return NextResponse.next();
+}
 
 export const config = {
   matcher: ['/admin/dashboard/:path*'],
