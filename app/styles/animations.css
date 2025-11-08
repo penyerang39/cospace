@@ -244,4 +244,27 @@ details summary:hover {
   color: var(--accent);
 }
 
+/* Dropdown Navigation Animations */
+@keyframes dropdownItemFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-8px, 12px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes iconSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-12px, 12px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
 

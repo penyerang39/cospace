@@ -4,8 +4,14 @@ import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import { getNavigation, type MenuGroup } from "../lib/navigation";
 import Image from "next/image";
-import { ArrowRight, ArrowLeft, Menu, X, Calendar, DollarSign } from "lucide-react";
-import previews from "../lib/nav-previews";
+import { 
+  ArrowRight, ArrowLeft, Menu, X, Calendar, DollarSign,
+  Boxes, MessageSquare, Database, FolderOpen,
+  Palette, Building, TrendingUp, Code,
+  Info, Briefcase, Mail,
+  ShieldCheck, Lock, CreditCard, FileText,
+  type LucideIcon
+} from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "./ThemeProvider";
 import MovingUnderline from "./MovingUnderline";
@@ -13,14 +19,28 @@ import MovingUnderline from "./MovingUnderline";
 // Hide parent overview link for specific groups
 const HIDE_OVERVIEW_FOR = new Set(["Company", "Legal"]);
 
+// Icon mapping for each navigation item
+const NAV_ICONS: Record<string, LucideIcon> = {
+  '/product/appbuilder': Boxes,
+  '/product/chat': MessageSquare,
+  '/product/data': Database,
+  '/product/files': FolderOpen,
+  '/solutions/design': Palette,
+  '/solutions/government': Building,
+  '/solutions/marketing': TrendingUp,
+  '/solutions/software': Code,
+  '/company/about': Info,
+  '/company/careers': Briefcase,
+  '/company/contact': Mail,
+  '/legal/acceptable-use': ShieldCheck,
+  '/legal/privacy': Lock,
+  '/legal/subscription': CreditCard,
+  '/legal/terms': FileText,
+};
+
 function Dropdown({ group }: { group: MenuGroup }) {
   const [open, setOpen] = useState(false);
-  const [hoverHref, setHoverHref] = useState<string | undefined>(undefined);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { theme } = useTheme();
-  const activeHref = hoverHref || group.href;
-  const hasPreview = activeHref && (previews as Record<string, string>)[activeHref];
-  const previewSrc = hasPreview ? (previews as Record<string, string>)[activeHref!] : (theme === 'dark' ? "/branding/neo14White.svg" : "/branding/neo14Logo.svg");
   const hasChildren = (group.items?.length ?? 0) > 0;
 
   const handleMouseEnter = () => {
@@ -62,7 +82,6 @@ function Dropdown({ group }: { group: MenuGroup }) {
         href={group.href || "#"}
         data-nav-item
         onClick={(event) => {
-          // If there's no href, it's just "#", or it's a Legal parent link, prevent navigation and toggle dropdown
           if (!group.href || group.href === "#" || (group.label === "Legal" && group.href === "/legal")) {
             event.preventDefault();
             setOpen(previousOpen => !previousOpen);
@@ -80,66 +99,57 @@ function Dropdown({ group }: { group: MenuGroup }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-12 gap-8 p-8">
-            <div className="col-span-7">
-              <ul className="gap-y-2">
-              {group.href && !HIDE_OVERVIEW_FOR.has(group.label) && (
-                <li className="col-span-2">
-                  <div className="group">
-                    <Link
-                      className="flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200"
-                      href={group.href}
-                      onClick={() => setOpen(false)}
-                      onMouseEnter={() => setHoverHref(group.href)}
-                      onMouseLeave={() => setHoverHref(undefined)}
-                    >
-                      <span className="font-medium text-foreground group-hover:text-foreground/80 transition-colors duration-200">
-                        {group.label} overview
-                      </span>
-                      <ArrowRight 
-                        className="w-4 h-4 text-foreground/60 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 opacity-0 -translate-x-2"
-                      />
-                    </Link>
+        <div className="max-w-6xl mx-auto p-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {group.href && !HIDE_OVERVIEW_FOR.has(group.label) && (
+              <Link
+                href={group.href}
+                onClick={() => setOpen(false)}
+                className="group relative flex flex-col items-start gap-3 p-4 rounded-lg bg-background border border-black/10 hover:border-accent/30 transition-all duration-300 hover:shadow-md overflow-hidden"
+              >
+                <div className="flex items-center gap-3 w-full">
+                  <div className="p-2 rounded-md bg-accent/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-accent/20">
+                    <ArrowRight className="w-5 h-5 text-accent" />
                   </div>
-                </li>
-              )}
-              {(group.items ?? []).map(navItem => (
-                <li key={navItem.href}>
-                  <div className="group">
-                    <Link
-                      className="flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200"
-                      href={navItem.href}
-                      onClick={() => setOpen(false)}
-                      onMouseEnter={() => setHoverHref(navItem.href)}
-                      onMouseLeave={() => setHoverHref(undefined)}
-                    >
-                      <span className="text-foreground group-hover:text-foreground/80 transition-colors duration-200">
-                        {navItem.label}
-                      </span>
-                      <ArrowRight 
-                        className="w-4 h-4 text-foreground/60 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 opacity-0 -translate-x-2"
-                      />
-                    </Link>
+                  <span className="font-medium text-foreground group-hover:text-accent transition-colors duration-200">
+                    Overview
+                  </span>
+                </div>
+              </Link>
+            )}
+            {(group.items ?? []).map((navItem, index) => {
+              const Icon = NAV_ICONS[navItem.href];
+              return (
+                <Link
+                  key={navItem.href}
+                  href={navItem.href}
+                  onClick={() => setOpen(false)}
+                  className="group relative flex flex-col items-start gap-3 p-4 rounded-lg bg-background border border-black/10 hover:border-accent/30 transition-all duration-300 hover:shadow-md overflow-hidden"
+                  style={{
+                    animation: open ? `dropdownItemFadeIn 400ms ease-out forwards ${index * 60}ms` : undefined,
+                    opacity: 0,
+                  }}
+                >
+                  <div className="flex items-center gap-3 w-full">
+                    {Icon && (
+                      <div 
+                        className="p-2 rounded-md bg-accent/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-accent/20"
+                        style={{
+                          animation: open ? `iconSlideIn 500ms ease-out forwards ${index * 60 + 100}ms` : undefined,
+                          opacity: 0,
+                          transform: 'translate(-8px, 8px)',
+                        }}
+                      >
+                        <Icon className="w-5 h-5 text-accent" />
+                      </div>
+                    )}
+                    <span className="font-medium text-foreground group-hover:text-accent transition-colors duration-200">
+                      {navItem.label}
+                    </span>
                   </div>
-                </li>
-              ))}
-              </ul>
-            </div>
-            <div className="col-span-5 overflow-hidden overflow-hidden">
-              <div className="h-48 w-full relative">
-                <Image
-                  src={previewSrc}
-                  alt="Section preview"
-                  fill
-                  sizes="(min-width: 1280px) 33vw, (min-width: 1024px) 41.666vw, (min-width: 640px) 50vw, 100vw"
-                  quality={95}
-                  className={hasPreview ? "object-cover" : "object-contain"}
-                  priority={false}
-                  style={{ imageRendering: 'auto' }}
-                />
-              </div>
-            </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
