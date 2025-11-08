@@ -72,11 +72,11 @@ function Dropdown({ group }: { group: MenuGroup }) {
         {group.label}
       </Link>
       <div
-        className={`fixed left-0 right-0 bg-background border-b border-black/10 shadow-lg transition-[opacity,transform] duration-200 ease-out ${
+        className={`fixed left-0 right-0 top-16 bg-background border-b border-black/10 shadow-lg transition-[opacity,transform] duration-200 ease-out ${
           open ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-2"
         }`}
         role="menu"
-        style={{ zIndex: 59, top: '64px' }}
+        style={{ zIndex: 59 }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
