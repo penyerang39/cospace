@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon/neo14Icon.ico", sizes: "48x48", type: "image/x-icon" },
-      { url: "/favicon/favicon.svg", sizes: "192x192", type: "image/svg+xml" },
+      { url: "/favicon/favicon.svg", sizes: "48x48", type: "image/svg+xml" },
       { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
       { url: "/favicon/web-app-manifest-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "/favicon/web-app-manifest-512x512.png", sizes: "512x512", type: "image/png" },
@@ -66,14 +66,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${interFont.variable} antialiased`}
+        className={`${interFont.variable} antialiased flex flex-col min-h-screen`}
       >
         <ThemeProvider>
           <Navbar navigation={navigation} />
           <FormProgressBar />
           {/* Global leaf DOM blob controller (client-only), layered behind content */}
           <ClientOnlyBlobController />
-          {children}
+          <main className="flex-grow">
+            {children}
+          </main>
           <AutoReveal />
           <Footer />
           <SpeedInsights />

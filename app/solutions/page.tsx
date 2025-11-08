@@ -52,7 +52,7 @@ export default function SolutionsPage() {
             </div>
           </div>
           <div className="order-2">
-            <div className="w-full">
+            <div className="w-full pl-8">
               <h3 className="heading-4 mb-3">Marketing</h3>
               <p className="body-text mb-4">
                 Plan campaigns, track assets, centralize briefs, and review creatives. Connect ad platforms and build ROAS dashboards.
@@ -79,7 +79,7 @@ export default function SolutionsPage() {
             </div>
           </div>
           <div className="order-2 md:order-1">
-            <div className="w-full">
+            <div className="w-full pr-8">
               <h3 className="heading-4 mb-3">Design</h3>
               <p className="body-text mb-4">
                 Manage versions, share mocks, collect feedback, and ship on time. Keep specs linked to the latest files.
@@ -106,7 +106,7 @@ export default function SolutionsPage() {
             </div>
           </div>
           <div className="order-2">
-            <div className="w-full">
+            <div className="w-full pl-8">
               <h3 className="heading-4 mb-3">Software</h3>
               <p className="body-text mb-4">
                 Roadmaps, sprints, release notes, and on‑call runbooks. Link issues, PRDs, and docs to code.
@@ -133,7 +133,7 @@ export default function SolutionsPage() {
             </div>
           </div>
           <div className="order-2 md:order-1">
-            <div className="w-full">
+            <div className="w-full pr-8">
               <h3 className="heading-4 mb-3">Government</h3>
               <p className="body-text mb-4">
                 Secure document exchange, private file storage, and safe communication. Fine‑grained access controls and audit logs.

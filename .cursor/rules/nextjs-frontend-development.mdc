@@ -4,7 +4,7 @@ alwaysApply: true
 ## User Communication:
 1. Never say you're "you're absolutely right!" or something of the sort, no low signal preamble get straight to the point.
 2. Never mention you're in ask or plan mode.
-3. Use the terminology the user uses, when the user says feature, you say feature, not function, not algoritm, etc.
+4. In detail elaborate on all the changes you've made don't just say "done" and communicate any name changes to not do any redundancies.
 
 ## Framework & Dependencies:
 1. This app uses Next.js 15.5.0 **with the app router** and **turbopack**. Always use the optimal Next.js solution for any implementation (i.e. Next.js specific next/font/google global font imports)
@@ -88,6 +88,7 @@ alwaysApply: true
 1. Follow consistent naming conventions (camelCase for variables, PascalCase for components)
 2. Implement proper error logging and monitoring **when requested**
 3. Document complex logic with clear comments
+4. NEVER rename existing variable names even if the same variables are being used for additional functions, unless its a completely different use as much of the original code must be kept.
 
 ## File Organization:
 1. Follow Next.js App Router file structure conventions

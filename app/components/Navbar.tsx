@@ -8,6 +8,7 @@ import { ArrowRight, ArrowLeft, Menu, X, Calendar, DollarSign } from "lucide-rea
 import previews from "../lib/nav-previews";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "./ThemeProvider";
+import MovingUnderline from "./MovingUnderline";
 
 // Hide parent overview link for specific groups
 const HIDE_OVERVIEW_FOR = new Set(["Company", "Legal"]);
@@ -33,7 +34,7 @@ function Dropdown({ group }: { group: MenuGroup }) {
   const handleMouseLeave = () => {
     closeTimeoutRef.current = setTimeout(() => {
       setOpen(false);
-    }, 200);
+    }, 300);
   };
 
   if (!hasChildren) {
@@ -42,10 +43,9 @@ function Dropdown({ group }: { group: MenuGroup }) {
         <Link 
           className="px-4 h-full flex items-center text-foreground hover:text-foreground/80 transition-colors duration-200 font-medium relative group" 
           href={group.href || "#"}
+          data-nav-item
         >
           {group.label}
-          <div className="absolute left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0" style={{ bottom: '0px', zIndex: 45 }} />
-          <div className="absolute left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0" style={{ bottom: '0px', transform: 'translateY(2px)', zIndex: 44 }} />
         </Link>
       </li>
     );
@@ -60,24 +60,23 @@ function Dropdown({ group }: { group: MenuGroup }) {
       <Link
         className="px-4 h-full flex items-center text-foreground hover:text-foreground/80 transition-colors duration-200 font-medium relative"
         href={group.href || "#"}
-        onClick={(e) => {
+        data-nav-item
+        onClick={(event) => {
           // If there's no href, it's just "#", or it's a Legal parent link, prevent navigation and toggle dropdown
           if (!group.href || group.href === "#" || (group.label === "Legal" && group.href === "/legal")) {
-            e.preventDefault();
-            setOpen(v => !v);
+            event.preventDefault();
+            setOpen(previousOpen => !previousOpen);
           }
         }}
       >
         {group.label}
       </Link>
-      <div className={`absolute left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} style={{ bottom: '0px', zIndex: 45 }} />
-      <div className={`absolute left-1/2 w-0 h-0.5 bg-accent/30 blur-sm transition-all duration-300 group-hover:w-full group-hover:left-0 ${open ? 'w-full left-0' : ''}`} style={{ bottom: '0px', transform: 'translateY(2px)', zIndex: 44 }} />
       <div
-        className={`fixed left-0 right-0 bg-background border-b border-black/10 shadow-lg transition-[opacity,transform] duration-300 ease-out ${
+        className={`fixed left-0 right-0 bg-background border-b border-black/10 shadow-lg transition-[opacity,transform] duration-200 ease-out ${
           open ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-2"
         }`}
         role="menu"
-        style={{ top: 'calc(4rem + 1px)', zIndex: 100 }}
+        style={{ zIndex: 59, top: '64px' }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -105,18 +104,18 @@ function Dropdown({ group }: { group: MenuGroup }) {
                   </div>
                 </li>
               )}
-              {group.items?.map(item => (
-                <li key={item.href}>
+              {(group.items ?? []).map(navItem => (
+                <li key={navItem.href}>
                   <div className="group">
                     <Link
                       className="flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200"
-                      href={item.href}
+                      href={navItem.href}
                       onClick={() => setOpen(false)}
-                      onMouseEnter={() => setHoverHref(item.href)}
+                      onMouseEnter={() => setHoverHref(navItem.href)}
                       onMouseLeave={() => setHoverHref(undefined)}
                     >
                       <span className="text-foreground group-hover:text-foreground/80 transition-colors duration-200">
-                        {item.label}
+                        {navItem.label}
                       </span>
                       <ArrowRight 
                         className="w-4 h-4 text-foreground/60 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 opacity-0 -translate-x-2"
@@ -153,16 +152,17 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeParentLabel, setActiveParentLabel] = useState<string | null>(null);
   const { theme } = useTheme();
+  const desktopNavRef = useRef<HTMLUListElement | null>(null);
   const activeParent: MenuGroup | undefined = useMemo(() => {
     if (!activeParentLabel) return undefined;
-    return navGroups.find(g => g.label === activeParentLabel);
+    return navGroups.find(navGroup => navGroup.label === activeParentLabel);
   }, [activeParentLabel, navGroups]);
 
   const logoSrc = theme === 'dark' ? "/branding/neo14White.svg" : "/branding/neo14Logo.svg";
 
   return (
     <>
-    <header className="sticky top-0 z-40 bg-background supports-[backdrop-filter]:bg-background border-b border-black/10 navbar-dark-theme">
+    <header className="sticky top-0 z-[60] bg-background supports-[backdrop-filter]:bg-background border-b border-black/10 navbar-dark-theme">
       <nav className="relative max-width container-padding">
         <div className="flex items-center justify-between h-16">
           <Link href="/" aria-label="Cospace home" className="flex items-center group">
@@ -178,10 +178,11 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
           </Link>
 
           {/* Desktop navigation */}
-          <ul className="hidden sm:flex items-stretch h-16 ml-6">
-            {navGroups.map(group => (
-              <Dropdown key={group.label} group={group} />
+          <ul className="hidden sm:flex items-stretch h-16 ml-6 relative" ref={desktopNavRef}>
+            {navGroups.map(navGroup => (
+              <Dropdown key={navGroup.label} group={navGroup} />
             ))}
+            <MovingUnderline containerRef={desktopNavRef} />
           </ul>
 
           {/* Desktop action buttons */}
@@ -212,7 +213,7 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
               aria-expanded={mobileOpen}
               onClick={() => {
                 // Close any active sub-view when toggling
-                setMobileOpen(v => !v);
+                setMobileOpen(previousMobileOpen => !previousMobileOpen);
                 if (mobileOpen) setActiveParentLabel(null);
               }}
             >
@@ -271,23 +272,23 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
             aria-hidden={!!activeParent}
           >
             <ul>
-              {navGroups.map(group => {
-                const hasChildren = (group.items?.length ?? 0) > 0;
+              {navGroups.map(navGroup => {
+                const hasChildren = (navGroup.items?.length ?? 0) > 0;
                 return (
-                  <li key={group.label}>
+                  <li key={navGroup.label}>
                     <button
                       className="w-full text-left border border-black/10 border-1px px-4 py-5 flex items-center justify-between transition-colors"
                       onClick={() => {
                         if (hasChildren) {
-                          setActiveParentLabel(group.label);
-                        } else if (group.href && !(group.label === "Legal" && group.href === "/legal")) {
-                          window.location.href = group.href;
+                          setActiveParentLabel(navGroup.label);
+                        } else if (navGroup.href && !(navGroup.label === "Legal" && navGroup.href === "/legal")) {
+                          window.location.href = navGroup.href;
                         }
                       }}
                       aria-haspopup={hasChildren ? "true" : undefined}
                       aria-expanded={hasChildren ? false : undefined}
                     >
-                      <span className="font-medium text-foreground">{group.label}</span>
+                      <span className="font-medium text-foreground">{navGroup.label}</span>
                       {hasChildren ? (
                         <ArrowRight className="h-5 w-5 text-foreground/60" />
                       ) : null}
@@ -333,14 +334,14 @@ export default function Navbar({ navigation }: { navigation: MenuGroup[] }) {
                       </Link>
                     </li>
                   )}
-                  {(activeParent.items ?? []).map(item => (
-                      <li key={item.href}>
+                  {(activeParent.items ?? []).map(childItem => (
+                      <li key={childItem.href}>
                         <Link
-                          href={item.href}
+                          href={childItem.href}
                           className="flex items-center  border border-black/10 border-1px justify-between px-4 py-5 rounded-md transition-colors"
                           onClick={() => setMobileOpen(false)}
                         >
-                          <span className="text-foreground">{item.label}</span>
+                          <span className="text-foreground">{childItem.label}</span>
                         </Link>
                       </li>
                   ))}

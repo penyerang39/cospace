@@ -46,7 +46,7 @@ export default function SecurityPage() {
             </div>
           </div>
           <div className="order-2">
-            <div className="w-full">
+            <div className="w-full pl-8">
               <h3 className="heading-4 mb-3">Encryption & Data Protection</h3>
               <p className="body-text mb-4">
                 <strong>AES-256 encryption at rest</strong> — Your files, messages, and data are encrypted using military-grade standards.<br/>
@@ -69,7 +69,7 @@ export default function SecurityPage() {
             </div>
           </div>
           <div className="order-2 md:order-1">
-            <div className="w-full">
+            <div className="w-full pr-8">
               <h3 className="heading-4 mb-3">Access Control & Authentication</h3>
               <p className="body-text mb-4">
                 <strong>SSO/SAML integration</strong> — Connect with your existing identity provider.<br/>
@@ -93,7 +93,7 @@ export default function SecurityPage() {
             </div>
           </div>
           <div className="order-2">
-            <div className="w-full">
+            <div className="w-full pl-8">
               <h3 className="heading-4 mb-3">Audit Logs & Compliance</h3>
               <p className="body-text mb-4">
                 <strong>Comprehensive audit trails</strong> — Track all user actions, file access, and system changes.<br/>
@@ -117,7 +117,7 @@ export default function SecurityPage() {
             </div>
           </div>
           <div className="order-2 md:order-1">
-            <div className="w-full">
+            <div className="w-full pr-8">
               <h3 className="heading-4 mb-3">Data Residency & Infrastructure</h3>
               <p className="body-text mb-4">
                 <strong>Choose your data location</strong> — Host your data in EU or US regions to meet regulatory requirements.<br/>
@@ -141,7 +141,7 @@ export default function SecurityPage() {
             </div>
           </div>
           <div className="order-2">
-            <div className="w-full">
+            <div className="w-full pl-8">
               <h3 className="heading-4 mb-3">Security Testing & Monitoring</h3>
               <p className="body-text mb-4">
                 <strong>Regular penetration testing</strong> — Third-party security assessments conducted quarterly.<br/>

@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Expose source maps in production to aid debugging of minified code
+  productionBrowserSourceMaps: true,
+  // Remove console calls in production bundles (keep error/warn)
+  compiler: {
+    removeConsole: { exclude: ['error', 'warn'] },
+  },
   images: {
     // Let Next generate multiple DPR variants and choose based on device pixel ratio
     deviceSizes: [320, 640, 768, 1024, 1280, 1536, 1920, 2560, 3840, 5120],

@@ -1,5 +1,5 @@
 /**
- * Unified IntersectionObserver Manager
+ * Unified IntersectionObserver Manager For Gradient Blob
  * 
  * Manages shared IntersectionObserver instances to reduce overhead.
  * Observers are grouped by their configuration options to maximize sharing.

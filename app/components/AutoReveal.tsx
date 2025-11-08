@@ -12,31 +12,32 @@ export default function AutoReveal() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // Do not run AutoReveal on any /legal routes
+    const currentPathname = window.location.pathname || '';
+    if (currentPathname.startsWith('/legal')) return;
+
     // Always animate, regardless of prefers-reduced-motion
 
     const itemSelectors = [
-      'section:not([data-no-reveal]):not([data-no-reveal] *)',
-      'article:not([data-no-reveal]):not([data-no-reveal] *)',
-      '.card:not([data-no-reveal] *)',
-      '.card-feature:not([data-no-reveal] *)',
-      'li:not([data-no-reveal] *)',
-      '[role="listitem"]:not([data-no-reveal] *)',
-      '[data-reveal]:not([data-no-reveal] *)'
+      'section',
+      'article',
+      '.card',
+      '.card-feature',
+      'li',
+      '[role="listitem"]',
+      '[data-reveal]'
     ].join(',');
 
     const itemNodeList = Array.from(document.querySelectorAll<HTMLElement>(itemSelectors));
 
     // For sections, collect common child items to stagger within the section
     const collectSectionChildren = (section: HTMLElement): HTMLElement[] => {
-      // Don't collect children if section is in a no-reveal zone
-      if (section.closest('[data-no-reveal]')) return [];
-      
       const childSelectors = [
-        '.card:not([data-no-reveal] *), .card-feature:not([data-no-reveal] *)',
-        'li:not([data-no-reveal] *), [role="listitem"]:not([data-no-reveal] *)',
-        '[data-reveal]:not([data-no-reveal] *)',
-        '[class*="grid"] > *:not([data-no-reveal] *)',
-        '[class*="flex"] > *:not([data-no-reveal] *)'
+        '.card, .card-feature',
+        'li, [role="listitem"]',
+        '[data-reveal]',
+        '[class*="grid"] > *',
+        '[class*="flex"] > *'
       ].join(',');
       return Array.from(section.querySelectorAll<HTMLElement>(childSelectors));
     };
@@ -120,9 +121,6 @@ export default function AutoReveal() {
       for (const mutation of mutations) {
         mutation.addedNodes.forEach((node) => {
           if (!(node instanceof HTMLElement)) return;
-          
-          // Skip if inside a no-reveal zone
-          if (node.closest('[data-no-reveal]')) return;
           
           if (
             node.matches(itemSelectors) ||

@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "prebuild": "npm run generate-nav && npm run scrape-legal",
-    "dev": "npm run generate-nav && npm run scrape-legal && next dev --turbopack",
+    "dev": "next dev --turbopack",
     "dev:prod": "npm run generate-nav && npm run scrape-legal && next dev --turbopack",
+    "dev:min": "npm run generate-nav && npm run scrape-legal && next build --turbopack && next start",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
