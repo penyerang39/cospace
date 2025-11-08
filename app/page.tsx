@@ -762,7 +762,7 @@ export default async function Home() {
 
       {/* Final CTA Section */}
       <section className="section-padding" aria-labelledby="final-cta-heading">
-        <div className="max-width container-padding">
+        <div className="max-width container-padding h-full">
           <div className="text-center max-w-2xl mx-auto">
             <h2 id="final-cta-heading" className="heading-2 mb-6">Ready to get started?</h2>
             <p className="body-large mb-8">

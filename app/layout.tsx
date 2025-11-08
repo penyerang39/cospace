@@ -9,6 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import AutoReveal from "./components/AutoReveal";
 import FormProgressBar from './components/FormProgressBar';
 import { ThemeProvider } from "./components/ThemeProvider";
+import AdminLayoutWrapper from "./components/AdminLayoutWrapper";
 
 const interFont = Inter({
   variable: "--font-inter",
@@ -62,24 +63,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const navigation = getNavigation();
+  const websiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
   
   return (
     <html lang="en">
+      <head>
+        {websiteId && (
+          <script
+            async
+            src="/api/umami/script"
+            data-website-id={websiteId}
+            data-host-url="/api/umami"
+          />
+        )}
+      </head>
       <body
         className={`${interFont.variable} antialiased flex flex-col min-h-screen`}
       >
         <ThemeProvider>
           <Navbar navigation={navigation} />
           <FormProgressBar />
-          {/* Global leaf DOM blob controller (client-only), layered behind content */}
-          <ClientOnlyBlobController />
-          <main className="flex-grow">
-            {children}
-          </main>
+          <AdminLayoutWrapper blobController={<ClientOnlyBlobController />}>
+            <main className="flex-grow">
+              {children}
+            </main>
+          </AdminLayoutWrapper>
           <AutoReveal />
           <Footer />
           <SpeedInsights />
-          {/* Theme transition overlay */}
           <div 
             id="theme-transition-overlay" 
             className="theme-transition-overlay"

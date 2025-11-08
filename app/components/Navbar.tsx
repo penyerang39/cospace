@@ -126,8 +126,8 @@ function Dropdown({ group }: { group: MenuGroup }) {
               ))}
               </ul>
             </div>
-            <div className="col-span-5">
-              <div className="h-48 w-full overflow-hidden relative">
+            <div className="col-span-5 overflow-hidden overflow-hidden">
+              <div className="h-48 w-full relative">
                 <Image
                   src={previewSrc}
                   alt="Section preview"

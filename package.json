@@ -15,13 +15,16 @@
     "scrape-legal": "node scripts/markdown-scraper.js"
   },
   "dependencies": {
+    "@auth/core": "^0.34.3",
     "@radix-ui/react-tooltip": "^1.2.8",
+    "@upstash/redis": "^1.35.6",
     "@vercel/speed-insights": "^1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dompurify": "^3.3.0",
     "lucide-react": "^0.544.0",
     "next": "15.5.4",
+    "next-auth": "5.0.0-beta.30",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "resend": "^6.1.0",
